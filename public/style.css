@@ -20,16 +20,49 @@ body {
 }
 
 .promo{
-  background: url("http://i.imgur.com/yqJvm0Pl.jpg") no-repeat;
+  background: url("http://www.shunvmall.com/data/out/18/46955447-background-image.png") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  position: relative;
+  height: 100%;
+
 
 }
 
+.promo #promo {
+  text-align: left;
+  float: left;
+  font-size: 4em;
+}
+
+.promo #promoCode {
+  text-align: right;
+  float: right;
+  font-size: 2em;
+}
+
+.promo #bottomRow{
+  position: absolute;
+  bottom: 0;
+}
+
+.promo #peopleSale {
+  text-align: left;
+  float: left;
+  font-size: 1.5em;
+
+}
+
+.promo #dogSale {
+  text-align: right;
+  float: right;
+  font-size: 1.5em;
+}
+
 .women{
-  background: url("https://s-media-cache-ak0.pinimg.com/564x/3b/42/7e/3b427e713db68779f72ebc9686ba78f8.jpg") no-repeat;
+  background: url("https://cdn29.elitedaily.com/content/uploads/2016/05/06103041/@ThalerCarolina_Julio.jpg") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
