@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const Inventory = require('./inventory')
+const Product = require('./product')
 const {expect} = require('chai')
 
 describe('Inventory', () => {
@@ -35,9 +36,13 @@ describe('Inventory', () => {
           include: [Inventory]
          })
           .then(createdProduct =>{
-            expect(createdProduct.inventories[0]).to.deep.equal(PokemonXS)
-            expect(createdProduct.inventories[1]).to.deep.equal(PokemonS)
-            expect(createdProduct.inventories[2]).to.deep.equal(PokemonM)
+            console.log(createdProduct.get())
+            expect(createdProduct.inventories[0].get().size).to.deep.equal(PokemonXS.size)
+            expect(createdProduct.inventories[1].get().size).to.deep.equal(PokemonS.size)
+            expect(createdProduct.inventories[2].get().size).to.deep.equal(PokemonM.size)
+            expect(createdProduct.inventories[0].get().quantity).to.deep.equal(PokemonXS.quantity)
+            expect(createdProduct.inventories[1].get().quantity).to.deep.equal(PokemonS.quantity)
+            expect(createdProduct.inventories[2].get().quantity).to.deep.equal(PokemonM.quantity)
           })
       )
   })
