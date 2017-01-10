@@ -13,7 +13,7 @@ export default () => {
       <Navbar>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown noCaret eventKey={3} title="Login" id="basic-nav-dropdown">
+            <NavDropdown noCaret eventKey={3} title="Login /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
               <MenuItem eventKey={3.1}>Sign Up</MenuItem>
             </NavDropdown>
             <NavDropdown noCaret eventKey={3} title={<Glyphicon glyph="shopping-cart" />} id="basic-nav-dropdown">
@@ -31,23 +31,23 @@ export default () => {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown noCaret eventKey={3} title="Women/" id="basic-nav-dropdown">
+            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Women/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
-            <NavDropdown noCaret eventKey={3} title="Men/" id="basic-nav-dropdown">
+            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Men/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
-            <NavDropdown noCaret eventKey={3} title="Kids/" id="basic-nav-dropdown">
+            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Kids/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
-            <NavDropdown noCaret eventKey={3} title="Dogs/" id="basic-nav-dropdown">
+            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Dogs/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
-            <NavDropdown noCaret eventKey={3} title="Sale" id="basic-nav-dropdown">
+            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Sale" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
