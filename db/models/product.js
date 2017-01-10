@@ -13,14 +13,6 @@ const Product = db.define('products', {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false
   },
-  size: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    allowNull: false
-  },
-  inventory: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
-    allowNull: false
-  },
   imageURL: {
     type: Sequelize.STRING,
     allowNull: false
