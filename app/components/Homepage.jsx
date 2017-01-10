@@ -1,28 +1,39 @@
 'use strict'
 
 import React from 'react'
+import { Grid, Row, Col } from 'react-bootstrap';
 
 export default props => {
   return (
-    <div className="container-fluid" >
-      <div className="row">
-        <div className="col-md-12" className="home-pic promo">
-          <h1>Promo</h1>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-6" className="home-pic women">
-          <h1>Women</h1>
-        </div>
-        <div className="col-md-6" className="home-pic men">
-          <h1>Men</h1>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-12" className="home-pic dogs">
-          <h1>Dogs</h1>
-        </div>
-      </div>
+    <div>
+      <Grid fluid={true}>
+        <Row className="show-grid">
+          <Col md={12}>
+            <div className="home-pic promo">
+              <h1>Promo</h1>
+            </div>
+          </Col>
+        </Row>
+        <Row className="show-grid">
+          <Col md={6}>
+            <div className="home-pic women">
+              <h1>Women</h1>
+            </div>
+          </Col>
+          <Col md={6}>
+            <div className="home-pic men">
+              <h1>Men</h1>
+            </div>
+          </Col>
+        </Row>
+        <Row className="show-grid">
+          <Col md={12}>
+            <div className="home-pic dogs">
+              <h1>Dogs</h1>
+            </div>
+          </Col>
+        </Row>
+      </Grid>
     </div>
   );
 }
