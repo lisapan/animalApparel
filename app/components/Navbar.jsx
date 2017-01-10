@@ -3,7 +3,9 @@ import React from 'react'
 
 export default () => {
   return (
-    <div></div>
+    <div className="nav-bar">
+      <div className="black-bar"></div>
+    </div>
   )
 }
 
