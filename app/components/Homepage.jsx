@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-export default props => {
+export default () => {
   return (
     <div className="container-fluid" >
       <div className="row">
@@ -21,6 +21,11 @@ export default props => {
       <div className="row">
         <div className="col-md-12" className="home-pic dogs">
           <h1>Dogs</h1>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12" className="home-pic kids">
+          <h1>Kids</h1>
         </div>
       </div>
     </div>
