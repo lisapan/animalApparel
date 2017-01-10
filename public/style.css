@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "animalApparelFont";
+    src: url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.eot");
+    src: url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.svg#Helvetica Neue") format("svg");
+}
+
+body {
+  font-family: "animalApparelFont";
+}
+
 /*~~~~~~~~~HOMEPAGE~~~~~~~~~~~*/
 .home-pic {
   color: white;
@@ -54,17 +68,35 @@
   background-color: black;
   border: none;
   color: white;
-  height: 20px;
+  height: 6vh;
+}
+
+.navbar .navbar-collapse {
+  display: table-cell;
+}
+
+a .navbar .dropdown {
+  background-color: pink;
+  vertical-align: middle;
 }
 
 /*Grabbing Logo*/
 .navbar .navbar-brand {
   color: black;
-  font-family: "HelveticaNeueW01-85Heav";
+  font-family: "animalApparelFont";
   font-size: 2.4em;
+  font-stretch: ultra-condensed;
+  font-weight: 600;
+  text-align: left;
 }
 
 /*Grabbing search bar text*/
 .navbar .navbar-text {
   color: black;
+}
+
+/*Removing the hover color*/
+.navbar-default .navbar-nav>li>a {
+  color: black;
+  font-size: 2em;
 }

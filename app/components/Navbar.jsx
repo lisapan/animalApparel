@@ -1,7 +1,8 @@
 'use strict'
 import React from 'react'
 import { Link } from 'react-router'
-import { Navbar, Nav, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle, Glyphicon } from 'react-bootstrap'
+import { bootstrapUtils } from 'react-bootstrap/lib/utils'
 
 export default () => {
   return (
@@ -12,8 +13,11 @@ export default () => {
       <Navbar>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown eventKey={3} title="Login" id="basic-nav-dropdown">
+            <NavDropdown noCaret eventKey={3} title="Login" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Sign Up</MenuItem>
+            </NavDropdown>
+            <NavDropdown noCaret eventKey={3} title={<Glyphicon glyph="shopping-cart" />} id="basic-nav-dropdown">
+              <MenuItem eventKey={3.1}>Your Cart is empty.</MenuItem>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -27,23 +31,23 @@ export default () => {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown eventKey={3} title="Women" id="basic-nav-dropdown">
+            <NavDropdown noCaret eventKey={3} title="Women/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
-            <NavDropdown eventKey={3} title="Men" id="basic-nav-dropdown">
+            <NavDropdown noCaret eventKey={3} title="Men/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
-            <NavDropdown eventKey={3} title="Kids" id="basic-nav-dropdown">
+            <NavDropdown noCaret eventKey={3} title="Kids/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
-            <NavDropdown eventKey={3} title="Dogs" id="basic-nav-dropdown">
+            <NavDropdown noCaret eventKey={3} title="Dogs/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
-            <NavDropdown eventKey={3} title="Sale" id="basic-nav-dropdown">
+            <NavDropdown noCaret eventKey={3} title="Sale" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
