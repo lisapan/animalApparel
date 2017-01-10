@@ -1,19 +1,24 @@
 'use strict'
 
 import React, {Component} from 'react'
-import Navbar from './Navbar'
+import {connect} from 'react-redux'
 
-export default props => {
+import Navbar from './Navbar'
+import Homepage from './Homepage'
+
+export default (props) => {
   return (
     <div>
-      <div>
+      <div className="nav-bar">
         <Navbar />
       </div>
       <div>
-        {
+        <Homepage />
+        {/*
           props.children && React.cloneElement(props.children, props)
-        }
+        */}
       </div>
     </div>
-  );
+  )
 }
+

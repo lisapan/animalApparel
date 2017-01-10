@@ -10,15 +10,19 @@ import Homepage from './components/Homepage'
 import SingleProduct from './components/SingleProduct'
 import MultipleProducts from './components/MultipleProducts'
 
-render (
-  <Provider store={store}>
-    <Router history={browserHistory}> {/* browserHistory vs. hashHistory??? */}
-      <Route path="/" component={App}>
-        <Route path="homepage" component={Homepage} />
-        <Route path="multipleproducts" component={MultipleProducts} />
-        <Route path="singleproduct" component={SingleProduct} />
-        <IndexRedirect to="/homepage"/>
-      </Route>
-    </Router>
-  </Provider>
-)
+export default () => {
+  console.log(App)
+
+  return (
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <Route path="/" component={App}>
+          <Route path="homepage" component={Homepage} />
+          <Route path="multipleproducts" component={MultipleProducts} />
+          <Route path="singleproduct" component={SingleProduct} />
+          <IndexRedirect to="homepage"/>
+        </Route>
+      </Router>
+    </Provider>
+  )
+}
