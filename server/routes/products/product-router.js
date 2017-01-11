@@ -29,7 +29,7 @@ module.exports = require('express').Router()
 		.catch(next)
 	})
 	.get('/:tag', (req,res,next) => {
-		Product.findByTag([req.params.tag], {include: [Inventory]})
+		Product.findByTag(req.params.tag, {include: [Inventory]})
 		.then(products => {
 			res.json(products)
 		})
