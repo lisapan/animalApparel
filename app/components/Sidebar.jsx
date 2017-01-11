@@ -3,9 +3,11 @@
 import React from 'react'
 import {Link} from 'react-router';
 
+
+
 export default () => {
   return (
-    <sidebar>
+    <div>
       <section>
         <h4 className="menu-item">
           <Link to='/products/women'>WOMEN</Link>
@@ -26,6 +28,6 @@ export default () => {
           <Link to='/products'>DOGS</Link>
         </h4>
       </section>
-    </sidebar>
+    </div>
   );
 }
