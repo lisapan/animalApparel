@@ -40,30 +40,36 @@ export default () => {
         </Row>
         <Row className="show-grid">
           <Col md={6}>
-            <Link to={ '/products'}>
+            <Link to={ '/products/women'}>
               <div className="home-pic women">
                 <h1>Women</h1>
               </div>
             </Link>
           </Col>
           <Col md={6}>
-            <div className="home-pic men">
-              <h1>Men</h1>
-            </div>
+            <Link to={ '/products/men'}>
+              <div className="home-pic men">
+                <h1>Men</h1>
+              </div>
+            </Link>
           </Col>
         </Row>
         <Row className="show-grid">
           <Col md={12}>
-            <div className="home-pic dogs">
-              <h1>Dogs</h1>
-            </div>
+            <Link to={ '/products/dogs'}>
+              <div className="home-pic dogs">
+                <h1>Dogs</h1>
+              </div>
+            </Link>
           </Col>
         </Row>
         <Row className="show-grid">
           <Col md={12}>
-            <div className="home-pic kids">
-              <h1>Kids</h1>
-            </div>
+            <Link to={ '/products/kids'}>
+              <div className="home-pic kids">
+                <h1>Kids</h1>
+              </div>
+            </Link>
           </Col>
         </Row>
       </Grid>

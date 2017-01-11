@@ -31,7 +31,7 @@ export default () => {
       <Router history={browserHistory}>
         <Route path="/" component={App} onEnter={onAppEnter}>
           <Route path="/home" component={Homepage} />
-          <Route path="/products" component={ProductsContainer} />
+          <Route path="/products/:tag" component={ProductsContainer} />
           <IndexRedirect to="/home"/>
         </Route>
       </Router>

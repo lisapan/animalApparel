@@ -10,9 +10,9 @@ export default function (props) {
       <h3>Products</h3>
       <div className="row">
         {
-          products.list && products.list.map(album => (
+          products.list && products.list.map(product => (
             <div className="col-xs-4" key={ product.id }>
-              <Link className="thumbnail" to={`/products/${proudct.id}`}>
+              <Link className="thumbnail" to={`/products/${product.id}`}>
                 <img src={ product.imageUrl }/>
                 <div className="caption">
                   <h5>

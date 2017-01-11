@@ -17,7 +17,49 @@ const Product = db.define('products', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  tags: Sequelize.ARRAY(Sequelize.STRING)
+  tags: {
+      type: Sequelize.ARRAY(Sequelize.STRING),
+      defaultValue: [],
+      set: function (tags) {
+
+          tags = tags || [];
+
+          if (typeof tags === 'string') {
+              tags = tags.split(',').map(function (str) {
+                  return str.trim();
+              });
+          }
+
+          this.setDataValue('tags', tags);
+
+      }
+  }
+},{
+  classMethods: {
+    findByTag: function(tag){
+      return this.findAll({
+        where: {
+          tags:{
+            $contains:[tag]
+          }
+        }
+      })
+    }
+  },
+  instanceMethods: {
+    findSimilar: function(){
+      return Product.findAll({
+        where:{
+          id:{
+            $ne: this.id
+          },
+          tags:{
+            $overlap: this.tags
+          }
+        }
+      })
+    }
+  }
 })
 
 module.exports = Product

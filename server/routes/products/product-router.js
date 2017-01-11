@@ -21,6 +21,13 @@ module.exports = require('express').Router()
 		})
 		.catch(next)
 	})
+	.get('/:tag', (req,res,next) => {
+		Product.findByTag(req.params.tag, {include: [Inventory]})
+		.then(products => {
+			res.json(products)
+		})
+		.catch(next)
+	})
 	.post('/'/*, forbidden('only admins can list users')*/,(req, res, next) => {
 		Product.create(req.body)
 		.then(product => res.status(201).json(product))
