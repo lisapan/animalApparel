@@ -6,12 +6,9 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 export default () => {
   return (
-    <div>
       <Grid fluid={true}>
         <Row className="show-grid">
-          <Col md={12}>
-            <div className="home-pic promo">
-              <Grid fluid={true}>
+          <Col md={12} className="home-pic promo">
                 <Row className="show-grid">
                   <Col md={9}>
                     <h1 id="promo">TAKE 40% OFF EVERYTHING</h1>
@@ -22,20 +19,14 @@ export default () => {
                 </Row>
                 <Row className="show-grid bottomRow">
                   <Col md={6}>
-                    <div>
                       <h1 id="peopleSale">SHOP PEOPLE</h1>
-                      <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    </div>
                   </Col>
-                  <Col md={6}>
-                    <div>
-                      <h1 id="dogSale">SHOP DOG</h1>
-                      <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    </div>
-                  </Col>
+                  <Link to={'/sale/dog'}>
+                    <Col md={6}>
+                        <h1 id="dogSale">SHOP DOG</h1>
+                    </Col>
+                  </Link>
                 </Row>
-              </Grid>
-            </div>
           </Col>
         </Row>
         <Row className="show-grid">
@@ -73,6 +64,5 @@ export default () => {
           </Col>
         </Row>
       </Grid>
-    </div>
   );
 }
