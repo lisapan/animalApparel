@@ -7,8 +7,8 @@ import store from './store'
 
 import App from './components/App'
 import Homepage from './components/Homepage'
-import SingleProduct from './components/SingleProduct'
-import MultipleProducts from './components/MultipleProducts'
+import SingleProduct from './components/Product'
+import MultipleProducts from './components/Products'
 
 export default () => {
   console.log(App)
@@ -18,8 +18,8 @@ export default () => {
       <Router history={browserHistory}>
         <Route path="/" component={App}>
           <Route path="homepage" component={Homepage} />
-          <Route path="multipleproducts" component={MultipleProducts} />
-          <Route path="singleproduct" component={SingleProduct} />
+          <Route path="products" component={Products} />
+          <Route path="product" component={Product} />
           <IndexRedirect to="homepage"/>
         </Route>
       </Router>
