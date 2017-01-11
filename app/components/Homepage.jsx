@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import {Link} from 'react-router';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 export default () => {
@@ -39,9 +40,11 @@ export default () => {
         </Row>
         <Row className="show-grid">
           <Col md={6}>
-            <div className="home-pic women">
-              <h1>Women</h1>
-            </div>
+            <Link to={ '/products'}>
+              <div className="home-pic women">
+                <h1>Women</h1>
+              </div>
+            </Link>
           </Col>
           <Col md={6}>
             <div className="home-pic men">

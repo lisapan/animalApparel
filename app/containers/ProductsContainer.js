@@ -1,4 +1,4 @@
-import AllProducts from '../components/MultipleProducts';
+import Products from '../components/Products';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -9,4 +9,4 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps
-)(AllProducts);
+)(Products);

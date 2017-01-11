@@ -8,15 +8,14 @@ import Homepage from './Homepage'
 
 export default (props) => {
   return (
-    <div>
-      <div className="nav-bar">
+    <div id="main" className="container-fluid">
+      <div>
         <Navbar />
       </div>
       <div>
-        <Homepage />
-        {/*
+        {
           props.children && React.cloneElement(props.children, props)
-        */}
+        }
       </div>
     </div>
   )

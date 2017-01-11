@@ -25,7 +25,7 @@ export default () => {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/homepage">Animal Apparel<sup>®</sup></Link>
+            <Link to="/home">Animal Apparel<sup>®</sup></Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
