@@ -2,32 +2,40 @@
 
 import React from 'react'
 import {Link} from 'react-router';
-
+import { Row, Col} from 'react-bootstrap';
 
 
 export default () => {
   return (
-    <div>
-      <section>
-        <h4 className="menu-item">
-          <Link to='/products/women'>WOMEN</Link>
-        </h4>
-      </section>
-      <section>
-        <h4 className="menu-item">
-          <Link to='/products/men'>MEN</Link>
-        </h4>
-      </section>
-      <section>
-        <h4 className="menu-item">
-          <Link to='/products/kids'>KIDS</Link>
-        </h4>
-      </section>
-      <section>
-        <h4 className="menu-item">
-          <Link to='/products/dogs'>DOGS</Link>
-        </h4>
-      </section>
-    </div>
+    <Col xs={12} sm={12} md={2} lg={2}>
+      <Row>
+        <Link to={ '/products/women'}>
+          <div className="menu-item">
+            <h4>Women</h4>
+          </div>
+        </Link>
+      </Row>
+      <Row>
+        <Link to={ '/products/men'}>
+          <div className="menu-item">
+            <h4>Men</h4>
+          </div>
+        </Link>
+      </Row>
+      <Row>
+        <Link to={ '/products/dogs'}>
+          <div className="menu-item">
+            <h4>Dogs</h4>
+          </div>
+        </Link>
+      </Row>
+      <Row>
+        <Link to={ '/products/kids'}>
+          <div className="menu-item">
+            <h4>Kids</h4>
+          </div>
+        </Link>
+      </Row>
+    </Col>
   );
 }

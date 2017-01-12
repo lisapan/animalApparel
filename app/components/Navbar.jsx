@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { Link } from 'react-router'
-import { Navbar, Nav, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle, Glyphicon } from 'react-bootstrap'
+import { Navbar, Nav, Breadcrumb, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle, Glyphicon } from 'react-bootstrap'
 import { bootstrapUtils } from 'react-bootstrap/lib/utils'
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -15,12 +15,12 @@ export default () => {
         <Navbar.Collapse>
           <Nav pullRight>
             <NavDropdown noCaret eventKey={1} title="Login /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
-              <LinkContainer >
+              <LinkContainer to={{ pathname: '/account/login' }}>
                 <MenuItem eventKey={1.1}>Sign Up</MenuItem>
               </LinkContainer>
             </NavDropdown>
             <NavDropdown noCaret eventKey={2} title={<Glyphicon glyph="shopping-cart" />} id="basic-nav-dropdown">
-              <LinkContainer>
+              <LinkContainer to={{ pathname: '/cart' }}>
                 <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
               </LinkContainer>
             </NavDropdown>
@@ -35,26 +35,27 @@ export default () => {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav pullRight>
+          <Breadcrumb>
             <LinkContainer to={{ pathname: '/products/women' }}>
-              <NavItem noCaret className="navbar-categories" eventKey={3} title="Women/"/>
+              <Breadcrumb.Item className="navbar-categories">Women</Breadcrumb.Item>
+              {/*eventKey={3}*/}
             </LinkContainer>
             <LinkContainer to={{ pathname: '/products/men' }}>
-              <NavItem noCaret className="navbar-categories" eventKey={4} title="Men/"/>
+              <Breadcrumb.Item className="navbar-categories">Men</Breadcrumb.Item>
             </LinkContainer>
             <LinkContainer to={{ pathname: '/products/kids' }}>
-              <NavItem noCaret className="navbar-categories" eventKey={5} title="Kids/"/>
+              <Breadcrumb.Item className="navbar-categories">Kids</Breadcrumb.Item>
             </LinkContainer>
             <LinkContainer to={{ pathname: '/products/cats' }}>
-              <NavItem noCaret className="navbar-categories" eventKey={6} title="Cats/"/>
+              <Breadcrumb.Item className="navbar-categories">Cats</Breadcrumb.Item>
             </LinkContainer>
             <LinkContainer to={{ pathname: '/products/dogs' }}>
-              <NavItem noCaret className="navbar-categories" eventKey={7} title="Dogs/"/>
+              <Breadcrumb.Item className="navbar-categories">Dogs</Breadcrumb.Item>
             </LinkContainer>
             <LinkContainer to={{ pathname: '/products/sale' }}>
-              <NavItem noCaret className="navbar-categories" eventKey={8} title="Sale/"/>
+              <Breadcrumb.Item className="navbar-categories">Sale</Breadcrumb.Item>
             </LinkContainer>
-          </Nav>
+          </Breadcrumb>
         </Navbar.Collapse>
       </Navbar>
       {/*<Navbar className="search">
