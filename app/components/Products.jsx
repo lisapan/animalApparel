@@ -10,27 +10,28 @@ const Products = (props) => {
   return (
     <Grid fluid={true}>
       <Row>
-        <Col md={3}>
+        <Col xs={12} sm={12} md={2} lg={2}>
           <Sidebar />
         </Col>
-        <Col md={9}>
+        <Col xs={12} sm={12} md={10} lg={10}>
           <h3>Products</h3>
-          <div className="row">
+          <Row>
             {
               props.products.map(product => (
-                <div className="col-xs-4" key={ product.id }>
+                <Col
+                  className="product"
+                  key={ product.id }
+                  xs={12} sm={6} md={4} lg={4}>
                   <Link to={`/products/${product.id}`}>
-                    <Thumbnail src={ product.imageURL } alt={`${product.name} photo`}/>
-                    <div className="caption">
-                      <h5>
-                        <span>{ product.name }</span>
-                      </h5>
-                    </div>
+                    <Thumbnail src={ product.imageURL } alt={`${product.name} photo`}>
+                    <h5>{ product.name }</h5>
+                    <p>{ `$${product.price}` }</p>
+                    </Thumbnail>
                   </Link>
-                </div>
+                </Col>
               ))
             }
-          </div>
+          </Row>
         </Col>
       </Row>
     </Grid>
