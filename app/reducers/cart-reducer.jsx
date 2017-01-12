@@ -4,7 +4,6 @@ import {
   REMOVE_CART_ITEM
 } from '../constants';
 
-
 const initialCartState = {
     list: {}
 };
@@ -22,7 +21,7 @@ export default function (state = initialCartState, action) {
 
     //Update the quantity on an item in the cart.
     case UPDATE_CART_ITEM:
-      newState.list.action.product.id.toString().quantity = action.product.quantity
+      newState.list[action.product.id.toString()][quantity] = action.product.quantity
       break;
 
     //Remove an item from the cart.
