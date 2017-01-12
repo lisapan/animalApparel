@@ -11,27 +11,22 @@ import Homepage from './components/Homepage'
 
 import ProductsContainer from './containers/ProductsContainer'
 
-import { receiveProducts, getProductById } from './action-creators/products'
+import {getProductsByTag} from './action-creators/products'
 
 
-const onAppEnter = () => {
-  const pProducts = axios.get('/api/products');
-
-  return Promise
-    .all([pProducts])
-    .then(([products]) => {
-      store.dispatch(receiveProducts(products));
-    })
-}
+const onProductsContainerEnter = function (nextRouterState) {
+  const tag = nextRouterState.params.tag;
+  store.dispatch(getProductsByTag(tag));
+};
 
 
 export default () => {
   return (
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={App} onEnter={onAppEnter}>
+        <Route path="/" component={App}>
           <Route path="/home" component={Homepage} />
-          <Route path="/products/:tag" component={ProductsContainer} />
+          <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
           <IndexRedirect to="/home"/>
         </Route>
       </Router>

@@ -25,7 +25,7 @@ export default () => {
       </section>
       <section>
         <h4 className="menu-item">
-          <Link to='/products'>DOGS</Link>
+          <Link to='/products/dogs'>DOGS</Link>
         </h4>
       </section>
     </div>

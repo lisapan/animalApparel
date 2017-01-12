@@ -5,9 +5,7 @@ import Sidebar from './Sidebar';
 
 import { Grid, Row, Col } from 'react-bootstrap';
 
-export default function (props) {
-
-  const products = props.products;
+export default props => {
 
   return (
     <Grid fluid={true}>
@@ -18,7 +16,7 @@ export default function (props) {
         <h3>Products</h3>
         <div className="row">
           {
-            products.list && products.list.map(product => (
+            props.products.map(product => (
               <div className="col-xs-4" key={ product.id }>
                 <Link className="thumbnail" to={`/products/${product.id}`}>
                   <img src={ product.imageUrl }/>
