@@ -4,7 +4,7 @@ import {
 
 
 const initialCartState = {
-  list: {}
+    list: {}
 };
 
 export default function (state = initialCartState, action) {
