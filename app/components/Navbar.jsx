@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { Navbar, Nav, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle, Glyphicon } from 'react-bootstrap'
 import { bootstrapUtils } from 'react-bootstrap/lib/utils'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export default () => {
   return (
@@ -13,11 +14,15 @@ export default () => {
       <Navbar>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown noCaret eventKey={3} title="Login /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
-              <MenuItem eventKey={3.1}>Sign Up</MenuItem>
+            <NavDropdown noCaret eventKey={1} title="Login /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
+              <LinkContainer >
+                <MenuItem eventKey={1.1}>Sign Up</MenuItem>
+              </LinkContainer>
             </NavDropdown>
-            <NavDropdown noCaret eventKey={3} title={<Glyphicon glyph="shopping-cart" />} id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Your Cart is empty.</MenuItem>
+            <NavDropdown noCaret eventKey={2} title={<Glyphicon glyph="shopping-cart" />} id="basic-nav-dropdown">
+              <LinkContainer>
+                <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
+              </LinkContainer>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -31,30 +36,24 @@ export default () => {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Women/" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Costume</MenuItem>
-              <MenuItem eventKey={3.1}>Winter</MenuItem>
-            </NavDropdown>
-            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Men/" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Costume</MenuItem>
-              <MenuItem eventKey={3.1}>Winter</MenuItem>
-            </NavDropdown>
-            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Kids/" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Costume</MenuItem>
-              <MenuItem eventKey={3.1}>Winter</MenuItem>
-            </NavDropdown>
-            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Cats/" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Costume</MenuItem>
-              <MenuItem eventKey={3.1}>Winter</MenuItem>
-            </NavDropdown>
-            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Dogs/" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Costume</MenuItem>
-              <MenuItem eventKey={3.1}>Winter</MenuItem>
-            </NavDropdown>
-            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Sale" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Costume</MenuItem>
-              <MenuItem eventKey={3.1}>Winter</MenuItem>
-            </NavDropdown>
+            <LinkContainer to={{ pathname: '/products/women' }}>
+              <NavItem noCaret className="navbar-categories" eventKey={3} title="Women/"/>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '/products/men' }}>
+              <NavItem noCaret className="navbar-categories" eventKey={4} title="Men/"/>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '/products/kids' }}>
+              <NavItem noCaret className="navbar-categories" eventKey={5} title="Kids/"/>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '/products/cats' }}>
+              <NavItem noCaret className="navbar-categories" eventKey={6} title="Cats/"/>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '/products/dogs' }}>
+              <NavItem noCaret className="navbar-categories" eventKey={7} title="Dogs/"/>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '/products/sale' }}>
+              <NavItem noCaret className="navbar-categories" eventKey={8} title="Sale/"/>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
