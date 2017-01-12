@@ -10,7 +10,7 @@ import App from './components/App'
 import Homepage from './components/Homepage'
 
 import ProductsContainer from './containers/ProductsContainer'
-
+import CartContainer from './containers/CartContainer'
 import {getProductsByTag} from './action-creators/products'
 
 
@@ -27,6 +27,7 @@ export default () => {
         <Route path="/" component={App}>
           <Route path="/home" component={Homepage} />
           <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
+          <Route path="/cart" component={CartContainer} />
           <IndexRedirect to="/home"/>
         </Route>
       </Router>
