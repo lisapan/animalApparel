@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { Navbar, Nav, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle, Glyphicon } from 'react-bootstrap'
 import { bootstrapUtils } from 'react-bootstrap/lib/utils'
+import {LinkContainer} from 'react-router-bootstrap'
 
 export default () => {
   return (
@@ -13,8 +14,11 @@ export default () => {
       <Navbar>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown noCaret eventKey={3} title="Login /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
-              <MenuItem eventKey={3.1}>Sign Up</MenuItem>
+            <NavDropdown noCaret eventKey={3} title="Account /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
+              <LinkContainer to={'/account/login'}><MenuItem eventKey={3.1}>Login</MenuItem></LinkContainer>
+              <LinkContainer to={'/account/login'}><MenuItem eventKey={3.1}><Link to={'/account/login'}>Sign Up</Link></MenuItem></LinkContainer>
+              <MenuItem eventKey={3.1}>Order Status</MenuItem>
+              <MenuItem eventKey={3.1}>Wishlist</MenuItem>
             </NavDropdown>
             <NavDropdown noCaret eventKey={3} title={<Glyphicon glyph="shopping-cart" />} id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Your Cart is empty.</MenuItem>

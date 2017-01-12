@@ -8,6 +8,7 @@ import store from './store'
 
 import App from './components/App'
 import Homepage from './components/Homepage'
+import LoginSignup from './components/LoginSignup'
 
 import ProductsContainer from './containers/ProductsContainer'
 
@@ -27,6 +28,7 @@ export default () => {
         <Route path="/" component={App}>
           <Route path="/home" component={Homepage} />
           <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
+          <Route path="/account/login" component={LoginSignup}/>
           <IndexRedirect to="/home"/>
         </Route>
       </Router>

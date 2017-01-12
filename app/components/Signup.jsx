@@ -1,10 +1,11 @@
 import React from 'react'
 import { Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
-export const Login = ({ login }) => (
+export const Signup = ({ signup }) => (
+
   <Form horizontal onSubmit={evt => {
     evt.preventDefault()
-    login(evt.target.email.value, evt.target.password.value)
+    login(evt.target.email.value, evt.target.password.value, evt.target.confirmPass)
   } }>
 
     <FormGroup controlId="formHorizontalEmail">
@@ -21,6 +22,13 @@ export const Login = ({ login }) => (
       </Col>
     </FormGroup>
 
+    <FormGroup controlId="formHorizontalConfirmPassword">
+      <Col componentClass={ControlLabel} sm={2}>Password</Col>
+      <Col sm={10}>
+        <FormControl type="Confirm Password" />
+      </Col>
+    </FormGroup>
+
     <FormGroup>
       <Col smOffset={2} sm={10}>
         <Button type="submit">
@@ -32,10 +40,10 @@ export const Login = ({ login }) => (
 
 )
 
-import {login} from 'APP/app/reducers/auth'
+import {signup} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 export default connect (
   state => ({}),
-  {login},
-) (Login)
+  {signup},
+) (Signup)
