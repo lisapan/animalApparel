@@ -5,7 +5,7 @@ const randQty = () => Math.round(Math.random() * 100)
 const generateInventory = () => {
   const inventory = []
   let i = 1
-  while (i <= 35) {
+  while (i <= productList.length) {
     inventory.push({size: 'XS', quantity: randQty(), product_id: i})
     inventory.push({size: 'S', quantity: randQty(), product_id: i})
     inventory.push({size: 'M', quantity: randQty(), product_id: i})
@@ -26,7 +26,7 @@ const seedUsers = () => db.Promise.map([
   {name: 'Barack Obama', email: 'barack@example.gov', password: '1234'},
 ], user => db.model('users').create(user))
 
-const seedProducts = () => db.Promise.map([
+const productList = [
   {
     name: 'Unisex Zip-up Hoodie',
     description: 'This fiery red hoodie is a classic for you and the pup in your life.',
@@ -258,8 +258,9 @@ const seedProducts = () => db.Promise.map([
     imageURL: '/img/products/toggle-coat-cat.png',
     tags: ['jacket', 'pets', 'red', 'tan', 'cats']
   }
+]
 
-], product => db.model('products').create(product))
+const seedProducts = () => db.Promise.map(productList, product => db.model('products').create(product))
 
 const seedInventory = () => db.Promise.map(generateInventory(), inventory => db.model('inventory').create(inventory))
 
