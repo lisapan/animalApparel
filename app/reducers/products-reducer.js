@@ -16,11 +16,7 @@ export default function (state = initialProductsState, action) {
   switch (action.type) {
 
     case RECEIVE_PRODUCTS:
-      newState.list = convertAlbums(action.albums);
-      break;
-
-    case RECEIVE_PRODUCT:
-      newState.selected = convertAlbum(action.album);
+      newState.list = action.products;
       break;
 
     default:

@@ -55,6 +55,8 @@ body {
 
 }
 
+
+
 .promo #dogSale {
   text-align: right;
   float: right;
@@ -98,7 +100,7 @@ body {
   margin-bottom: 5px;
 }
 
-.nav-bar .black-bar {
+.black-bar {
   background-color: black;
   border: none;
   color: white;
@@ -144,7 +146,7 @@ a .navbar .dropdown {
 }
 
 /*This craziness is grabbing the product categories in the main navbar*/
-#main > div > div.nav-bar > div > nav:nth-child(3) > div > div.navbar-collapse.collapse > ul{
+#main > div > div > div > nav:nth-child(3) > div > div.navbar-collapse.collapse > ul{
   font-size: 2em;
 }
 

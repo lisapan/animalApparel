@@ -25,7 +25,7 @@ export default () => {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/homepage">Animal Apparel<sup>®</sup></Link>
+            <Link to="/home">Animal Apparel<sup>®</sup></Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -54,7 +54,7 @@ export default () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Navbar className="search">
+      {/*<Navbar className="search">
         <Nav pullRight>
           <Navbar.Text>Search</Navbar.Text>
           <Navbar.Form pullRight>
@@ -64,7 +64,7 @@ export default () => {
             {' '}
           </Navbar.Form>
         </Nav>
-      </Navbar>
+      </Navbar>*/}
     </div>
   )
 }
