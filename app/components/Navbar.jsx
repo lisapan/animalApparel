@@ -43,6 +43,10 @@ export default () => {
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
             </NavDropdown>
+            <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Cats/" id="basic-nav-dropdown">
+              <MenuItem eventKey={3.1}>Costume</MenuItem>
+              <MenuItem eventKey={3.1}>Winter</MenuItem>
+            </NavDropdown>
             <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Dogs/" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Costume</MenuItem>
               <MenuItem eventKey={3.1}>Winter</MenuItem>
@@ -68,4 +72,3 @@ export default () => {
     </div>
   )
 }
-
