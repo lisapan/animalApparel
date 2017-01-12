@@ -20,7 +20,7 @@ body {
 }
 
 .promo{
-  background: url("http://www.shunvmall.com/data/out/18/46955447-background-image.png") no-repeat;
+  background: url("/img/promo-background.png") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -62,7 +62,7 @@ body {
 }
 
 .women{
-  background: url("https://cdn29.elitedaily.com/content/uploads/2016/05/06103041/@ThalerCarolina_Julio.jpg") no-repeat;
+  background: url("/img/women-background.jpg") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -71,7 +71,7 @@ body {
 }
 
 .men{
-  background: url("https://www.rover.com/blog/wp-content/uploads/2014/12/hoodies-900x540.jpg") no-repeat;
+  background: url("/img/men-background.jpg") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -80,7 +80,7 @@ body {
 }
 
 .dogs{
-  background: url("http://i.imgur.com/6y2PkhZ.png") no-repeat center center;
+  background: url("/img/dog-background.png") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -89,7 +89,7 @@ body {
 }
 
 .kids{
-  background-image: url("https://s-media-cache-ak0.pinimg.com/originals/b8/94/39/b894391d9725e49a23bbb63e4a966d57.jpg");
+  background-image: url("/img/kids-background.jpg");
 }
 /*~~~~~~~~~NAVBAR~~~~~~~~~~~*/
 .navbar {
