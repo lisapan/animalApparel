@@ -1,49 +1,95 @@
-import React from 'react'
-import { Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import React from 'react';
+import { connect } from 'react-redux';
+import { addUser } from '../reducers/user-reducer';
 
-export const Signup = ({ signup }) => (
+/* -----------------    COMPONENT     ------------------ */
 
-  <Form horizontal onSubmit={evt => {
-    evt.preventDefault()
-    login(evt.target.email.value, evt.target.password.value, evt.target.confirmPass)
-  } }>
+class Signup extends React.Component {
 
-    <FormGroup controlId="formHorizontalEmail">
-      <Col componentClass={ControlLabel} sm={2}>E-mail Address</Col>
-      <Col sm={10}>
-        <FormControl type="email" />
-      </Col>
-    </FormGroup>
+  constructor(props) {
+    super(props);
+    this.onSignupSubmit = this.onSignupSubmit.bind(this);
+  }
 
-    <FormGroup controlId="formHorizontalPassword">
-      <Col componentClass={ControlLabel} sm={2}>Password</Col>
-      <Col sm={10}>
-        <FormControl type="password" />
-      </Col>
-    </FormGroup>
+  render() {
+    const { message } = this.props;
+    return (
+      <div className="signin-container">
+        <div className="buffer local">
+          <form onSubmit={this.onSignupSubmit}>
+            <div className="form-group">
+              <label>name</label>
+              <input
+                name="name"
+                type="name"
+                className="form-control"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>email</label>
+              <input
+                name="email"
+                type="email"
+                className="form-control"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>password</label>
+              <input
+                name="password"
+                type="password"
+                className="form-control"
+                required
+              />
+            </div>
+            <button type="submit" className="btn btn-block btn-primary">Signup</button>
+          </form>
+        </div>
+{/*        <div className="or buffer">
+          <div className="back-line">
+            <span>OR</span>
+          </div>
+        </div>
+        <div className="buffer oauth">
+          <p>
+            <a
+              target="_self"
+              href="/api/auth/google"
+              className="btn btn-social btn-google">
+              <i className="fa fa-google" />
+              <span>{message} with Google</span>
+            </a>
+          </p>
+        </div>*/}
+      </div>
+    );
+  }
 
-    <FormGroup controlId="formHorizontalConfirmPassword">
-      <Col componentClass={ControlLabel} sm={2}>Password</Col>
-      <Col sm={10}>
-        <FormControl type="Confirm Password" />
-      </Col>
-    </FormGroup>
+  onSignupSubmit(event) {
+    event.preventDefault();
+    const credentials = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+      password: event.target.password.value
+    };
+    this.props.signup(credentials);
+  }
+}
 
-    <FormGroup>
-      <Col smOffset={2} sm={10}>
-        <Button type="submit">
-          Sign in
-        </Button>
-      </Col>
-    </FormGroup>
-  </Form>
+/* -----------------    CONTAINER     ------------------ */
 
-)
+const mapState = () => ({ message: 'Sign up' });
 
-import {signup} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
+const mapDispatch = { signup: addUser };
+// // equivalent to:
+// const mapDispatch = (dispatch) => {
+//   return {
+//     signup: function (credentials) {
+//       dispatch(signupAndGoToUser(credentials));
+//     }
+//   };
+// };
 
-export default connect (
-  state => ({}),
-  {signup},
-) (Signup)
+export default connect(mapState, mapDispatch)(Signup);

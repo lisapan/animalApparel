@@ -22,7 +22,6 @@ export const getProductById = productId => {
   };
 };
 
-
 export const getProductsByTag = tag => {
   return dispatch => {
     axios.get(`/api/products`)
