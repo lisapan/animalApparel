@@ -25,7 +25,7 @@ module.exports = require('express').Router()
 		Product.findAll({
 			where: {
 				name: {
-					$like: `%${req.params.name}`
+					$like: `%${req.params.name}%`
 				},
 				id: {
 					$not: req.params.productId
