@@ -11,7 +11,7 @@ import Home from './components/Homepage'
 import LoginSignup from './components/LoginSignup'
 
 import ProductsContainer from './containers/ProductsContainer'
-
+import CartContainer from './containers/CartContainer'
 import {getProductsByTag} from './action-creators/products'
 
 
@@ -28,7 +28,9 @@ export default () => {
         <Route path="/" component={App}>
           <IndexRoute component={Home}/>
           <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
+          <Route path="/cart" component={CartContainer} />
           <Route path="/account/login" component={LoginSignup}/>
+          <IndexRedirect to="/home"/>
         </Route>
       </Router>
     </Provider>
