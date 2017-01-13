@@ -30,7 +30,6 @@ export default () => {
           <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
           <Route path="/cart" component={CartContainer} />
           <Route path="/account/login" component={LoginSignup}/>
-          <IndexRedirect to="/home"/>
         </Route>
       </Router>
     </Provider>
