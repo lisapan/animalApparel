@@ -94,8 +94,9 @@ class NavDiv extends React.Component {
 
 
   renderLogout(){
+    const name = this.props.auth.name || this.props.auth.email;
     return(
-      <NavDropdown noCaret eventKey={3} title="Account /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
+      <NavDropdown noCaret eventKey={3} title={`Hi, ${name}! `} id="basic-nav-dropdown" className="navbar-login">
         <MenuItem eventKey={3.1}>Account</MenuItem>
         <MenuItem eventKey={3.1}>Order Status</MenuItem>
         <MenuItem eventKey={3.1}>Wishlist</MenuItem>
