@@ -44,10 +44,10 @@ class Signup extends React.Component {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-block btn-primary">{message}</button>
+            <button type="submit" className="btn btn-block btn-primary">Signup</button>
           </form>
         </div>
-        <div className="or buffer">
+{/*        <div className="or buffer">
           <div className="back-line">
             <span>OR</span>
           </div>
@@ -62,7 +62,7 @@ class Signup extends React.Component {
               <span>{message} with Google</span>
             </a>
           </p>
-        </div>
+        </div>*/}
       </div>
     );
   }
