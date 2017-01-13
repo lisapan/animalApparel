@@ -28,11 +28,11 @@ export default class Product extends Component {
   }
 
   getValidationState() {
-    const quantity = this.state.quantity
+    const quantity = this.state.selectedQuantity
     const stock = this.state.selectedItem.quantity
-    if (quantity > stock) return 'warning'
-    else if (quantity > 0 && quantity < stock) return 'success'
-    else if (quantity < 1) return 'error'
+    if (quantity > stock || quantity < 0) return 'error'
+    else if (quantity > 0 && quantity <= stock) return 'success'
+    else if (quantity == 0) return 'warning'
   }
 
   handleChange(event) {
