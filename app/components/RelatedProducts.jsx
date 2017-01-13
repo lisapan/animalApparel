@@ -12,7 +12,7 @@ const RelatedProducts = (props) => (
         key={ prod.id }
         xs={12} sm={6} md={3} lg={3}>
         <Thumbnail
-         href={ `/products/${prod.id}` }
+         href={ `/products/product/${prod.id}` }
          src={ prod.imageURL } alt={`${prod.name} photo`}>
         <h5>{ prod.name }</h5>
         <p>{ `$${prod.price}` }</p>
