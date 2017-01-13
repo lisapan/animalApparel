@@ -11,6 +11,9 @@
     "start": "check-node-version --history-api-fallback --node '>= 6.7.0' && bin/setup && nodemon server/start.js",
     "seed": "node db/seed.js"
   },
+  "engine": {
+    "node": "6.9.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/queerviolet/bones.git"
@@ -37,6 +40,7 @@
     "cookie-session": "^2.0.0-alpha.1",
     "enzyme": "^2.5.1",
     "express": "^4.14.0",
+    "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-github2": "^0.1.10",
