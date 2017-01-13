@@ -35,4 +35,19 @@ export const whoami = () =>
       })
       .catch(failed => dispatch(authenticated(null)))
 
+// export const signup = credentials => dispatch => {
+//   return axios.post('/api/auth', credentials)
+//   .then(resToData)
+//   .then(user => {
+//     dispatch(createUser(user));
+//     dispatch(set(user));
+//     return user;
+//   })
+// }
+
+// export const signupAndGoToUser = credentials => dispatch => {
+//   dispatch(signup(credentials))
+//   .then(user => browserHistory.push(`/users/${user.id}`))
+//   .catch(err => console.error('Problem fetching current user', err))
+// }
 export default reducer
