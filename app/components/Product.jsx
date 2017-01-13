@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 
-import { Grid, Row, Col,
+import { Grid, Row, Col, Glyphicon,
          Thumbnail, Button, FormControl,
          FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap'
 
@@ -93,10 +93,12 @@ export default class Product extends Component {
                    </Row>
                    <Row>
                      <Col xs={12} sm={12} md={6} lg={6}>
-                       <Button> Add to Cart </Button>
+                       <Button bsSize="large"> Add to Cart </Button>
                      </Col>
                      <Col xs={12} sm={12} md={6} lg={6}>
-                       <Button> Add to Wishlist! </Button>
+                       <Button bsSize="large">
+                         <Glyphicon glyph="heart" /> Add to Wishlist!
+                       </Button>
                      </Col>
                    </Row>
                    <Row>
