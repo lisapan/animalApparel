@@ -100,7 +100,7 @@ export default class Product extends Component {
                      </Col>
                    </Row>
                    <Row>
-                     <h3>Description</h3>
+                     <h3>Description:</h3>
                      <p>{product.description}</p>
                    </Row>
                  </Col>
