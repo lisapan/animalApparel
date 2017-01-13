@@ -7,7 +7,17 @@
 const User = require('./user')
 const Product = require('./product')
 const Inventory = require('./inventory')
+const Order = require('./order')
+const OrderItem = require('./order-item')
 
 Product.hasMany(Inventory)
+OrderItem.belongsTo(Order)
+OrderItem.belongsTo(Product)
+User.hasMany(Order, {
+  foreignKey: {
+    name: 'userId',
+    allowNull: true
+  }
+})
 
-module.exports = {User, Product, Inventory}
+module.exports = {User, Product, Inventory, Order, OrderItem}
