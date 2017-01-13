@@ -28,6 +28,11 @@ export default () => {
           <Link to='/products/dogs'>DOGS</Link>
         </h4>
       </section>
+      <section>
+        <h4 className="menu-item">
+          <Link to='/products/cats'>CATS</Link>
+        </h4>
+      </section>
     </div>
   );
 }

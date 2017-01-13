@@ -1,13 +1,14 @@
 'use strict'
 import React from 'react'
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
+import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import {connect, Provider} from 'react-redux'
 import axios from 'axios';
 
 import store from './store'
 
 import App from './components/App'
-import Homepage from './components/Homepage'
+import Home from './components/Homepage'
+import LoginSignup from './components/LoginSignup'
 
 import ProductsContainer from './containers/ProductsContainer'
 import CartContainer from './containers/CartContainer'
@@ -25,9 +26,10 @@ export default () => {
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={App}>
-          <Route path="/home" component={Homepage} />
+          <IndexRoute component={Home}/>
           <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
           <Route path="/cart" component={CartContainer} />
+          <Route path="/account/login" component={LoginSignup}/>
           <IndexRedirect to="/home"/>
         </Route>
       </Router>
