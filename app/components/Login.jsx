@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 export const Login = ({ login }) => (
+
   <Form horizontal onSubmit={evt => {
     evt.preventDefault()
     login(evt.target.email.value, evt.target.password.value)

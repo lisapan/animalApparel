@@ -1,6 +1,6 @@
 'use strict'
 import React from 'react'
-import { Link } from 'react-router'
+import { IndexLink, Link } from 'react-router'
 import { Navbar, Nav, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle, Glyphicon } from 'react-bootstrap'
 import { bootstrapUtils } from 'react-bootstrap/lib/utils'
 import {LinkContainer} from 'react-router-bootstrap'
@@ -29,7 +29,7 @@ export default () => {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/home">Animal Apparel<sup>®</sup></Link>
+            <IndexLink to="/">Animal Apparel<sup>®</sup></IndexLink>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
