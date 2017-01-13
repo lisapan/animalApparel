@@ -68,7 +68,6 @@ class Signup extends React.Component {
   }
 
   onSignupSubmit(event) {
-    // const { message } = this.props;
     event.preventDefault();
     const credentials = {
       name: event.target.name.value,
