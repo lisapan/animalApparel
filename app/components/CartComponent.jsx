@@ -3,7 +3,6 @@ import { Table, Button } from 'react-bootstrap'
 
 export default class CartComponent extends Component {
   constructor(props) {
-    console.log(props)
     super(props)
     this.onUpdateProduct = this.onUpdateProduct.bind(this)
     this.onRemoveProduct = this.onRemoveProduct.bind(this)
@@ -11,11 +10,11 @@ export default class CartComponent extends Component {
   }
 
   onUpdateProduct(){
-    console.log("I'm udating!")
+    //to be completed
   }
 
   onRemoveProduct(){
-    console.log("I removed something!")
+    //to be completed
   }
 
   getSubtotal() {
