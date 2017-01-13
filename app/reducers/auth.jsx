@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { browserHistory } from 'react-router';
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -19,6 +20,12 @@ export const login = (username, password) =>
       {username, password})
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
+
+export const loginAndGoToHome = (username, password) => dispatch => {
+  dispatch(login(username, password))
+  .then(response => browserHistory.push(`/`))
+  .catch(err => console.error('problem loggin in:', err))
+}
 
 export const logout = () =>
   dispatch =>

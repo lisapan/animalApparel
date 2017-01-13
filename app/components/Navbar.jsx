@@ -99,7 +99,7 @@ class NavDiv extends React.Component {
         <MenuItem eventKey={3.1}>Account</MenuItem>
         <MenuItem eventKey={3.1}>Order Status</MenuItem>
         <MenuItem eventKey={3.1}>Wishlist</MenuItem>
-        <MenuItem eventKey={3.1} onClick={this.props.logout}>Logout</MenuItem>
+        <LinkContainer to={'/'}><MenuItem eventKey={3.1} onClick={this.props.logout}>Logout</MenuItem></LinkContainer>
       </NavDropdown>
     )
   }

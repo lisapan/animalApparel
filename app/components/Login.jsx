@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Login = ({ login }) => (
+export const Login = ({ loginAndGoToHome }) => (
   <form onSubmit={evt => {
     evt.preventDefault()
-    login(evt.target.username.value, evt.target.password.value)
+    loginAndGoToHome(evt.target.username.value, evt.target.password.value)
   } }>
     <div className="form-group">
       <label>email</label>
@@ -27,10 +27,10 @@ export const Login = ({ login }) => (
   </form>
 )
 
-import {login} from 'APP/app/reducers/auth'
+import {loginAndGoToHome} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 export default connect (
   state => ({}),
-  {login},
+  {loginAndGoToHome},
 ) (Login)
