@@ -20,6 +20,7 @@ export const getProductById = productId => {
   return dispatch => {
     return axios.get(`/api/products/product/${productId}`)
       .then(response => {
+
         dispatch(receiveCurrentProduct(response.data))
         return response.data.name
       })
@@ -33,6 +34,7 @@ export const getProductById = productId => {
       .catch(console.error)
   }
 }
+
 
 export const getProductsByTag = tag => {
   return dispatch => {
