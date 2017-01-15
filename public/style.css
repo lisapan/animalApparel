@@ -202,9 +202,6 @@ a .navbar .dropdown {
   font-size: 2em;
 }
 
-#basic-nav-dropdown {
-  padding: 0;
-}
 
 sup {
   font-size: 14px;
@@ -217,3 +214,8 @@ sup {
   border: 0px !important;
   border-radius: 0px !important;
 }
+
+h3{
+  font-size: 14px;
+}
+

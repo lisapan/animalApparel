@@ -49,7 +49,7 @@ const productList = [
     tags: ['shirt', 'white', 'black', 'unisex', 'men']
   },
   {
-    name: 'Puppy Baseball Tee',
+    name: 'Puppy Classic Baseball Tee',
     description: 'Ready to hit the sandlot? Show up in style in this class knit baseball tee.',
     price: '15.95',
     imageURL: '/img/products/aa-raglan-dog.png',
@@ -147,21 +147,21 @@ const productList = [
     tags: ['green', 'pets', 'dogs', 'jacket']
   },
   {
-    name: 'Doggy\'s Fierce in Leopard Too!',
+    name: 'Doggy\'s Fierce in Leopard',
     description: 'Let your pup show off their wild side in this leopard print ensemble!',
     price: '14.95',
     imageURL: '/img/products/leopard-jacket-dog.png',
     tags: ['brown', 'tan', 'pets', 'dogs', 'vest']
   },
   {
-    name: 'Fierce in Leopard',
+    name: 'Women\'s Fierce in Leopard',
     description: 'Show off your wild side in this leopard print knit dress.',
     price: '29.95',
     imageURL: '/img/products/leopard-jacket-womens.png',
     tags: ['brown', 'tan', 'women', 'vest']
   },
   {
-    name: 'Fierce in Leopard',
+    name: 'Unisex Fierce in Leopard',
     description: 'Show off your wild side in this leopard print knit dress.',
     price: '29.95',
     imageURL: '/img/products/leopard-jacket-unisex.png',
@@ -203,7 +203,7 @@ const productList = [
     tags: ['red', 'black', 'unisex', 'men', 'shirt']
   },
   {
-    name: 'Women\'s Checkered Shirtdress',
+    name: 'Women\'s Checkered Button-up',
     description: 'Channel your inner lumberjack with this checkered, cotton button-up shirt--a hipster wardrobe necessity.',
     price: '18.95',
     imageURL: '/img/products/red-check-shirtdress-womens.png',

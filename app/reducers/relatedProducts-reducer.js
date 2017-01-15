@@ -1,5 +1,5 @@
 import {
-  RECEIVE_PRODUCTS
+  RECEIVE_RELATED_PRODUCTS
 } from '../constants'
 
 export default function (state = [], action) {
@@ -7,8 +7,8 @@ export default function (state = [], action) {
 
   switch (action.type) {
 
-    case RECEIVE_PRODUCTS:
-      return action.products;
+    case RECEIVE_RELATED_PRODUCTS:
+      return action.relatedProducts;
 
     default:
       return state;
