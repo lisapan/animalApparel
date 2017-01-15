@@ -1,20 +1,36 @@
 import React from 'react'
 
-export const Login = ({ login }) => (
+export const Login = ({ loginAndGoToHome }) => (
   <form onSubmit={evt => {
     evt.preventDefault()
-    login(evt.target.username.value, evt.target.password.value)
+    loginAndGoToHome(evt.target.username.value, evt.target.password.value)
   } }>
-    <input name="username" />
-    <input name="password" type="password" />
-    <input type="submit" value="Login" />
+    <div className="form-group">
+      <label>email</label>
+      <input
+        name="username"
+        type="email"
+        className="form-control"
+        required
+      />
+    </div>
+    <div className="form-group">
+      <label>password</label>
+      <input
+        name="password"
+        type="password"
+        className="form-control"
+        required
+      />
+    </div>
+    <button type="submit" className="btn btn-block btn-primary">Login</button>
   </form>
 )
 
-import {login} from 'APP/app/reducers/auth'
+import {loginAndGoToHome} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 export default connect (
   state => ({}),
-  {login},
+  {loginAndGoToHome},
 ) (Login)

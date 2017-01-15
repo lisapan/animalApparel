@@ -264,6 +264,21 @@ const seedProducts = () => db.Promise.map(productList, product => db.model('prod
 
 const seedInventory = () => db.Promise.map(generateInventory(), inventory => db.model('inventory').create(inventory))
 
+const seedOrders = () => db.Promise.map([
+  { status: 'unsubmitted' },
+  { status: 'submitted', userId: 5 },
+  { status: 'unsubmitted', userId: 2 }
+], order => db.model('orders').create(order))
+
+const seedOrderItems = () => db.Promise.map([
+  { size: 'S', color: 'Pink', quantity: 3, order_id: 1, product_id: 22 },
+  { size: 'M', color: 'Blue', quantity: 4, order_id: 1, product_id: 8 },
+  { size: 'L', color: 'Orange', quantity: 2, order_id: 1, product_id: 13 },
+  { size: 'XXL', color: 'Red', quantity: 1, order_id: 2, product_id: 7 },
+  { size: 'XL', color: 'Purple', quantity: 7, order_id: 2, product_id: 30 },
+  { size: 'M', color: 'Yellow', quantity: 9, order_id: 3, product_id: 4 }
+], item => db.model('order-items').create(item))
+
 db.didSync
   .then(() => db.sync({ force: true }))
   .then(seedUsers)
@@ -272,5 +287,9 @@ db.didSync
   .then(products => console.log(`Seeded ${products.length} products OK`))
   .then(seedInventory)
   .then(inventory => console.log(`Seeded ${inventory.length} inventory OK`))
+  .then(seedOrders)
+  .then(orders => console.log(`Seeded ${orders.length} orders OK`))
+  .then(seedOrderItems)
+  .then(items => console.log(`Seeded ${items.length} order items OK`))
   .catch(error => console.error(error))
   .finally(() => db.close())

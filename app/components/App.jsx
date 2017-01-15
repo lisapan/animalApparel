@@ -3,14 +3,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import Navbar from './Navbar'
+import NavDiv from './Navbar'
 import Homepage from './Homepage'
 
 export default (props) => {
   return (
     <div id="main" className="container-fluid">
       <div>
-        <Navbar />
+        <NavDiv />
       </div>
       <div>
         {

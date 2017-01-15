@@ -36,6 +36,7 @@ const Products = (props) => {
   );
 };
 
+//Debugging tool. Will throw error if props are not correctly passed down.
 Products.propTypes = {
   products: PropTypes.array.isRequired,
 }
