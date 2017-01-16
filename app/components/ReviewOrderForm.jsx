@@ -37,7 +37,7 @@ let ReviewOrderForm = (props) => {
           <br />
           Name: {paymentValues.paymentCardName}
           <br />
-          Card Number: ****{paymentValues.paymentCardNumber}
+          Card Number: **** **** **** {paymentValues.paymentCardNumber.slice(-4)}
         </p>
         <button type="button" className="previous" onClick={previousPage}>Previous</button>
         <button type="submit" disabled={pristine || submitting}>Submit</button>

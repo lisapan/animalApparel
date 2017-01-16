@@ -2,6 +2,8 @@ import React from 'react'
 import { Field, FieldArray, reduxForm } from 'redux-form'
 
 const required = value => value ? undefined : 'Required'
+const isCreditCard = value => value && /^\d{16}$/.test(value) ? undefined: 'Invalid card number'
+const isSecurityCode = value => value && /^\d{3}$/.test(value) ? undefined: 'Invalid security code'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -22,12 +24,12 @@ const PaymentMethodForm = (props) => {
       <form onSubmit={handleSubmit}>
         <Field name="paymentCreditCard" component="select" label="Credit Card*" validate={[required]}>
             <option>--Select Card--</option>
-            <option value="visa">Visa</option>
-            <option value="masterCard">MasterCard</option>
-            <option value="americanExpress">American Express</option>
-            <option value="discover">Discover</option>
+            <option value="Visa">Visa</option>
+            <option value="MasterCard">MasterCard</option>
+            <option value="AmericanExpress">American Express</option>
+            <option value="Discover">Discover</option>
         </Field>
-        <Field name="paymentCardNumber" type="text" component={renderField} label="Card Number*" validate={[required]}/>
+        <Field name="paymentCardNumber" type="text" component={renderField} label="Card Number*" validate={[required, isCreditCard]}/>
         <Field name="paymentCardName" type="text" component={renderField} label="Name on Card*" validate={[required]}/>
         <Field name="paymentExpirationMonth" component="select" label="Expiration Month*" validate={[required]}>
             <option>--Select Month--</option>
@@ -51,10 +53,10 @@ const PaymentMethodForm = (props) => {
             <option value="2019">2019</option>
             <option value="2020">2020</option>
         </Field>
-        <Field name="paymentSecurityCode" type="text" component={renderField} label="Security Code*" validate={[required]}/>
+        <Field name="paymentSecurityCode" type="text" component={renderField} label="Security Code*" validate={[required, isSecurityCode]}/>
       <div>
         <button type="button" className="previous" onClick={previousPage}>Previous</button>
-        <button type="submit" className="next">Review</button>
+        <button type="submit" disabled={invalid} className="next">Review</button>
       </div>
       </form>
     </div>

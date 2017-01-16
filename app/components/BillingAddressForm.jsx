@@ -1,7 +1,10 @@
 import React from 'react'
 import { Field, FieldArray, reduxForm } from 'redux-form'
+import normalizePhone from './utils/normalizePhone'
 
 const required = value => value ? undefined : 'Required'
+const isZipcode = value => value && /(^\d{5}$)/.test(value) ? undefined: 'Invalid zipcode'
+const isPhone = value => value && /^\d{3}[-\s]\d{3}[-\s]\d{4}$/.test(value) ? undefined: 'Invalid Phone Number'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -77,11 +80,11 @@ const BillingAddressForm = (props) => {
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
         </Field>
-        <Field name="billingZipcode" type="text" component={renderField} label="Zipcode*" validate={[required]}/>
-        <Field name="billingPhone" type="text" component={renderField} label="Phone*" validate={[required]}/>
+        <Field name="billingZipcode" type="text" component={renderField} label="Zipcode*" validate={[required, isZipcode]}/>
+        <Field name="billingPhone" type="text" component={renderField} label="Phone*" normalize={normalizePhone} validate={[required, isPhone]}/>
       <div>
         <button type="button" className="previous" onClick={previousPage}>Previous</button>
-        <button type="submit" className="next">Next</button>
+        <button type="submit" disable={invalid} className="next">Next</button>
       </div>
       </form>
     </div>
