@@ -14,17 +14,26 @@ module.exports = require('express').Router()
 		})
 		.catch(next)
 	})
-	.get('/product/:productId', (req, res, next) => {
+	.get('/byId/:productId', (req, res, next) => {
 		Product.findById(req.params.productId, {include: [Inventory]})
 		.then(product => {
 			res.json(product)
 		})
 		.catch(next)
 	})
+	// This is a weird route, no?
+	//
+	//   /api/products/product/5/sweaters
+	//
+	// To find sweaters?
+	//
+	// Maybe try:
+	// 		/api/product/5/related?q=sweater
 	.get('/product/:productId/:name', (req, res, next) => {
 		Product.findAll({
 			where: {
 				name: {
+					// $like: `%{req.query.q}`
 					$like: `%${req.params.name}%`
 				},
 				id: {
@@ -33,7 +42,7 @@ module.exports = require('express').Router()
 			},
 			include: [Inventory]
 		})
-		.then(products => {
+		.then(products => {			
 			res.json(products)
 		})
 		.catch(next)

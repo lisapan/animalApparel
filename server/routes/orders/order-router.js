@@ -6,9 +6,25 @@ const Order = db.model('order')
 
 // const {mustBeLoggedIn, forbidden} = require('../../auth.filters')
 
+const cart = (req, res, next) => {
+  if (req.session.cartId) {
+    Order.findById(req.session.cartId)
+      .then(cart => req.cart = cart)
+      .finally(next)
+  } else {
+    Order.create({userId: req.user? req.user.id : null})
+      .then(cart => req.cart = cart)
+      .finally(next)
+  }
+}
+
 module.exports = require('express').Router()
+  .use(cart)
   //User adds a product to the cart
   .post('/', (req, res, next) => {
+    // Needs Order.hasMany(OrderItem)   
+    req.cart.addOrderItem(req.body)
+      .then(() => res.send(req.cart))
     OrderItem.create(req.body.orderItem)
     .then(pendingOrderItem => pendingOrderItem.setProduct(req.body.productId)) // asso. w/ product
     .then(pendingOrderItem => pendingOrderItem.setOrder(req.session.orderId)) // asso. w/ user's order)

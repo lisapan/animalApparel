@@ -9,11 +9,16 @@ const mapStateToProps = (state) => {
   };
 };
 
+// Another option:
+// const mapStateToProps = ({
+//   currentProduct, relatedProducts
+// }) => ({ currentProduct, relatedProducts })
+
 const mapDispatchToProps = (dispatch) => {
   return { dispatch }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  dispatch => dispatch
 )(Product);

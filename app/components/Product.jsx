@@ -32,6 +32,7 @@ export default class Product extends Component {
     }
     console.log(item)
     this.props.dispatch(addCartItemAndGetUpdatedCart(item))
+    this.props.addToCart(item)
   }
 
   sizeClicked (event, item) {
