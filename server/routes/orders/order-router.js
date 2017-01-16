@@ -60,3 +60,14 @@ module.exports = require('express').Router()
     .then(deletedOrder => res.status(204).json(deletedOrder))
     .catch(next)
   })
+  //submit order - it updates the shipping info, and updates to 'submitted'
+  .put('/order/:orderId', (req, res, next) => {
+    Order.update(req.body, {
+      where: {
+        id: req.params.orderId
+      },
+      returning: true
+    })
+    .then(updatedOrder => res.status(201).json(updatedOrder))
+    .catch(next)
+  })

@@ -29,6 +29,7 @@ const mapState = (state, ownProps) => {
     auth: state.auth,
     users: state.users,
     form: state.form,
+    submittedOrder: state.submittedOrder,
     loading: state.loading
   }
 }

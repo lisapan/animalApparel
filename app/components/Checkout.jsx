@@ -3,6 +3,7 @@ import ShippingAddressForm from './ShippingAddressForm';
 import BillingAddressForm from './BillingAddressForm';
 import PaymentMethodForm from './PaymentMethodForm';
 import ReviewOrderForm from './ReviewOrderForm';
+import { updateOrder } from '../reducers/action-creators/checkout'
 
 class Checkout extends Component {
 
@@ -16,12 +17,13 @@ class Checkout extends Component {
   }
 
   handleSubmit = (values) => {
-    new Promise(resolve => {
-        setTimeout(() => {  // simulate server latency
-          window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-          resolve()
-        }, 500)
-      })
+    const result = {}
+    result.shippingInfo = values
+    result.status = 'submitted'
+    console.log("db order", result)
+    //const orderId = props.order
+    this.props.dispatch(updateOrder(1, result))
+    //'1' should be changed to real order id
   }
 
   nextPage() {
@@ -47,6 +49,8 @@ class Checkout extends Component {
 }
 
 Checkout.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  //order: PropTypes.number.isRequired
 }
 export default Checkout

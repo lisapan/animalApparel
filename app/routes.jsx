@@ -10,10 +10,11 @@ import App from './components/App'
 import Home from './components/Homepage'
 import LoginSignup from './components/LoginSignup'
 import Checkout from './components/Checkout'
-
+import OrderConfirmation from './components/OrderConfirmation'
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
 import CartContainer from './containers/CartContainer'
+
 
 import { getProductsByTag, getProductById } from './reducers/action-creators/products'
 
@@ -37,6 +38,7 @@ const Routes = () => (
           <Route path="/cart" component={CartContainer} />
           <Route path="/account/login" component={LoginSignup}/>
           <Route path="/checkout" component={Checkout}/>
+          <Route path="/orderConfirmation" component={OrderConfirmation}/>
           <IndexRedirect to={'/home'}/>
         </Route>
       </Router>
