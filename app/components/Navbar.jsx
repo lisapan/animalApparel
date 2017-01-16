@@ -7,13 +7,14 @@ import { Navbar, Nav, Breadcrumb, Row, FormGroup, FormControl,
 import { LinkContainer } from 'react-router-bootstrap'
 import { logout as logOutUser } from '../reducers/action-creators/auth'
 
-const renderLoginSignup = () => {
+const LoginSignup = (props) => {
   return (
     <NavDropdown
       noCaret
+      collapse={props.collapse}
       eventKey={3}
       title="Account"
-      id="basic-nav-dropdown"
+      id={props.collapse ? 'login-dropdown-collapse' : 'login-dropdown'}
       className="navbar-login">
       <LinkContainer to={{pathname: '/account/login'}}>
         <MenuItem eventKey={3.1}>Login / Signup</MenuItem>
@@ -23,11 +24,20 @@ const renderLoginSignup = () => {
   )
 }
 
-const renderLogout = (props) => {
+LoginSignup.propTypes = {
+  collapse: PropTypes.bool.isRequired
+}
+
+const Logout = (props) => {
   const name = Object.keys(props.auth).length ? null : (props.auth.name || props.auth.email)
 
   return (
-    <NavDropdown noCaret eventKey={3} title={`Hi, ${name}! `} id="basic-nav-dropdown" className="navbar-login">
+    <NavDropdown
+      collapse={props.collapse}
+      noCaret eventKey={3}
+      title={`Hi, ${name}! `}
+      id={props.collapse ? 'logout-dropdown-collapse' : 'logout-dropdown'}
+      className="navbar-login">
       <MenuItem eventKey={3.1}>Account</MenuItem>
       <MenuItem eventKey={3.1}>Order Status</MenuItem>
       <MenuItem eventKey={3.1}>Wishlist</MenuItem>
@@ -40,7 +50,8 @@ const renderLogout = (props) => {
   )
 }
 
-renderLogout.propTypes = {
+Logout.propTypes = {
+  collapse: PropTypes.bool.isRequired,
   auth: PropTypes.object.isRequired
 }
 
@@ -89,23 +100,43 @@ const NavBar = (props) => {
         </Col>
       </Row>
       <Row>
-        <Col xs={12} sm={12} mdHidden={true} lgHidden={true}>
+        <Col xs={12} sm={12} mdHidden={true} lgHidden={true} class="lower-nav-collapse">
           <Navbar.Collapse>
+            <Nav id="lower-nav-collapse">
+              { Object.keys(props.auth).length ? <Logout collapse={true}/> : <LoginSignup collapse={true}/> }
+              <NavDropdown
+                title={shoppingCart}
+                noCaret eventKey={2} href="#" id="cart-dropdown-collapse">
+                <LinkContainer to={{ pathname: '/cart' }}>
+                  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
+                </LinkContainer>
+              </NavDropdown>
+              <Navbar.Form id="search-collapse">
+                <FormGroup>
+                  <InputGroup>
+                    <InputGroup.Button>
+                      <Button type="submit">Search</Button>
+                    </InputGroup.Button>
+                    <FormControl type="text" placeholder="Filter by Style# or Keyword" />
+                  </InputGroup>
+                </FormGroup>
+              </Navbar.Form>
+            </Nav>
           </Navbar.Collapse>
         </Col>
       </Row>
-      <Row>
-        <Col md={12} lg={12} xsHidden={true} smHidden={true}>
-          <Nav pullRight={true} id="lower-nav">
-            { Object.keys(props.auth).length ? renderLogout(props) : renderLoginSignup() }
+      <Row className="lower-nav">
+        <Col md={12} lg={12} xsHidden={true} smHidden={true} id="lower-nav">
+          <Nav pullRight={true}>
+            { Object.keys(props.auth).length ? <Logout collapse={false}/> : <LoginSignup collapse={false}/> }
             <NavDropdown
               title={shoppingCart}
-              noCaret eventKey={2} href="#" id="basic-nav-dropdown">
+              noCaret eventKey={2} href="#" id="cart-dropdown">
               <LinkContainer to={{ pathname: '/cart' }}>
                 <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
               </LinkContainer>
             </NavDropdown>
-            <Navbar.Form pullRight={true}>
+            <Navbar.Form pullRight={true} id="search">
               <FormGroup>
                 <InputGroup>
                   <InputGroup.Button>
