@@ -7,6 +7,9 @@ const Order = db.define('order', {
   status: {
     type: Sequelize.ENUM('unsubmitted', 'submitted', 'processed', 'shipped'),
     allowNull: false
+  },
+  shippingInfo: {
+    type: Sequelize.JSON
   }
 })
 
