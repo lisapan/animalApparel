@@ -9,6 +9,7 @@ import store from './store'
 import App from './components/App'
 import Home from './components/Homepage'
 import LoginSignup from './components/LoginSignup'
+import Checkout from './components/Checkout'
 
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
@@ -35,6 +36,7 @@ const Routes = () => (
           <Route path="/products/product/:productId" component={ProductContainer} onEnter={onProductContainerEnter} />
           <Route path="/cart" component={CartContainer} />
           <Route path="/account/login" component={LoginSignup}/>
+          <Route path="/checkout" component={Checkout}/>
           <IndexRedirect to={'/home'}/>
         </Route>
       </Router>

@@ -1,16 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import CheckoutForm from './CheckoutForm';
 
-import { Grid, Row, Col} from 'react-bootstrap';
+class Checkout extends React.Component {
 
-const LoginSignup = (props) => {
+  handleSubmit = (values) => {
+    new Promise(resolve => {
+        setTimeout(() => {  // simulate server latency
+          window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+          resolve()
+        }, 500)
+      })
+  }
 
-  return (
-          <Grid fluid={true}>
-            <h1 id="accountHeader">Account</h1>
-          </Grid>
-  );
-};
+  render() {
+    return (
+      <div>
+        <h1>CHECKOUT</h1>
+        <CheckoutForm onSubmit={this.handleSubmit} />
+      </div>
+    );
+  }
+}
 
-
-export default LoginSignup
+export default Checkout
