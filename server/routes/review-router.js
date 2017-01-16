@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-const Review = db.model('review')
+const Review = db.model('reviews')
 
 module.exports = require('express').Router()
   //User posts new review for a product

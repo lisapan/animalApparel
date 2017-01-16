@@ -3,7 +3,7 @@
 const db = require('APP/db')
 const Product = db.model('products')
 const Inventory = db.model('inventory')
-const Review = db.model('review')
+const Review = db.model('reviews')
 
 const {mustBeLoggedIn, forbidden } = require('../../auth.filters')
 
