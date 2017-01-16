@@ -9,14 +9,6 @@ const app = require('../../start')
 
 describe('Orders Route:', function () {
   before('wait for the db', () => db.didSync)
-
-  before(() => {
-    Order.bulkCreate([]])
-  })
-
-  before(() => {
-    OrderItem.bulkCreate([]])
-  })
 })
 
 
