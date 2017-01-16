@@ -1,19 +1,15 @@
-const initialUserState = {
-  username: '',
-  password: '',
-};
+import { INITIALIZE_USERS, CREATE_USER } from './action-creators/constants'
 
-export default function (state = initialUserState, action) {
-
-  const newState = Object.assign({}, state);
-
+export default function userReducer (users = [], action) {
   switch (action.type) {
 
+    case INITIALIZE_USERS:
+      return action.users;
+
+    case CREATE_USER:
+      return [action.user, ...users];
+
     default:
-      return state;
-
+      return users;
   }
-
-  return newState;
-
 }

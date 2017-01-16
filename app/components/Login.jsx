@@ -1,42 +1,35 @@
 import React from 'react'
-import { Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { loginAndGoToHome } from 'APP/app/reducers/action-creators/auth'
+import { connect } from 'react-redux'
+import { Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap'
 
-export const Login = ({ login }) => (
+const handleSubmit = (evt) => {
+  evt.preventDefault()
+  loginAndGoToHome(evt.target.username.value, evt.target.password.value)
+}
 
-  <Form horizontal onSubmit={evt => {
-    evt.preventDefault()
-    login(evt.target.email.value, evt.target.password.value)
-  } }>
-
-    <FormGroup controlId="formHorizontalEmail">
-      <Col componentClass={ControlLabel} sm={2}>E-mail Address</Col>
-      <Col sm={10}>
-        <FormControl type="email" />
-      </Col>
+const Login = () => (
+  <Col xs={12} sm={12} md={6} lg={6} className="login">
+    <h2>Sign In</h2>
+    <Form onSubmit={handleSubmit}>
+      <FormGroup controlId="username">
+        <ControlLabel>email</ControlLabel>
+        <FormControl
+          type="email"
+          required />
     </FormGroup>
-
-    <FormGroup controlId="formHorizontalPassword">
-      <Col componentClass={ControlLabel} sm={2}>Password</Col>
-      <Col sm={10}>
-        <FormControl type="password" />
-      </Col>
+      <FormGroup controlId="password">
+        <ControlLabel>password</ControlLabel>
+        <FormControl
+          type="password"
+          required />
     </FormGroup>
-
-    <FormGroup>
-      <Col smOffset={2} sm={10}>
-        <Button type="submit">
-          Sign in
-        </Button>
-      </Col>
-    </FormGroup>
-  </Form>
-
+      <Button type="submit">Login</Button>
+    </Form>
+  </Col>
 )
 
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
+const mapState = () => ({})
+const mapDispatch = () => ({ loginAndGoToHome })
 
-export default connect (
-  state => ({}),
-  {login},
-) (Login)
+export default connect(mapState, mapDispatch)(Login)

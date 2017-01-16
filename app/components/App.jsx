@@ -1,23 +1,36 @@
 'use strict'
 
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { Grid } from 'react-bootstrap'
 
 import Navbar from './Navbar'
-import Homepage from './Homepage'
 
-export default (props) => {
-  return (
-    <div id="main" className="container-fluid">
-      <div>
-        <Navbar />
-      </div>
-      <div>
-        {
-          props.children && React.cloneElement(props.children, props)
-        }
-      </div>
+const App = (props) => (
+  <div>
+    <Navbar />
+    <div>
+      { props.children && React.cloneElement(props.children, props) }
     </div>
-  )
+  </div>
+)
+
+App.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
+const mapState = (state, ownProps) => {
+  return {
+    children: ownProps.children,
+    products: state.products,
+    currentProduct: state.currentProduct,
+    relatedProducts: state.relatedProducts,
+    cart: state.cart,
+    auth: state.auth,
+    users: state.users,
+    loading: state.loading
+  }
+}
+const mapDispatch = (dispatch) => ({ dispatch })
+
+export default connect(mapState, mapDispatch)(App)

@@ -49,7 +49,7 @@ const productList = [
     tags: ['shirt', 'white', 'black', 'unisex', 'men']
   },
   {
-    name: 'Puppy Baseball Tee',
+    name: 'Puppy Classic Baseball Tee',
     description: 'Ready to hit the sandlot? Show up in style in this class knit baseball tee.',
     price: '15.95',
     imageURL: '/img/products/aa-raglan-dog.png',
@@ -147,21 +147,21 @@ const productList = [
     tags: ['green', 'pets', 'dogs', 'jacket']
   },
   {
-    name: 'Doggy\'s Fierce in Leopard Too!',
+    name: 'Doggy\'s Fierce in Leopard',
     description: 'Let your pup show off their wild side in this leopard print ensemble!',
     price: '14.95',
     imageURL: '/img/products/leopard-jacket-dog.png',
     tags: ['brown', 'tan', 'pets', 'dogs', 'vest']
   },
   {
-    name: 'Fierce in Leopard',
+    name: 'Women\'s Fierce in Leopard',
     description: 'Show off your wild side in this leopard print knit dress.',
     price: '29.95',
     imageURL: '/img/products/leopard-jacket-womens.png',
     tags: ['brown', 'tan', 'women', 'vest']
   },
   {
-    name: 'Fierce in Leopard',
+    name: 'Unisex Fierce in Leopard',
     description: 'Show off your wild side in this leopard print knit dress.',
     price: '29.95',
     imageURL: '/img/products/leopard-jacket-unisex.png',
@@ -203,7 +203,7 @@ const productList = [
     tags: ['red', 'black', 'unisex', 'men', 'shirt']
   },
   {
-    name: 'Women\'s Checkered Shirtdress',
+    name: 'Women\'s Checkered Button-up',
     description: 'Channel your inner lumberjack with this checkered, cotton button-up shirt--a hipster wardrobe necessity.',
     price: '18.95',
     imageURL: '/img/products/red-check-shirtdress-womens.png',
@@ -268,7 +268,7 @@ const seedOrders = () => db.Promise.map([
   { status: 'unsubmitted' },
   { status: 'submitted', userId: 5 },
   { status: 'unsubmitted', userId: 2 }
-], order => db.model('orders').create(order))
+], order => db.model('order').create(order))
 
 const seedOrderItems = () => db.Promise.map([
   { size: 'S', color: 'Pink', quantity: 3, order_id: 1, product_id: 22 },
@@ -277,7 +277,7 @@ const seedOrderItems = () => db.Promise.map([
   { size: 'XXL', color: 'Red', quantity: 1, order_id: 2, product_id: 7 },
   { size: 'XL', color: 'Purple', quantity: 7, order_id: 2, product_id: 30 },
   { size: 'M', color: 'Yellow', quantity: 9, order_id: 3, product_id: 4 }
-], item => db.model('order-items').create(item))
+], item => db.model('order-item').create(item))
 
 db.didSync
   .then(() => db.sync({ force: true }))
