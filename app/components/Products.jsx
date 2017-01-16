@@ -12,7 +12,7 @@ const Products = (props) => {
       <Row>
         <Sidebar />
         <Col xs={12} sm={12} md={10} lg={10}>
-          <h3>Products</h3>
+          <h1>Products</h1>
           <Row>
             {
               props.products.map(product => (

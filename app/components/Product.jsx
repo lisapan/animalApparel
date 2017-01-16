@@ -73,7 +73,7 @@ export default class Product extends Component {
            <Row className="product-detail">
              <h3>Size:</h3>
               { product.inventories && (
-                  product.inventories.sort((a, b) => a > b).map(inventory =>
+                  product.inventories.sort((a, b) => a.id > b.id).map(inventory =>
                     <Button
                       key={inventory.id}
                       type="button"
