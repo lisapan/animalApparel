@@ -28,6 +28,7 @@ const mapState = (state, ownProps) => {
     cart: state.cart,
     auth: state.auth,
     users: state.users,
+    form: state.form,
     loading: state.loading
   }
 }
