@@ -25,7 +25,7 @@ export default function (state = initialCartState, action) {
       break;
 
     //Remove an item from the cart.
-    case REMOVE_CART_ITEM;
+    case REMOVE_CART_ITEM:
       delete newState.list[action.product.id.toString()]
       break;
 

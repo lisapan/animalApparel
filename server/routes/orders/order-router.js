@@ -41,7 +41,7 @@ module.exports = require('express').Router()
       .then(deletedItem => res.status(204).json(deletedItem))
       .catch(next)
   })
-  //A User clears thier cart
+  //A User clears their cart
   .delete('/', (req, res, next) => {
     Order.destroy({
       where: {
