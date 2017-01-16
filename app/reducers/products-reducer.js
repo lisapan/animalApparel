@@ -1,17 +1,11 @@
-import {
-  RECEIVE_PRODUCTS
-} from '../constants'
+import { RECEIVE_PRODUCTS } from './action-creators/constants'
 
 export default function (state = [], action) {
-
-
   switch (action.type) {
 
-    case RECEIVE_PRODUCTS:
-      return action.products;
+    case RECEIVE_PRODUCTS: return action.products;
 
-    default:
-      return state;
+    default: return state;
 
   }
 }

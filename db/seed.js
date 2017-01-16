@@ -268,7 +268,7 @@ const seedOrders = () => db.Promise.map([
   { status: 'unsubmitted' },
   { status: 'submitted', userId: 5 },
   { status: 'unsubmitted', userId: 2 }
-], order => db.model('orders').create(order))
+], order => db.model('order').create(order))
 
 const seedOrderItems = () => db.Promise.map([
   { size: 'S', color: 'Pink', quantity: 3, order_id: 1, product_id: 22 },
@@ -277,7 +277,7 @@ const seedOrderItems = () => db.Promise.map([
   { size: 'XXL', color: 'Red', quantity: 1, order_id: 2, product_id: 7 },
   { size: 'XL', color: 'Purple', quantity: 7, order_id: 2, product_id: 30 },
   { size: 'M', color: 'Yellow', quantity: 9, order_id: 3, product_id: 4 }
-], item => db.model('order-items').create(item))
+], item => db.model('order-item').create(item))
 
 db.didSync
   .then(() => db.sync({ force: true }))

@@ -1,101 +1,126 @@
 'use strict'
-import React from 'react'
-import { IndexLink, Link } from 'react-router'
-import { Navbar, Nav, Breadcrumb, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle, Glyphicon } from 'react-bootstrap'
-import { bootstrapUtils } from 'react-bootstrap/lib/utils'
+import { connect } from 'react-redux'
+import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
+import { Navbar, Nav, Breadcrumb, Row, FormGroup, FormControl,
+         NavDropdown, MenuItem, Glyphicon, Button, Col, Grid, InputGroup } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { logout as logOutUser } from '../reducers/auth'
+import { logout as logOutUser } from '../reducers/action-creators/auth'
 
-export default () => {
+const renderLoginSignup = () => {
   return (
-    <div className="nav-bar">
-      <div className="black-bar">
+    <NavDropdown
+      noCaret
+      eventKey={3}
+      title="Account"
+      id="basic-nav-dropdown"
+      className="navbar-login">
+      <LinkContainer to={{pathname: '/account/login'}}>
+        <MenuItem eventKey={3.1}>Login / Signup</MenuItem>
+      </LinkContainer>
+      <MenuItem eventKey={3.2}>Order Status</MenuItem>
+    </NavDropdown>
+  )
+}
+
+const renderLogout = (props) => {
+  const name = Object.keys(props.auth).length ? null : (props.auth.name || props.auth.email)
+
+  return (
+    <NavDropdown noCaret eventKey={3} title={`Hi, ${name}! `} id="basic-nav-dropdown" className="navbar-login">
+      <MenuItem eventKey={3.1}>Account</MenuItem>
+      <MenuItem eventKey={3.1}>Order Status</MenuItem>
+      <MenuItem eventKey={3.1}>Wishlist</MenuItem>
+      <LinkContainer to={{pathname: '/'}}>
+        <MenuItem eventKey={3.1} onClick={this.props.logout}>
+          Logout
+        </MenuItem>
+      </LinkContainer>
+    </NavDropdown>
+  )
+}
+
+renderLogout.propTypes = {
+  auth: PropTypes.object.isRequired
+}
+
+const shoppingCart = <Glyphicon glyph="shopping-cart" />
+
+const NavBar = (props) => {
+  return (
+    <Navbar>
+      <Row className="black-bar">
         <p>Made in the USA - Sweatshop Free</p>
-      </div>
-      <Navbar>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            { this.props.auth ? this.renderLogout() : this.renderLoginSignup() }
-            <NavDropdown noCaret eventKey={2} title={<Glyphicon glyph="shopping-cart" />} id="basic-nav-dropdown">
+      </Row>
+      <Row>
+        <Col xs={12} sm={12} md={12} lg={12}>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Nav>
+                <Col xs={12} sm={12} md={6} lg={6} className="logo">
+                  <Link to="/">Animal Apparel<sup>®</sup></Link>
+                </Col>
+                <Col xsHidden={true} md={6} lg={6}
+                  className="breadcrumb-nav">
+                  <Nav pullRight={true}>
+                    <Breadcrumb>
+                      <Breadcrumb.Item href="/products/women" className="navbar-categories">
+                        Women
+                      </Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products/men" className="navbar-categories">
+                          Men
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products/kids" className="navbar-categories">
+                          Kids
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products/pets" className="navbar-categories">
+                          Pets
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products/sale" className="navbar-categories">
+                          Sale
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                  </Nav>
+                </Col>
+              </Nav>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} sm={12} mdHidden={true} lgHidden={true}>
+          <Navbar.Collapse>
+          </Navbar.Collapse>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} lg={12} xsHidden={true} smHidden={true}>
+          <Nav pullRight={true} id="lower-nav">
+            { Object.keys(props.auth).length ? renderLogout(props) : renderLoginSignup() }
+            <NavDropdown
+              title={shoppingCart}
+              noCaret eventKey={2} href="#" id="basic-nav-dropdown">
               <LinkContainer to={{ pathname: '/cart' }}>
                 <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
               </LinkContainer>
             </NavDropdown>
+            <Navbar.Form pullRight={true}>
+              <FormGroup>
+                <InputGroup>
+                  <InputGroup.Button>
+                    <Button type="submit">Search</Button>
+                  </InputGroup.Button>
+                  <FormControl type="text" placeholder="Filter by Style# or Keyword" />
+                </InputGroup>
+              </FormGroup>
+            </Navbar.Form>
           </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Navbar collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/home">Animal Apparel<sup>®</sup></Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Breadcrumb>
-            <LinkContainer to={{ pathname: '/products/women' }}>
-              <Breadcrumb.Item className="navbar-categories">Women</Breadcrumb.Item>
-              {/*eventKey={3}*/}
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '/products/men' }}>
-              <Breadcrumb.Item className="navbar-categories">Men</Breadcrumb.Item>
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '/products/kids' }}>
-              <Breadcrumb.Item className="navbar-categories">Kids</Breadcrumb.Item>
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '/products/cats' }}>
-              <Breadcrumb.Item className="navbar-categories">Cats</Breadcrumb.Item>
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '/products/dogs' }}>
-              <Breadcrumb.Item className="navbar-categories">Dogs</Breadcrumb.Item>
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '/products/sale' }}>
-              <Breadcrumb.Item className="navbar-categories">Sale</Breadcrumb.Item>
-            </LinkContainer>
-          </Breadcrumb>
-        </Navbar.Collapse>
-      </Navbar>
-      {/*<Navbar className="search">
-        <Nav pullRight>
-          <Navbar.Text>Search</Navbar.Text>
-          <Navbar.Form pullRight>
-            <FormGroup>
-              <FormControl type="text" placeholder="Style# or Keyword" />
-            </FormGroup>
-            {' '}
-          </Navbar.Form>
-        </Nav>
-      </Navbar>*/}
-    </div>
+        </Col>
+      </Row>
+    </Navbar>
   )
-
-
-  renderLoginSignup(){
-    return (
-      <NavDropdown noCaret eventKey={3} title="Account /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
-        <LinkContainer to={'/account/login'}><MenuItem eventKey={3.1}>Login</MenuItem></LinkContainer>
-        <LinkContainer to={'/account/login'}><MenuItem eventKey={3.1}><Link to={'/account/login'}>Sign Up</Link></MenuItem></LinkContainer>
-        <MenuItem eventKey={3.1}>Order Status</MenuItem>
-      </NavDropdown>
-    )
-  }
-
-
-  renderLogout(){
-    const name = this.props.auth.name || this.props.auth.email;
-    return(
-      <NavDropdown noCaret eventKey={3} title={`Hi, ${name}! `} id="basic-nav-dropdown" className="navbar-login">
-        <MenuItem eventKey={3.1}>Account</MenuItem>
-        <MenuItem eventKey={3.1}>Order Status</MenuItem>
-        <MenuItem eventKey={3.1}>Wishlist</MenuItem>
-        <LinkContainer to={'/'}><MenuItem eventKey={3.1} onClick={this.props.logout}>Logout</MenuItem></LinkContainer>
-      </NavDropdown>
-    )
-  }
 }
-
-
-
 
 const mapState = ({auth}) => ({auth});
 // // equivalent to:
@@ -112,4 +137,4 @@ const mapDispatch = dispatch => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(NavDiv);
+export default connect(mapState, mapDispatch)(NavBar);

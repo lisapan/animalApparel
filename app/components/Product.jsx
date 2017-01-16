@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 
-import { Grid, Row, Col, Glyphicon,
+import { Grid, Row, Col, Form,
          Thumbnail, Button, FormControl,
-         FormGroup, ControlLabel, HelpBlock, Form } from 'react-bootstrap'
+         FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap'
 
+import { addCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import RelatedProducts from './RelatedProducts'
 
 export default class Product extends Component {
@@ -12,11 +13,25 @@ export default class Product extends Component {
     super(props)
     this.state = {
       selectedItem: {},
-      selectedQuantity: 1,
+      selectedQuantity: '',
     }
+    this.addToCart = this.addToCart.bind(this)
     this.sizeClicked = this.sizeClicked.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
+  }
+
+  addToCart(event) {
+    event.preventDefault()
+    const item = {
+      orderItem: {
+        size: this.state.selectedItem.size,
+        quantity: this.state.selectedQuantity
+      },
+      productId: this.props.currentProduct.id
+    }
+    console.log(item)
+    this.props.dispatch(addCartItemAndGetUpdatedCart(item))
   }
 
   sizeClicked (event, item) {
@@ -44,19 +59,21 @@ export default class Product extends Component {
       <Grid fluid={true}>
         <Row>
          <Col xs={12} sm={12} md={6} lg={6}>
-           <Thumbnail src={ product.imageURL } alt={`${product.name} photo`} />
+           <Thumbnail
+             className="product-detail"
+             src={ product.imageURL } alt={`${product.name} photo`} />
          </Col>
          <Col xs={12} sm={12} md={6} lg={6}>
-           <Row>
+           <Row className="product-detail">
              <h2>{ product.name }</h2>
            </Row>
-           <Row>
+           <Row className="product-detail">
              <p>{ `$${product.price}` }</p>
            </Row>
-           <Row>
+           <Row className="product-detail">
              <h3>Size:</h3>
               { product.inventories && (
-                  product.inventories.map(inventory =>
+                  product.inventories.sort((a, b) => a > b).map(inventory =>
                     <Button
                       key={inventory.id}
                       type="button"
@@ -69,33 +86,31 @@ export default class Product extends Component {
                 )
               }
            </Row>
-           <Row>
+           <Row className="product-detail">
              <Form>
                <FormGroup
                  controlId="quantity"
                  validationState={this.getValidationState()}>
                  <ControlLabel>Quantity:</ControlLabel>
                  <FormControl
-                   type="text"
                    value={this.state.selectedQuantity}
-                   placeholder="1"
+                   placeholder="Enter Quantity"
                    onChange={this.handleChange}/>
-                 <FormControl.Feedback />
-                 <HelpBlock> {`Only ${this.state.selectedItem.quantity} left`} </HelpBlock>
+                 <HelpBlock>
+                   {`Only ${this.state.selectedItem.quantity} left`}
+                 </HelpBlock>
                </FormGroup>
              </Form>
            </Row>
-           <Row>
-             <Col xs={12} sm={12} md={6} lg={6}>
-               <Button bsSize="large"> Add to Cart </Button>
-             </Col>
-             <Col xs={12} sm={12} md={6} lg={6}>
+           <Button className="product-detail" bsStyle="primary" bsSize="large" type="submit" onClick={this.addToCart}> Add to Bag </Button>
+             {/*
+               <Col xs={12} sm={12} md={6} lg={6}>
                <Button bsSize="large">
                  <Glyphicon glyph="heart" /> Add to Wishlist!
                </Button>
              </Col>
-           </Row>
-           <Row>
+               */}
+           <Row className="product-detail" >
              <h3>Description:</h3>
              <p>{product.description}</p>
            </Row>
