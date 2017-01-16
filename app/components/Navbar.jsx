@@ -50,7 +50,7 @@ const NavBar = (props) => {
   return (
     <Navbar>
       <Row className="black-bar">
-        <p>Made in the USA - Sweatshop Free</p>
+        <h4>Made in the USA - Sweatshop Free</h4>
       </Row>
       <Row>
         <Col xs={12} sm={12} md={12} lg={12}>

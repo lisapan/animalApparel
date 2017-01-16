@@ -75,6 +75,13 @@ body {
 }
 
 /*~~~~~~~~~NAVBAR~~~~~~~~~~~*/
+h4 {
+  vertical-align: middle;
+  text-align: left;
+  font-size: 12px;
+  margin: 0;
+}
+
 .black-bar {
   background-color: black;
   border: none;
