@@ -9,7 +9,7 @@ const OrderConfirmation = (props) => (
   <div>
   <h3> Order Confirmation </h3>
   <p>
-    {JSON.stringify(props.submittedOrder), null, 2}
+    {JSON.stringify(props.submittedOrder, null, 2)}
   </p>
   </div>
 )
