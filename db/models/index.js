@@ -9,6 +9,7 @@ const Product = require('./product')
 const Inventory = require('./inventory')
 const Order = require('./order')
 const OrderItem = require('./order-item')
+const Review = require('./review')
 
 Product.hasMany(Inventory) // puts a productId on the inventory item
 OrderItem.belongsTo(Order) // puts an orderId on the order item
@@ -19,5 +20,7 @@ User.hasMany(Order, { // puts a userId on the order
     allowNull: true
   }
 })
+Product.hasMany(Review) // puts a product_id on the review
+User.hasMany(Review) // puts a user_id on the review
 
-module.exports = { User, Product, Inventory, Order, OrderItem }
+module.exports = { User, Product, Inventory, Order, OrderItem, Review }
