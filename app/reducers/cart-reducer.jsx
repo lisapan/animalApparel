@@ -1,39 +1,10 @@
-import {
-  RECEIVE_CART_ITEM,
-  UPDATE_CART_ITEM,
-  REMOVE_CART_ITEM
-} from '../constants';
+import { RECEIVE_CART } from './action-creators/constants';
 
-const initialCartState = {
-    list: {}
-};
-
-export default function (state = initialCartState, action) {
-
-  const newState = Object.assign({}, state);
-
+export default function cartReducer(cart = [], action) {
   switch (action.type) {
+    // Get the cart
+    case RECEIVE_CART: return action.orderItemArr
 
-    //Add item to cart, which is an object whose keys are product id.
-    case RECEIVE_CART_ITEM:
-      newState.list[action.product.id.toString()] = action.product
-      break;
-
-    //Update the quantity on an item in the cart.
-    case UPDATE_CART_ITEM:
-      newState.list[action.product.id.toString()][quantity] = action.product.quantity
-      break;
-
-    //Remove an item from the cart.
-    case REMOVE_CART_ITEM;
-      delete newState.list[action.product.id.toString()]
-      break;
-
-    default:
-      return state;
-
+    default: return cart;
   }
-
-  return newState;
-
 }

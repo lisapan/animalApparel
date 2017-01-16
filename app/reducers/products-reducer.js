@@ -1,29 +1,11 @@
-import {
-  RECEIVE_PRODUCTS,
-  RECEIVE_PRODUCT
-} from '../constants';
+import { RECEIVE_PRODUCTS } from './action-creators/constants'
 
-
-const initialProductsState = {
-  selected: {},
-  list: []
-};
-
-export default function (state = initialProductsState, action) {
-
-  const newState = Object.assign({}, state);
-
+export default function (state = [], action) {
   switch (action.type) {
 
-    case RECEIVE_PRODUCTS:
-      newState.list = action.products;
-      break;
+    case RECEIVE_PRODUCTS: return action.products;
 
-    default:
-      return state;
+    default: return state;
 
   }
-
-  return newState;
-
 }

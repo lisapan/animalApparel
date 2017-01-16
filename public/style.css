@@ -64,146 +64,122 @@ body {
   font-family: "animalApparelFont";
   border: 0 !important;
 }
-/*~~~~~~~~~HOMEPAGE~~~~~~~~~~~*/
-.home-pic {
-  color: white;
-  height: 300px;
-  margin: -5px;
+
+.container {
+  min-width: 100%;
 }
 
-.promo{
-  background: url("/img/promo-background.png") no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  position: relative;
-  height: 100%;
-
-
+.form-control {
+  min-width: 220px !important;
+  border: 1px solid black;
 }
 
-.promo #promo {
-  text-align: left;
-  float: left;
-  font-size: 4em;
-}
-
-.promo #promoCode {
-  text-align: right;
-  float: right;
-  font-size: 2em;
-}
-
-.promo #bottomRow{
-  position: absolute;
-  bottom: 0;
-}
-
-.promo #peopleSale {
-  text-align: left;
-  float: left;
-  font-size: 1.5em;
-
-}
-
-
-
-.promo #dogSale {
-  text-align: right;
-  float: right;
-  font-size: 1.5em;
-}
-
-.women{
-  background: url("/img/women-background.jpg") no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-}
-
-.men{
-  background: url("/img/men-background.jpg") no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-}
-
-.dogs{
-  background: url("/img/dog-background.png") no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-}
-
-.kids{
-  background-image: url("/img/kid-background.jpg");
-}
 /*~~~~~~~~~NAVBAR~~~~~~~~~~~*/
-.navbar {
-  background-color: white;
-  border: none;
-  margin-bottom: 5px;
+h4 {
+  vertical-align: middle;
+  text-align: left;
+  font-size: 12px;
+  margin: 0;
 }
 
 .black-bar {
   background-color: black;
   border: none;
   color: white;
-  height: 20px;
+  height: 25px;
+  padding: 5px;
 }
 
-.navbar .container {
-  height: 8vh;
-  width: 100%;
+.navbar-right {
+  position: relative;
+  right: 3px;
 }
 
-.navbar .navbar-collapse {
-  display: table-cell;
+.navbar-header {
+  float: none !important;
 }
 
-a .navbar .dropdown {
-  background-color: pink;
-  vertical-align: middle;
+.navbar {
+  background-color: white;
+  border: none;
+  margin-bottom: 0;
 }
 
-/*Grabbing Logo*/
+#search-collapse>.btn {
+  padding-left: 0
+}
+
+#search {
+  margin-top: 0;
+}
+
+#search-collapse {
+  margin-top: -15px;
+}
+
+.navbar-login {
+  font-size: 1em;
+}
+
 .navbar .navbar-brand {
   color: black;
   font-family: "animalApparelFont";
-  font-size: 2.6em;
-  font-stretch: ultra-condensed;
-  font-weight: 600;
-  text-align: left;
+  font-size: 2em;
+  font-weight: 100;
+  padding: 15px, 50px !important;
+  margin-bottom: 25px;
 }
 
-/*Grabbing search bar text*/
+#cart-dropdown-collapse, #cart-dropdown {
+  margin-top: 0px;
+  margin-bottom: 15px;
+  padding-bottom: 0;
+}
+
+.input-group-btn:first-child>.btn, .input-group-btn:first-child>.btn-group {
+  border: none;
+  padding-left: 0;
+}
+
+/*search bar text*/
 .navbar .navbar-text {
   color: black;
 }
 
-/*Removing the hover color*/
-.navbar-default .navbar-nav>li>a {
+/*Account Dropdown*/
+
+#login-dropdown-collapse {
+  margin-bottom: 0;
+}
+
+/*.navbar-default .navbar-nav>li>a {
   color: black;
+  margin: 0px 15px 0px 15px;
+  padding: 0px 15px 0px 15px;
+}*/
+
+.navbar-default .navbar-nav>.open>a {
+  background: none;
+  margin: 0px 15px 0px 15px;
+  padding: 0px 15px 0px 15px;
+}
+
+.navbar-nav .open .dropdown-menu {
+  border: solid 0.5px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  width: 50px;
+  margin-left: 15px;
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+  background: none;
 }
 
 .navbar-default .navbar-categories>li>a {
   font-size: 2em;
-}
-
-/*This craziness is grabbing the product categories in the main navbar*/
-#main > div > div > div > nav:nth-child(3) > div > div.navbar-collapse.collapse > ul{
-  font-size: 2em;
-}
-
-#basic-nav-dropdown {
-  padding: 0;
 }
 
 sup {
@@ -212,8 +188,300 @@ sup {
   top: 0em;
 }
 
+.logo {
+  display: block;
+  width: 100%;
+  padding-top: 10px;
+  padding-left: 3px;
+}
+
+.breadcrumb>li+li:before {
+    padding: 0;
+    color: black;
+    content: "/\00a0";
+    font-weight: 100;
+    letter-spacing: -2px;
+}
+
+.breadcrumb {
+  background: none !important;
+  letter-spacing: -2px;
+  overflow: visible;
+}
+
+.breadcrumb-nav {
+  position: absolute;
+  right: 0px;
+}
+
+.navbar-collapse {
+  border-color: black;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:focus {
+  background: black;
+  color: white;
+  text-decoration: none;
+}
+
+.btn-default, .btn-default:hover, .btn-default:focus {
+  border: solid 1px black;
+  background: none;
+  color: black;
+  text-decoration: none;
+}
+
+#lower-nav-collapse {
+  margin-top: -25px;
+  margin-bottom: -25px;
+}
+
+.lower-nav {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#lower-nav {
+  right: 70px;
+}
+
+.navbar-form {
+  padding: 8px;
+}
+
+.input-group .form-control:last-child {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.input-group {
+  display: block;
+}
+
+.basic-nav-dropdown .dropdown-toggle {
+  margin: 15px;
+  padding: 15px;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  border: black;
+  overflow: visible;
+  width: 220px;
+  margin: 10px;
+  padding-top: 8px;
+}
+
+.container>.navbar-collapse {
+  margin: 0;
+}
+
+.navbar-default .navbar-toggle {
+  border: none !important;
+  color: black;
+  margin-top: 30px;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background: none;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: black;
+}
+
+a {
+  color: black !important;
+  text-decoration: none !important;
+}
+
+/*~~~~~~~~~HOMEPAGE~~~~~~~~~~~*/
+
+h1 {
+  margin-top: 15px;
+  padding: 10px;
+}
+
+h1.promo {
+  padding: 10px;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.home-pic  {
+  color: white !important;
+  height: 300px;
+}
+
+.promo {
+  color: white;
+  background: url("/img/promo-background.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+}
+
+#promo {
+  text-align: left;
+  font-size: 2.75em;
+  margin: 15px;
+  width: inherit;
+}
+
+#promoCode {
+  text-align: right;
+  font-size: 1.5em;
+  margin-right: 15px;
+}
+
+#bottomRow{
+  position: absolute;
+  bottom: 0;
+}
+
+#peopleSale {
+  text-align: left;
+  float: left;
+  font-size: 1em;
+  margin-left: 15px;
+
+}
+
+#petSale {
+  text-align: right;
+  float: right;
+  font-size: 1em;
+  margin-right: 15px;
+}
+
+#women-xs-sm {
+  padding-left: 15px !important;
+}
+
+#women {
+  padding-right: 7.5px !important;
+}
+
+.women:hover {
+  background: url("/img/women-background-overlay.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-right: 7.5px;
+  transition: background 1s;
+
+}
+
+.women{
+  color: white !important;
+  background: url("/img/women-background.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-right: 7.5px;
+
+}
+
+#men-xs-sm {
+  padding-left: 15px !important;
+}
+
+#men {
+  padding-left: 7.5px !important;
+}
+
+.men:hover {
+  background: url("/img/men-background-overlay.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-right: 7.5px;
+  transition: background 1s;
+}
+
+.men{
+  color: white !important;
+  background: url("/img/men-background.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-left: 7.5px;
+
+}
+
+.dogs:hover {
+  background: url("/img/dog-background-overlay.png") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  transition: background 1s;
+}
+
+.dogs{
+  color: white !important;
+  background: url("/img/dog-background.png") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+.kids:hover{
+  color: white !important;
+  background: url("/img/kid-background-overlay.png") center center;
+  transition: background 1s;
+}
+
+.kids {
+  color: white !important;
+  background: url("/img/kid-background.jpg") center center;
+  margin-bottom: 15px;
+}
+
 /*~~~~~~~~~Products~~~~~~~~~~~*/
+
+h2 {
+  font-size: 2em;
+  margin-top: 0;
+}
+
+.btn-primary {
+  color: white;
+  background: black;
+  border-radius: 0;
+}
+
+.product-detail {
+  margin: 15px;
+}
+
+#quantity {
+  width: 20px;
+}
+
+.product {
+
+}
+
+p {
+  font-family: Helvetica;
+  font-weight: 200 !important;
+}
+
 .thumbnail {
   border: 0px !important;
   border-radius: 0px !important;
+}
+
+h3{
+  font-size: 14px;
 }

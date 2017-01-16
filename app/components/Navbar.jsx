@@ -1,113 +1,157 @@
 'use strict'
-import React from 'react'
-import { IndexLink, Link } from 'react-router'
-import { Navbar, Nav, NavDropdown, MenuItem, FormGroup, FormControl, bsStyle, Glyphicon } from 'react-bootstrap'
-import {connect} from 'react-redux'
-import { bootstrapUtils } from 'react-bootstrap/lib/utils'
-import {LinkContainer} from 'react-router-bootstrap'
-import { logout as logOutUser } from '../reducers/auth'
+import { connect } from 'react-redux'
+import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
+import { Navbar, Nav, Breadcrumb, Row, FormGroup, FormControl,
+         NavDropdown, MenuItem, Glyphicon, Button, Col, Grid, InputGroup } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { logout as logOutUser } from '../reducers/action-creators/auth'
 
-class NavDiv extends React.Component {
-  constructor(props) {
-    super(props);
-    this.renderLoginSignup = this.renderLoginSignup.bind(this);
-    this.renderLogout = this.renderLogout.bind(this);
-  }
+const LoginSignup = (props) => {
+  return (
+    <NavDropdown
+      noCaret
+      collapse={props.collapse}
+      eventKey={3}
+      title="Account"
+      id={props.collapse ? 'login-dropdown-collapse' : 'login-dropdown'}
+      className="navbar-login">
+      <LinkContainer to={{pathname: '/account/login'}}>
+        <MenuItem eventKey={3.1}>Login / Signup</MenuItem>
+      </LinkContainer>
+      <MenuItem eventKey={3.2}>Order Status</MenuItem>
+    </NavDropdown>
+  )
+}
 
+LoginSignup.propTypes = {
+  collapse: PropTypes.bool.isRequired
+}
 
-  render(){
-    return (
-      <div className="nav-bar">
-        <div className="black-bar">
-          <p>Made in the USA - Sweatshop Free</p>
-        </div>
-        <Navbar>
-          <Navbar.Collapse>
-            <Nav pullRight>
-              { this.props.auth ? this.renderLogout() : this.renderLoginSignup() }
-              <NavDropdown noCaret eventKey={3} title={<Glyphicon glyph="shopping-cart" />} id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Your Cart is empty.</MenuItem>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <Navbar collapseOnSelect>
+const Logout = (props) => {
+  const name = Object.keys(props.auth).length ? null : (props.auth.name || props.auth.email)
+
+  return (
+    <NavDropdown
+      collapse={props.collapse}
+      noCaret eventKey={3}
+      title={`Hi, ${name}! `}
+      id={props.collapse ? 'logout-dropdown-collapse' : 'logout-dropdown'}
+      className="navbar-login">
+      <MenuItem eventKey={3.1}>Account</MenuItem>
+      <MenuItem eventKey={3.1}>Order Status</MenuItem>
+      <MenuItem eventKey={3.1}>Wishlist</MenuItem>
+      <LinkContainer to={{pathname: '/'}}>
+        <MenuItem eventKey={3.1} onClick={this.props.logout}>
+          Logout
+        </MenuItem>
+      </LinkContainer>
+    </NavDropdown>
+  )
+}
+
+Logout.propTypes = {
+  collapse: PropTypes.bool.isRequired,
+  auth: PropTypes.object.isRequired
+}
+
+const shoppingCart = <Glyphicon glyph="shopping-cart" />
+
+const NavBar = (props) => {
+  return (
+    <Navbar>
+      <Row className="black-bar">
+        <h4>Made in the USA - Sweatshop Free</h4>
+      </Row>
+      <Row>
+        <Col xs={12} sm={12} md={12} lg={12}>
           <Navbar.Header>
             <Navbar.Brand>
-              <IndexLink to="/">Animal Apparel<sup>®</sup></IndexLink>
+              <Nav>
+                <Col xs={12} sm={12} md={6} lg={6} className="logo">
+                  <Link to="/">Animal Apparel<sup>®</sup></Link>
+                </Col>
+                <Col xsHidden={true} md={6} lg={6}
+                  className="breadcrumb-nav">
+                  <Nav pullRight={true}>
+                    <Breadcrumb>
+                      <Breadcrumb.Item href="/products/women" className="navbar-categories">
+                        Women
+                      </Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products/men" className="navbar-categories">
+                          Men
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products/kids" className="navbar-categories">
+                          Kids
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products/pets" className="navbar-categories">
+                          Pets
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products/sale" className="navbar-categories">
+                          Sale
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                  </Nav>
+                </Col>
+              </Nav>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} sm={12} mdHidden={true} lgHidden={true} class="lower-nav-collapse">
           <Navbar.Collapse>
-            <Nav pullRight>
-              <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Women/" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Costume</MenuItem>
-                <MenuItem eventKey={3.1}>Winter</MenuItem>
+            <Nav id="lower-nav-collapse">
+              { Object.keys(props.auth).length ? <Logout collapse={true}/> : <LoginSignup collapse={true}/> }
+              <NavDropdown
+                title={shoppingCart}
+                noCaret eventKey={2} href="#" id="cart-dropdown-collapse">
+                <LinkContainer to={{ pathname: '/cart' }}>
+                  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
+                </LinkContainer>
               </NavDropdown>
-              <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Men/" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Costume</MenuItem>
-                <MenuItem eventKey={3.1}>Winter</MenuItem>
-              </NavDropdown>
-              <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Kids/" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Costume</MenuItem>
-                <MenuItem eventKey={3.1}>Winter</MenuItem>
-              </NavDropdown>
-              <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Cats/" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Costume</MenuItem>
-                <MenuItem eventKey={3.1}>Winter</MenuItem>
-              </NavDropdown>
-              <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Dogs/" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Costume</MenuItem>
-                <MenuItem eventKey={3.1}>Winter</MenuItem>
-              </NavDropdown>
-              <NavDropdown noCaret className="navbar-categories" eventKey={3} title="Sale" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Costume</MenuItem>
-                <MenuItem eventKey={3.1}>Winter</MenuItem>
-              </NavDropdown>
+              <Navbar.Form id="search-collapse">
+                <FormGroup>
+                  <InputGroup>
+                    <InputGroup.Button>
+                      <Button type="submit">Search</Button>
+                    </InputGroup.Button>
+                    <FormControl type="text" placeholder="Filter by Style# or Keyword" />
+                  </InputGroup>
+                </FormGroup>
+              </Navbar.Form>
             </Nav>
           </Navbar.Collapse>
-        </Navbar>
-        {/*<Navbar className="search">
-          <Nav pullRight>
-            <Navbar.Text>Search</Navbar.Text>
-            <Navbar.Form pullRight>
+        </Col>
+      </Row>
+      <Row className="lower-nav">
+        <Col md={12} lg={12} xsHidden={true} smHidden={true} id="lower-nav">
+          <Nav pullRight={true}>
+            { Object.keys(props.auth).length ? <Logout collapse={false}/> : <LoginSignup collapse={false}/> }
+            <NavDropdown
+              title={shoppingCart}
+              noCaret eventKey={2} href="#" id="cart-dropdown">
+              <LinkContainer to={{ pathname: '/cart' }}>
+                <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
+              </LinkContainer>
+            </NavDropdown>
+            <Navbar.Form pullRight={true} id="search">
               <FormGroup>
-                <FormControl type="text" placeholder="Style# or Keyword" />
+                <InputGroup>
+                  <InputGroup.Button>
+                    <Button type="submit">Search</Button>
+                  </InputGroup.Button>
+                  <FormControl type="text" placeholder="Filter by Style# or Keyword" />
+                </InputGroup>
               </FormGroup>
-              {' '}
             </Navbar.Form>
           </Nav>
-        </Navbar>*/}
-      </div>
-    )
-  }
-
-  renderLoginSignup(){
-    return (
-      <NavDropdown noCaret eventKey={3} title="Account /&nbsp;" id="basic-nav-dropdown" className="navbar-login">
-        <LinkContainer to={'/account/login'}><MenuItem eventKey={3.1}>Login</MenuItem></LinkContainer>
-        <LinkContainer to={'/account/login'}><MenuItem eventKey={3.1}><Link to={'/account/login'}>Sign Up</Link></MenuItem></LinkContainer>
-        <MenuItem eventKey={3.1}>Order Status</MenuItem>
-      </NavDropdown>
-    )
-  }
-
-
-  renderLogout(){
-    const name = this.props.auth.name || this.props.auth.email;
-    return(
-      <NavDropdown noCaret eventKey={3} title={`Hi, ${name}! `} id="basic-nav-dropdown" className="navbar-login">
-        <MenuItem eventKey={3.1}>Account</MenuItem>
-        <MenuItem eventKey={3.1}>Order Status</MenuItem>
-        <MenuItem eventKey={3.1}>Wishlist</MenuItem>
-        <LinkContainer to={'/'}><MenuItem eventKey={3.1} onClick={this.props.logout}>Logout</MenuItem></LinkContainer>
-      </NavDropdown>
-    )
-  }
+        </Col>
+      </Row>
+    </Navbar>
+  )
 }
-
-
-
 
 const mapState = ({auth}) => ({auth});
 // // equivalent to:
@@ -124,4 +168,4 @@ const mapDispatch = dispatch => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(NavDiv);
+export default connect(mapState, mapDispatch)(NavBar);
