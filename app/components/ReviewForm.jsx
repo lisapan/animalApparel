@@ -4,8 +4,6 @@ import React, { Component } from 'react'
 import StarRating from 'react-star-rating'
 import { field, reduxForm } from 'redux-form'
 
-<<<<<<< HEAD
-=======
 class ReviewForm extends Component {
   render() {
     const { handleSubmit } = this.props;
@@ -35,4 +33,3 @@ ReviewForm = reduxForm({
 })(ReviewForm);
 
 export default ReviewForm;
->>>>>>> dec419365691d45fb17774d8f9b1527558015c04
