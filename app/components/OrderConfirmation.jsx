@@ -21,7 +21,7 @@ const OrderConfirmation = (props) => {
       </p>
     </div>
     <div className="checkoutFormField">
-      <label> Order Number: {props.submittedOrder[1][0].id}</label>
+      <label> Order Number: {`123-00-${props.submittedOrder[1][0].id}`}</label>
       <br />
       <label> Order Status: {props.submittedOrder[1][0].status}</label>
     </div>
