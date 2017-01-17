@@ -10,23 +10,26 @@ const OrderConfirmation = (props) => {
   console.log(props.submittedOrder[1][0])
   return (
   <div>
-  <h3> Thank you for your order</h3>
-    <p>
-    Dear {props.submittedOrder[1][0].shippingInfo.shippingAddress.name},
-    <br />
-      Thank you for shopping at Animal Apparel, you order has been received. Keep in mind that your order might come in separate shipment. And you are always able to review your order status at AnimalApparel.com
-    </p>
-    <div>
-      <h4> Order Number: </h4>
-      {props.submittedOrder[1][0].id}
+    <div className="checkoutFormField">
+      <h3> Thank you for your order</h3>
     </div>
-    <div>
-      <h4> Order Status: </h4>
-      {props.submittedOrder[1][0].status}
+    <div className="checkoutFormField">
+      <p>
+      Dear {props.submittedOrder[1][0].shippingInfo.shippingAddress.name},
+      <br />
+        Thank you for shopping at Animal Apparel, you order has been received. Keep in mind that your order might come in separate shipment. And you are always able to review your order status at AnimalApparel.com
+      </p>
     </div>
-    <Button className="product-detail" bsStyle="primary" bsSize="large" >
-      Review My Order
-    </Button>
+    <div className="checkoutFormField">
+      <label> Order Number: {props.submittedOrder[1][0].id}</label>
+      <br />
+      <label> Order Status: {props.submittedOrder[1][0].status}</label>
+    </div>
+    <div className="checkoutFormField">
+      <Button className="product-detail" bsStyle="primary" bsSize="large" >
+        Review My Order
+      </Button>
+    </div>
   </div>
 )}
 

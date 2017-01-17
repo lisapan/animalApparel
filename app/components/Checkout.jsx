@@ -14,7 +14,7 @@ class Checkout extends Component {
     this.nextPage = this.nextPage.bind(this)
     this.previousPage = this.previousPage.bind(this)
     this.state = {
-      page: 3
+      page: 1
     }
   }
 
@@ -51,9 +51,9 @@ class Checkout extends Component {
       status: 'submitted'
     }
 
-    //const orderId = props.order
+    //TO-DO
     this.props.dispatch(updateOrder(1, result))
-    //'1' should be changed to real order id
+    //this.props.dispatch(updateOrder(props.orderId, result))
   }
 
   nextPage() {
@@ -68,7 +68,7 @@ class Checkout extends Component {
     const { page } = this.state
     return (
       <div className="checkoutFormDiv">
-          <h1>CHECKOUT</h1>
+          <h1>  CHECKOUT</h1>
             {page === 1 && <ShippingAddressForm onSubmit={this.nextPage}/>}
             {page === 2 && <BillingAddressForm previousPage={this.previousPage} onSubmit={this.nextPage}/>}
             {page === 3 && <PaymentMethodForm previousPage={this.previousPage} onSubmit={this.nextPage} />}
@@ -81,6 +81,6 @@ class Checkout extends Component {
 Checkout.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
-  //order: PropTypes.number.isRequired
+  //orderId: PropTypes.number.isRequired
 }
 export default Checkout
