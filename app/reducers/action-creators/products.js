@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { REQUEST_PRODUCTS, RECEIVE_PRODUCTS, REQUEST_CURRENT_PRODUCT,
          RECEIVE_CURRENT_PRODUCT, REQUEST_RELATED_PRODUCTS,
-         RECEIVE_RELATED_PRODUCTS, RECEIVE_REVIEWS } from './constants'
-import { getReviews } from './review'
+         RECEIVE_RELATED_PRODUCTS } from './constants'
 
 /* ------------     ACTION CREATORS     ------------------ */
 
@@ -56,9 +55,7 @@ export const getProductById = productId => {
     })
     .then(response => {
       dispatch(receiveRelatedProducts(response.data))
-      return response.data
     })
-    .then(() => getReviews(productId))
     .catch(console.error)
   }
 }

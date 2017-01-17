@@ -4,17 +4,13 @@ import ReviewForm from './ReviewForm'
 class ReviewFormPage extends Component {
   constructor(props) {
     super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-    console.log(event)
-    const reviewData = {
-      title: event.target.title.value,
-      message: event.target.message,value,
-      stars: event.target.stars.value
-    }
-    this.props.handleAddReview(reviewData, this.props.currentProduct.id)
+  handleSubmit(values) {
+    values.product_id = this.props.currentProduct.id
+    console.log(values)
+    this.props.handleAddReview(values)
   }
 
   render() {

@@ -121,8 +121,8 @@ export default class Product extends Component {
         <Row className="product-reviews">
           <h3>Reviews</h3>
         </Row>
-        <Reviews reviews={this.props.reviews} />
-        <ReviewFormPage handleAddReview={this.props.handleAddReview} />
+        <Reviews reviews={this.props.currentProduct.reviews} />
+        <ReviewFormPage handleAddReview={this.props.handleAddReview} currentProduct={this.props.currentProduct} />
         <RelatedProducts relatedProducts={this.props.relatedProducts} />
       </Grid>
     )
@@ -132,7 +132,6 @@ export default class Product extends Component {
 Product.propTypes = {
   currentProduct: PropTypes.object.isRequired,
   relatedProducts: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   params: PropTypes.object.isRequired,
   handleAddReview: PropTypes.func.isRequired

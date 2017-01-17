@@ -5,10 +5,9 @@ const db = require('APP/db')
 
 const Review = db.define('reviews', {
   title: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
-  message: {
+  comment: {
     type: Sequelize.TEXT
   },
   stars: {

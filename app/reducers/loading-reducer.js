@@ -3,7 +3,7 @@ import { RECEIVE_CART, DELETE_CART, RECEIVE_CART_ITEM,
          INITIALIZE_USERS, REQUEST_PRODUCTS, RECEIVE_PRODUCTS,
          REQUEST_CURRENT_PRODUCT, RECEIVE_CURRENT_PRODUCT,
          REQUEST_RELATED_PRODUCTS, RECEIVE_RELATED_PRODUCTS,
-         AUTHENTICATED } from './action-creators/constants'
+         AUTHENTICATED, CREATE_REVIEW } from './action-creators/constants'
 
 const loadingReducer = (state = false, action) => {
   switch (action.type) {
@@ -21,6 +21,7 @@ const loadingReducer = (state = false, action) => {
     case RECEIVE_CURRENT_PRODUCT: return action.loading
     case RECEIVE_RELATED_PRODUCTS: return action.loading
     case REQUEST_RELATED_PRODUCTS: return action.loading
+    case CREATE_REVIEW: return action.loading
 
     default: return state
   }
