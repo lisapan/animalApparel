@@ -5,6 +5,7 @@ import relatedProductsReducer from './relatedProducts-reducer'
 import authReducer from './auth-reducer'
 import loadingReducer from './loading-reducer'
 import cartReducer from './cart-reducer'
+import orderIdReducer from './orderId-reducer'
 import { reducer as formReducer } from 'redux-form';
 
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   currentProduct: currentProductReducer,
   relatedProducts: relatedProductsReducer,
   cart: cartReducer,
+  orderId: orderIdReducer,
   form: formReducer
 
 })

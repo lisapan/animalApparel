@@ -1,3 +1,6 @@
+// OrderId
+export const SET_ORDER_ID = 'SET_ORDER_ID'
+
 // Auth
 export const AUTHENTICATED = 'AUTHENTICATED'
 

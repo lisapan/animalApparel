@@ -5,7 +5,9 @@ const mapStateToProps = (state) => {
 
   return {
     currentProduct: state.currentProduct,
-    relatedProducts: state.relatedProducts
+    relatedProducts: state.relatedProducts,
+    loading: state.loading,
+    orderId: state.orderId
   };
 };
 

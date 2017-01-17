@@ -2,6 +2,8 @@ import axios from 'axios'
 import { RECEIVE_CART, DELETE_CART, RECEIVE_CART_ITEM,
          UPDATE_CART_ITEM, DELETE_CART_ITEM } from './constants'
 
+import { setOrderId } from './orderId'
+
 /* ------------     ACTION CREATORS     ------------------ */
 
 export const receiveCart = cart => ({
@@ -32,50 +34,55 @@ export const removeCartItem = () => ({
 
 /* ------------     THUNKS     ------------------ */
 
-export const getCart = () => {
+export const getCart = (orderId) => {
   return dispatch => {
-    return axios.get('/api/cart')
+    return axios.get('/api/cart', { orderId })
     .then(res => res.data)
-    .then(orderItemArr => dispatch(receiveCart(orderItemArr)))
+    .then(orderItemArr => {
+      dispatch(receiveCart(orderItemArr))
+      return orderId
+    })
     .catch(console.error)
   }
 }
 
-export const deleteCart = (orderId) => {
-  return dispatch => {
-    dispatch(deleteCart())
-    return axios.delete(`/api/cart/:${orderId}`)
-  }
-}
+//TODO
+// export const deleteCart = (orderId) => {
+//   return dispatch => {
+//     dispatch(deleteCart())
+//     return axios.delete(`/api/cart/:${orderId}`)
+//     .then(deletedCart => )
+//   }
+// }
 
 export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
   return dispatch => {
     dispatch(receiveCartItem())
     return axios.post('/api/cart', orderItemObj)
     .then(res => res.data)
-    .then(createdOrderItem => getCart())
-    .then(res => res.data)
-    .then(updatedCart => dispatch(receiveCart(updatedCart)))
+    .then(createdOrderItem => getCart(createdOrderItem.orderId))
+    .then(orderId => dispatch(setOrderId(orderId)))
+    .catch(console.error)
   }
 }
 
-export const updateCartItemAndGetUpdatedCart = (itemId) => {
+export const updateCartItemAndGetUpdatedCart = (itemChanges) => {
   return dispatch => {
     dispatch(updateCartItem())
-    return axios.put(`/api/cart/:${itemId}`)
+    return axios.put('/api/cart/', itemChanges)
     .then(res => res.data)
     .then(updatedOrderItem => getCart())
     .then(res => res.data)
     .then(updatedCart => dispatch(receiveCart(updatedCart)))
+    .catch(console.error)
   }
 }
 
 export const deleteCartItemAndGetUpdatedCart = (itemId) => {
   return dispatch => {
     dispatch(deleteCartItem())
-    return axios.delete(`/api/cart/:${itemId}`).then(res => res.data)
+    return axios.delete(`/api/cart/`).then(res => res.data)
     .then(deletedOrderItem => getCart())
-    .then(res => res.data)
-    .then(updatedCart => dispatch(receiveCart(updatedCart)))
+    .catch(console.error)
   }
 }

@@ -11,13 +11,21 @@ module.exports = require('express').Router()
   .post('/', (req, res, next) => {
     OrderItem.create(req.body.orderItem)
     .then(pendingOrderItem => pendingOrderItem.setProduct(req.body.productId)) // asso. w/ product
-    .then(pendingOrderItem => pendingOrderItem.setOrder(req.session.orderId)) // asso. w/ user's order)
+    .then(pendingOrderItem => {
+      if (req.body.orderId) {
+        return pendingOrderItem.setOrder(req.body.orderId) // if there's already an order, asso w/ that order
+      } else {
+        return Order.create({ status: 'unsubmitted' }) // otherwise, create one and associate
+        // .then(pendingOrder => pendingOrder.setUser(req.session.userId)) // asso w/ user
+        .then(createdOrder => pendingOrderItem.setOrder(createdOrder.id))
+      }
+    })
     .then(createdOrderItem => res.status(201).json(createdOrderItem))
     .catch(next)
   })
   //All items in an order are rendered to the cart
   .get('/', (req, res, next) => {
-    OrderItem.findAll({ where: { orderId: req.session.orderId } })
+    OrderItem.findAll({ where: { orderId: req.body.orderId } })
     .then(foundItems => res.json(foundItems))
     .catch(next)
   })
@@ -48,15 +56,15 @@ module.exports = require('express').Router()
     .then(deletedItem => res.status(204).json(deletedItem))
     .catch(next)
   })
-  //A User clears their cart
-  .delete('/:orderId', (req, res, next) => {
-    Order.destroy({
-      where: {
-        id: req.params.orderId
-      },
-      include: [OrderItem],
-      returning: true
-    })
-    .then(deletedOrder => res.status(204).json(deletedOrder))
-    .catch(next)
-  })
+  // // to use for wishlist implementation (can delete a wishlist, not a cart-- can only add/delete cart items)
+  // .delete('/', (req, res, next) => {
+  //   Order.destroy({
+  //     where: {
+  //       id: req.session.orderId
+  //     },
+  //     include: [OrderItem],
+  //     returning: true
+  //   })
+  //   .then(deletedOrder => res.status(204).json(deletedOrder))
+  //   .catch(next)
+  // })

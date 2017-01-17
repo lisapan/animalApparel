@@ -11,7 +11,6 @@ const LoginSignup = (props) => {
   return (
     <NavDropdown
       noCaret
-      collapse={props.collapse}
       eventKey={3}
       title="Account"
       id={props.collapse ? 'login-dropdown-collapse' : 'login-dropdown'}
@@ -33,7 +32,7 @@ const Logout = (props) => {
 
   return (
     <NavDropdown
-      collapse={props.collapse}
+      href="#"
       noCaret eventKey={3}
       title={`Hi, ${name}! `}
       id={props.collapse ? 'logout-dropdown-collapse' : 'logout-dropdown'}
@@ -54,8 +53,6 @@ Logout.propTypes = {
   collapse: PropTypes.bool.isRequired,
   auth: PropTypes.object.isRequired
 }
-
-const shoppingCart = <Glyphicon glyph="shopping-cart" />
 
 const NavBar = (props) => {
   return (
@@ -100,12 +97,12 @@ const NavBar = (props) => {
         </Col>
       </Row>
       <Row>
-        <Col xs={12} sm={12} mdHidden={true} lgHidden={true} class="lower-nav-collapse">
+        <Col xs={12} sm={12} mdHidden={true} lgHidden={true} className="lower-nav-collapse">
           <Navbar.Collapse>
             <Nav id="lower-nav-collapse">
-              { Object.keys(props.auth).length ? <Logout collapse={true}/> : <LoginSignup collapse={true}/> }
+              { props.auth.user ? <Logout collapse={true}/> : <LoginSignup collapse={true}/> }
               <NavDropdown
-                title={shoppingCart}
+                title={<Glyphicon glyph="shopping-cart" />}
                 noCaret eventKey={2} href="#" id="cart-dropdown-collapse">
                 <LinkContainer to={{ pathname: '/cart' }}>
                   <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
@@ -130,7 +127,7 @@ const NavBar = (props) => {
           <Nav pullRight={true}>
             { Object.keys(props.auth).length ? <Logout collapse={false}/> : <LoginSignup collapse={false}/> }
             <NavDropdown
-              title={shoppingCart}
+              title={<Glyphicon glyph="shopping-cart" />}
               noCaret eventKey={2} href="#" id="cart-dropdown">
               <LinkContainer to={{ pathname: '/cart' }}>
                 <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>

@@ -5,6 +5,6 @@ export default function cartReducer(cart = [], action) {
     // Get the cart
     case RECEIVE_CART: return action.orderItemArr
 
-    default: return cart;
+    default: return cart
   }
 }
