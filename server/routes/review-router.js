@@ -10,6 +10,12 @@ module.exports = require('express').Router()
       .then(review => res.status(201).json(review))
       .catch(next)
   })
+  //User views reviews for each product
+  .get(':productId', (req, res, next) => {
+    Review.findAll({ where: { id: req.params.productId } })
+      .then(reviews => res.json(foundReviews))
+      .catch(next)
+  })
   //User(from account view) views all of their past reviews
   .get('/:userId', (req, res, next) => {
     Review.findAll({ where: { user_id: req.params.userId } })
