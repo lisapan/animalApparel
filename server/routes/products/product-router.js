@@ -3,6 +3,7 @@
 const db = require('APP/db')
 const Product = db.model('products')
 const Inventory = db.model('inventory')
+const Review = db.model('reviews')
 
 const {mustBeLoggedIn, forbidden } = require('../../auth.filters')
 
@@ -15,7 +16,7 @@ module.exports = require('express').Router()
 		.catch(next)
 	})
 	.get('/product/:productId', (req, res, next) => {
-		Product.findById(req.params.productId, {include: [Inventory]})
+		Product.findById(req.params.productId, {include: [Inventory, Review]})
 		.then(product => {
 			res.json(product)
 		})
@@ -39,14 +40,14 @@ module.exports = require('express').Router()
 		.catch(next)
 	})
 	.get('/sale/:tag', (req, res, next) => {
-		Product.findByTag([req.params.tag, 'sale'], {include: [Inventory]})
+		Product.findByTag([req.params.tag, 'sale'], {include: [Inventory, Review]})
 		.then(products => {
 			res.json(products)
 		})
 		.catch(next)
 	})
 	.get('/:tag', (req, res, next) => {
-		Product.findByTag(req.params.tag, {include: [Inventory]})
+		Product.findByTag(req.params.tag, {include: [Inventory, Review]})
 		.then(products => {
 			res.json(products)
 		})
@@ -61,7 +62,9 @@ module.exports = require('express').Router()
 		Product.destroy({
 			where: {
 				id: req.params.productId
-			}
+			},
+			include: [Inventory, Review],
+			returning: true
 		})
 		.then(product => res.status(204).json(product))
 		.catch(next)
@@ -71,7 +74,7 @@ module.exports = require('express').Router()
 			where: {
 				id: req.params.productId
 			},
-			include: [Inventory],
+			include: [Inventory, Review],
 			returning: true
 		})
 		.spread((numUpated, updatedProductArray) => res.status(201).json(updatedProductArray[0]))
