@@ -1,5 +1,7 @@
 'use strict'
 
+import React from 'react'
+
 import React, { PropTypes } from 'react'
 import ReviewForm from './ReviewForm'
 import { Grid, Row, Col, Thumbnail } from 'react-bootstrap'
