@@ -11,6 +11,7 @@ class ReviewFormPage extends Component {
     values.product_id = this.props.currentProduct.id
     console.log(values)
     this.props.handleAddReview(values)
+    resetForm()
   }
 
   render() {

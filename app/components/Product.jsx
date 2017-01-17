@@ -7,7 +7,7 @@ import { Grid, Row, Col, Form,
 import { addCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import RelatedProducts from './RelatedProducts'
 import Reviews from './Reviews'
-import ReviewFormPage from './ReviewFormPage'
+import ReviewForm from './ReviewForm'
 
 export default class Product extends Component {
 
@@ -122,7 +122,7 @@ export default class Product extends Component {
           <h3>Reviews</h3>
         </Row>
         <Reviews reviews={this.props.currentProduct.reviews} />
-        <ReviewFormPage handleAddReview={this.props.handleAddReview} currentProduct={this.props.currentProduct} />
+        <ReviewForm dispatch={this.props.dispatch} handleAddReview={this.props.handleAddReview} currentProduct={this.props.currentProduct} />
         <RelatedProducts relatedProducts={this.props.relatedProducts} />
       </Grid>
     )
