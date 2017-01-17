@@ -21,7 +21,7 @@ const BillingAddressForm = (props) => {
   const { handleSubmit, invalid, pristine, reset, submitting, previousPage } = props
   return (
     <div>
-      <h2>Billing Address</h2>
+      <h3>Billing Address</h3>
       <form onSubmit={handleSubmit}>
         <Field name="billingAddressLine1" type="text" component={renderField} label="Address Line 1*" validate={[required]}/>
         <Field name="billingAddressLine2" type="text" component={renderField} label="Address Line 2"/>

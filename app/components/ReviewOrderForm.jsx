@@ -9,7 +9,7 @@ let ReviewOrderForm = (props) => {
   const { billingValues, shippingValues, paymentValues, handleSubmit, invalid, pristine, reset, submitting, previousPage } = props
   return (
     <div>
-      <h2>Order Review</h2>
+      <h3>Order Review</h3>
 
       <form onSubmit={handleSubmit}>
       <div>

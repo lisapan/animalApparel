@@ -22,7 +22,7 @@ const ShippingAddressForm = (props) => {
   const { handleSubmit, invalid, pristine, reset, submitting } = props
   return (
     <div>
-      <h2>Shipping Info</h2>
+      <h3>Shipping Info</h3>
       <form onSubmit={handleSubmit}>
         <Field name="shippingFirstName" type="text" component={renderField} label="First Name*" validate={[required]}/>
         <Field name="shippingLastName" type="text" component={renderField} label="Last Name*" validate={[required]}/>

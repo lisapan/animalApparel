@@ -20,7 +20,7 @@ const PaymentMethodForm = (props) => {
   const { handleSubmit, invalid, pristine, reset, submitting, previousPage } = props
   return (
     <div>
-      <h2>Payment Method</h2>
+      <h3>Payment Method</h3>
       <form onSubmit={handleSubmit}>
         <Field name="paymentCreditCard" component="select" label="Credit Card*" validate={[required]}>
             <option>--Select Card--</option>

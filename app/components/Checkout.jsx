@@ -5,6 +5,8 @@ import PaymentMethodForm from './PaymentMethodForm';
 import ReviewOrderForm from './ReviewOrderForm';
 import { updateOrder } from '../reducers/action-creators/checkout'
 
+import { Row, Col } from 'react-bootstrap'
+
 class Checkout extends Component {
 
   constructor(props) {
@@ -17,10 +19,38 @@ class Checkout extends Component {
   }
 
   handleSubmit = (values) => {
-    const result = {}
-    result.shippingInfo = values
-    result.status = 'submitted'
-    console.log("db order", result)
+    console.log(values)
+    const shippingAddress = {
+        name: `${values.shippingFirstName} ${values.shippingLastName}`,
+        address1: values.shippingAddressLine1,
+        address2: values.shippingAddressLine2,
+        city: values.shippingCity,
+        state: values.shippingState,
+        zipcode: values.shippingZipcode
+    }
+
+    const billingAddress = {
+        address1: values.billingAddressLine1,
+        address2: values.billingAddressLine2,
+        city: values.billingCity,
+        state: values.billingState,
+        zipcode: values.billingZipcode
+    }
+
+    const paymentMethod = {
+         creditCard: values.paymentCreditCard,
+         cardName: values.paymentCardName,
+         cardNumber: values.paymentCardNumber,
+         expiration: `${values.paymentExpirationMonth}
+                      /${values.paymentExpirationYear}`,
+         securityCode: values.paymentSecurityCode
+    }
+
+    const result = {
+      shippingInfo: {shippingAddress, billingAddress, paymentMethod},
+      status: 'submitted'
+    }
+
     //const orderId = props.order
     this.props.dispatch(updateOrder(1, result))
     //'1' should be changed to real order id
@@ -38,11 +68,32 @@ class Checkout extends Component {
     const { page } = this.state
     return (
       <div>
-        <h1>CHECKOUT</h1>
-        {page === 1 && <ShippingAddressForm onSubmit={this.nextPage}/>}
-        {page === 2 && <BillingAddressForm previousPage={this.previousPage} onSubmit={this.nextPage}/>}
-        {page === 3 && <PaymentMethodForm previousPage={this.previousPage} onSubmit={this.nextPage} />}
-        {page === 4 && <ReviewOrderForm previousPage={this.previousPage} onSubmit={this.handleSubmit} />}
+        <Row>
+          <h1>CHECKOUT</h1>
+          <Col xs={12} sm={12} md={9} lg={9}>
+            {page === 1 && <ShippingAddressForm onSubmit={this.nextPage}/>}
+            {page === 2 && <BillingAddressForm previousPage={this.previousPage} onSubmit={this.nextPage}/>}
+            {page === 3 && <PaymentMethodForm previousPage={this.previousPage} onSubmit={this.nextPage} />}
+            {page === 4 && <ReviewOrderForm previousPage={this.previousPage} onSubmit={this.handleSubmit} />}
+          </Col>
+          <Col xs={0} sm={0} md={3} lg={3}>
+          <div>
+            <h3> Order Summary </h3>
+          </div>
+          <div>
+            Subtotal
+          </div>
+          <div>
+            Shipping
+          </div>
+          <div>
+            Estimated Tax
+          </div>
+          <div>
+            Updated Total
+          </div>
+          </Col>
+        </Row>
       </div>
     );
   }
