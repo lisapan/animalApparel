@@ -16,6 +16,7 @@ module.exports = require('express').Router()
 		.catch(next)
 	})
 	.get('/product/:productId', (req, res, next) => {
+		console.log(req.params)
 		Product.findById(req.params.productId, {include: [Inventory, Review]})
 		.then(product => {
 			res.json(product)

@@ -10,8 +10,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const productId = ownProps.currentProduct.id
+const mapDispatchToProps = (dispatch) => {
 
   return {
     handleAddReview: (newReview) => {

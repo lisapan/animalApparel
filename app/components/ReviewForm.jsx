@@ -2,16 +2,23 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm, formValueSelector } from 'redux-form'
+import { Field, reduxForm, formValueSelector, reset } from 'redux-form'
 
 class ReviewForm extends Component {
   constructor(props) {
     super(props)
+    this.doSubmit = this.doSubmit.bind(this)
+  }
+
+  doSubmit(values) {
+    values.product_id = this.props.currentProduct.id
+    this.props.handleAddReview(values)
+    this.props.dispatch(reset('review'))
   }
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit}>
+      <form onSubmit={this.props.handleSubmit(this.doSubmit)}>
         <div>
           <label htmlFor="title">Title</label>
           <Field name="title" component="input" type="text"/>
