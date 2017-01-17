@@ -11,7 +11,7 @@ class ReviewForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.props.handleSubmit}>
         <div>
           <label htmlFor="title">Title</label>
           <Field name="title" component="input" type="text"/>
@@ -39,9 +39,9 @@ const selector = formValueSelector('ReviewForm')
 
 ReviewForm = connect(
   state => {
-    const { title, comment, stars } = selector(state, 'title', 'comment', 'stars')
-    console.log(title)
-    return { title, comment, stars }
+    const values = selector(state, 'title', 'comment', 'stars')
+    if (values.stars) values.stars = values.stars.toString()
+    return values
   }
 )(ReviewForm)
 

@@ -14,7 +14,6 @@ export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS'
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
 
 //Reviews
-export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS'
 export const CREATE_REVIEW = 'CREATE_REVIEW'
 
 // Cart
