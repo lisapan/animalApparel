@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm, formValueSelector, reset } from 'redux-form'
+import { Grid, Row, Col } from 'react-bootstrap'
 
 class ReviewForm extends Component {
   constructor(props) {
@@ -18,21 +19,23 @@ class ReviewForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit(this.doSubmit)}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <Field name="title" component="input" type="text"/>
-        </div>
-        <div>
-          <label htmlFor="comment">Comment</label>
-          <Field name="comment" component="input" type="text"/>
-        </div>
-        <div>
-          <label htmlFor="stars">Stars</label>
-          <Field name="stars" component="input" type="text"/>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+      <Row className="reviewForm">
+        <form onSubmit={this.props.handleSubmit(this.doSubmit)}>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <label htmlFor="title">Title</label>
+            <Field name="title" component="input" type="text"/>
+          </Col>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <label htmlFor="stars">Stars</label>
+            <Field name="comment" component="input" type="text"/>
+          </Col>
+          <Row>
+            <label htmlFor="comment">Comment</label>
+            <Field name="stars" component="input" type="text"/>
+          </Row>
+          <button type="submit">Submit</button>
+        </form>
+      </Row>
     )
   }
 }
