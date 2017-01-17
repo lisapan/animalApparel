@@ -485,3 +485,35 @@ p {
 h3{
   font-size: 14px;
 }
+
+.checkoutFormDiv {
+  display: block;
+}
+
+.checkoutFormField{
+  display: flex;
+  flex-flow: row;
+  flex-direction: row;
+  flex-wrap: initial;
+  justify-content: center;
+}
+
+.checkoutFormField > label {
+  font-weight: 700;
+  margin-right: 10px;
+  min-width: 150px;
+  text-align: right;
+  padding: 6px 9px;
+}
+.checkoutFormField > div {
+  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+  max-width: 350px;
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
+  flex-wrap: initial;
+  position: relative;
+}

@@ -14,7 +14,7 @@ class Checkout extends Component {
     this.nextPage = this.nextPage.bind(this)
     this.previousPage = this.previousPage.bind(this)
     this.state = {
-      page: 1
+      page: 3
     }
   }
 
@@ -67,33 +67,12 @@ class Checkout extends Component {
   render() {
     const { page } = this.state
     return (
-      <div>
-        <Row>
+      <div className="checkoutFormDiv">
           <h1>CHECKOUT</h1>
-          <Col xs={12} sm={12} md={9} lg={9}>
             {page === 1 && <ShippingAddressForm onSubmit={this.nextPage}/>}
             {page === 2 && <BillingAddressForm previousPage={this.previousPage} onSubmit={this.nextPage}/>}
             {page === 3 && <PaymentMethodForm previousPage={this.previousPage} onSubmit={this.nextPage} />}
             {page === 4 && <ReviewOrderForm previousPage={this.previousPage} onSubmit={this.handleSubmit} />}
-          </Col>
-          <Col xs={0} sm={0} md={3} lg={3}>
-          <div>
-            <h3> Order Summary </h3>
-          </div>
-          <div>
-            Subtotal
-          </div>
-          <div>
-            Shipping
-          </div>
-          <div>
-            Estimated Tax
-          </div>
-          <div>
-            Updated Total
-          </div>
-          </Col>
-        </Row>
       </div>
     );
   }
