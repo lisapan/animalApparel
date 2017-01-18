@@ -53,7 +53,8 @@ class Checkout extends Component {
       status: 'submitted'
     }
 
-    this.props.dispatch(updateOrder(this.props.cart.id, result))
+    //this.props.dispatch(updateOrder(this.props.cart.id, result))
+    this.props.dispatch(updateOrder(1, result))
   }
 
   nextPage() {
