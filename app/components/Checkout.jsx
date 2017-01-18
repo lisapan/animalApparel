@@ -5,6 +5,8 @@ import PaymentMethodForm from './PaymentMethodForm';
 import ReviewOrderForm from './ReviewOrderForm';
 import { updateOrder } from '../reducers/action-creators/checkout'
 
+import { Row, Col } from 'react-bootstrap'
+
 class Checkout extends Component {
 
   constructor(props) {
@@ -17,13 +19,41 @@ class Checkout extends Component {
   }
 
   handleSubmit = (values) => {
-    const result = {}
-    result.shippingInfo = values
-    result.status = 'submitted'
-    console.log("db order", result)
-    //const orderId = props.order
+    console.log(values)
+    const shippingAddress = {
+        name: `${values.shippingFirstName} ${values.shippingLastName}`,
+        address1: values.shippingAddressLine1,
+        address2: values.shippingAddressLine2,
+        city: values.shippingCity,
+        state: values.shippingState,
+        zipcode: values.shippingZipcode
+    }
+
+    const billingAddress = {
+        address1: values.billingAddressLine1,
+        address2: values.billingAddressLine2,
+        city: values.billingCity,
+        state: values.billingState,
+        zipcode: values.billingZipcode
+    }
+
+    const paymentMethod = {
+         creditCard: values.paymentCreditCard,
+         cardName: values.paymentCardName,
+         cardNumber: values.paymentCardNumber,
+         expiration: `${values.paymentExpirationMonth}
+                      /${values.paymentExpirationYear}`,
+         securityCode: values.paymentSecurityCode
+    }
+
+    const result = {
+      shippingInfo: {shippingAddress, billingAddress, paymentMethod},
+      status: 'submitted'
+    }
+
+    //TO-DO
     this.props.dispatch(updateOrder(1, result))
-    //'1' should be changed to real order id
+    //this.props.dispatch(updateOrder(props.orderId, result))
   }
 
   nextPage() {
@@ -37,12 +67,12 @@ class Checkout extends Component {
   render() {
     const { page } = this.state
     return (
-      <div>
-        <h1>CHECKOUT</h1>
-        {page === 1 && <ShippingAddressForm onSubmit={this.nextPage}/>}
-        {page === 2 && <BillingAddressForm previousPage={this.previousPage} onSubmit={this.nextPage}/>}
-        {page === 3 && <PaymentMethodForm previousPage={this.previousPage} onSubmit={this.nextPage} />}
-        {page === 4 && <ReviewOrderForm previousPage={this.previousPage} onSubmit={this.handleSubmit} />}
+      <div className="checkoutFormDiv">
+          <h1>  CHECKOUT</h1>
+            {page === 1 && <ShippingAddressForm onSubmit={this.nextPage}/>}
+            {page === 2 && <BillingAddressForm previousPage={this.previousPage} onSubmit={this.nextPage}/>}
+            {page === 3 && <PaymentMethodForm previousPage={this.previousPage} onSubmit={this.nextPage} />}
+            {page === 4 && <ReviewOrderForm previousPage={this.previousPage} onSubmit={this.handleSubmit} />}
       </div>
     );
   }
@@ -51,6 +81,6 @@ class Checkout extends Component {
 Checkout.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
-  //order: PropTypes.number.isRequired
+  //orderId: PropTypes.number.isRequired
 }
 export default Checkout

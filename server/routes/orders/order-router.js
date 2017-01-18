@@ -66,6 +66,7 @@ module.exports = require('express').Router()
       where: {
         id: req.params.orderId
       },
+      include: [OrderItem],
       returning: true
     })
     .then(updatedOrder => res.status(201).json(updatedOrder))

@@ -21,7 +21,7 @@ export const updateOrder = (orderId, values) => {
     dispatch(submitOrder())
     return axios.put(`/api/cart/order/${orderId}`, values)
     .then(response => {
-      console.log("chekout.js")
+      console.log('action creator checkout.js to submittedOrder')
       console.log(response.data)
       dispatch(retrieveSubmittedOrder(response.data))
       browserHistory.push(`/orderConfirmation`)
