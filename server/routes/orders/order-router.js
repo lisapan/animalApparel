@@ -13,16 +13,20 @@ const cart = (req, res, next) => {
       where: {id: req.session.cart.id},
       include: [{model: OrderItem, include: [Product]}]
     })
-    .then(cart => req.session.cart = cart)
+    .then(foundCart => {
+      req.session.cart = foundCart
+    })
     .finally(next)
   } else {
     Order.create({
-      status: "unsubmitted",
+      status: 'unsubmitted',
       user_id: req.user ? req.session.user.id : null
     }, {
       include: [{model: OrderItem, include: [Product]}]
     })
-      .then(cart => req.session.cart = cart)
+      .then(createdCart => {
+        req.session.cart = createdCart
+      })
       .finally(next)
   }
 }
@@ -39,7 +43,6 @@ module.exports = require('express').Router()
       product_id: req.body.product_id
     }, {include: [Order]})
     .then(createdOrderItem => {
-      console.log("this is the req.session.cart", req.session.cart)
       if (!req.session.cart.order_items) {
         req.session.cart.order_items = [createdOrderItem] //If this is the first item in the cart, init the cart
       }
@@ -56,8 +59,7 @@ module.exports = require('express').Router()
       where: {id: req.params.cartId},
       include: [{model: OrderItem, include: [Product]}]
     })
-    .then(foundOrder => {
-      res.json(foundOrder)})
+    .then(foundOrder => res.json(foundOrder))
     .catch(next)
   })
   //A User views a list of past orders
@@ -98,4 +100,3 @@ module.exports = require('express').Router()
     .then(updatedOrder => res.status(201).json(updatedOrder))
     .catch(next)
   })
-

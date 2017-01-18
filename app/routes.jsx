@@ -13,8 +13,7 @@ import Checkout from './components/Checkout'
 import OrderConfirmation from './components/OrderConfirmation'
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
-import CartContainer from './containers/CartContainer'
-
+import CartContainer from './components/Cart'
 
 import { getProductsByTag, getProductById } from './reducers/action-creators/products'
 import { getCart } from './reducers/action-creators/cart'

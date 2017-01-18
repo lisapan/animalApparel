@@ -1,12 +1,7 @@
 import Products from '../components/Products';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state) => {
-
-  return {
-    products: state.products
-  };
-};
+const mapStateToProps = (state) => ({products: state.products})
 
 export default connect(
   mapStateToProps

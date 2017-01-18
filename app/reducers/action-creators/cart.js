@@ -37,10 +37,7 @@ export const getCart = (orderId) => {
   return dispatch => {
     return axios.get(`/api/cart/${orderId}`)
     .then(res => res.data)
-    .then(orderItemArr => {
-      dispatch(receiveCart(orderItemArr))
-      return orderId
-    })
+    .then(cart => dispatch(receiveCart(cart)))
     .catch(console.error)
   }
 }
@@ -59,10 +56,7 @@ export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
     dispatch(receiveCartItem())
     return axios.post('/api/cart', orderItemObj)
     .then(res => res.data)
-    .then(cart => {
-      dispatch(receiveCart(cart))
-      dispatch(setOrderId(cart.id))
-    })
+    .then(cart => dispatch(receiveCart(cart)))
     .catch(console.error)
   }
 }
