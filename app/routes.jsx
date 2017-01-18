@@ -15,6 +15,7 @@ import ProductContainer from './containers/ProductContainer'
 import CartContainer from './containers/CartContainer'
 
 import { getProductsByTag, getProductById } from './reducers/action-creators/products'
+import { getCart } from './reducers/action-creators/cart'
 
 const onProductsContainerEnter = function (nextRouterState) {
   const tag = nextRouterState.params.tag;

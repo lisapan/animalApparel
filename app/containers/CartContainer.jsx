@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 const mapStateToProps = (state) => {
 
   return {
-    cart: state.cart.list
+    cart: state.cart
   }
 }
 

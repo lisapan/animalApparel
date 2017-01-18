@@ -13,6 +13,8 @@ const OrderItem = require('./order-item')
 Product.hasMany(Inventory) // puts a productId on the inventory item
 OrderItem.belongsTo(Order) // puts an orderId on the order item
 OrderItem.belongsTo(Product) // puts a productId on the order item
+Product.hasMany(OrderItem)
+Order.hasMany(OrderItem)
 User.hasMany(Order, { // puts a userId on the order
   foreignKey: {
     name: 'userId',

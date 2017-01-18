@@ -36,7 +36,7 @@ export const removeCartItem = () => ({
 
 export const getCart = (orderId) => {
   return dispatch => {
-    return axios.get('/api/cart', { orderId })
+    return axios.get(`/api/cart/${orderId}`)
     .then(res => res.data)
     .then(orderItemArr => {
       dispatch(receiveCart(orderItemArr))
@@ -60,7 +60,7 @@ export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
     dispatch(receiveCartItem())
     return axios.post('/api/cart', orderItemObj)
     .then(res => res.data)
-    .then(createdOrderItem => getCart(createdOrderItem.orderId))
+    .then(createdOrderItem => dispatch(getCart(createdOrderItem.order_id)))
     .then(orderId => dispatch(setOrderId(orderId)))
     .catch(console.error)
   }

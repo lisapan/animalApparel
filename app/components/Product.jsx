@@ -29,9 +29,8 @@ export default class Product extends Component {
         quantity: this.state.selectedQuantity
       },
       productId: this.props.currentProduct.id,
-      orderId: this.props.orderId.length ? this.props.orderId : null
+      orderId: this.props.orderId ? this.props.orderId : null
     }
-    console.log(item)
     this.props.dispatch(addCartItemAndGetUpdatedCart(item))
   }
 

@@ -1,32 +1,49 @@
 import React, { PropTypes, Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
+import { updateCartItemAndGetUpdatedCart, deleteCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 
 export default class CartComponent extends Component {
   constructor(props) {
     super(props)
-    this.onUpdateProduct = this.onUpdateProduct.bind(this)
-    this.onRemoveProduct = this.onRemoveProduct.bind(this)
+    this.changeQuantity = this.changeQuantity.bind(this)
+    this.removeFromCart = this.removeFromCart.bind(this)
     this.getSubtotal = this.getSubtotal.bind(this)
   }
 
-  onUpdateProduct(){
-    //to be completed
+  changeQuantity(event){
+    event.preventDefault()
+    const itemChanges = {
+      orderItem: {
+        size: this.state.selectedItem.size,
+        quantity: event.target.value
+      },
+      productId: this.props.currentProduct.id,
+      orderId: this.props.orderId.length ? this.props.orderId : null
+    }
+    this.props.dispatch(updateCartItemAndGetUpdatedCart(itemChanges))
   }
 
-  onRemoveProduct(){
-    //to be completed
+  removeFromCart(event) {
+    event.preventDefault()
+    const item = {
+      orderItem: {
+        size: this.state.selectedItem.size,
+        quantity: this.state.selectedQuantity
+      },
+      productId: this.props.currentProduct.id,
+      orderId: this.props.orderId.length ? this.props.orderId : null
+    }
+    this.props.dispatch(deleteCartItemAndGetUpdatedCart(item))
   }
 
   getSubtotal() {
     const cart = this.props.cart
     let total = 0
-    Object.keys(cart).forEach(key => {
-      total += cart.key.price * cart.key.quantity
+    cart.forEach(item => {
+      total += item.product.price * item.quantity
     })
     return total
   }
-
-
 
   render() {
     const cart = this.props.cart
@@ -43,35 +60,33 @@ export default class CartComponent extends Component {
           <tbody>
             <tr>
               <td>Items</td>
-              <td>Color</td>
               <td>Size</td>
               <td>Quantity</td>
               <td>Price</td>
               <td>Total</td>
             </tr>
             {
-              cart && Object.keys(cart).map(key => {
-                <tr>
+              cart && cart.map(item => (
+                <tr key={item.id}>
                   <td>
                     <div>
-                      <img src={cart.key.imageURL} />
+                      <img src={item.product.imageURL} />
                     </div>
                     <div>
                       <div>
-                        {cart.key.name}
+                        {item.product.name}
                       </div>
                       <div>
                         {/*BUTTONS*/}
                       </div>
                     </div>
                   </td>
-                  <td>{cart.key.color}</td>
-                  <td>{cart.key.size}</td>
-                  <td>{cart.key.quantity}</td>
-                  <td>{`$${cart.key.price}`}</td>
-                  <td>{`$${cart.key.price * cart.key.quantity}`}</td>
+                  <td>{item.size}</td>
+                  <td>{item.quantity}</td>
+                  <td>{`$${item.product.price}`}</td>
+                  <td>{`$${item.product.price * item.quantity}`}</td>
                 </tr>
-              })
+              ))
             }
           </tbody>
         </Table>
