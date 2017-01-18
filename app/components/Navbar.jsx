@@ -71,21 +71,31 @@ const NavBar = (props) => {
                   className="breadcrumb-nav">
                   <Nav pullRight={true}>
                     <Breadcrumb>
-                      <Breadcrumb.Item href="/products/women" className="navbar-categories">
-                        Women
-                      </Breadcrumb.Item>
+                      <LinkContainer to={{pathname: '/products/women'}}>
+                        <Breadcrumb.Item href="" className="navbar-categories">
+                          Women
+                        </Breadcrumb.Item>
+                      </LinkContainer>
+                      <LinkContainer to={{pathname: '/products/men'}}>
                         <Breadcrumb.Item href="/products/men" className="navbar-categories">
                           Men
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item href="/products/kids" className="navbar-categories">
-                          Kids
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item href="/products/pets" className="navbar-categories">
-                          Pets
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item href="/products/sale" className="navbar-categories">
-                          Sale
-                        </Breadcrumb.Item>
+                      </LinkContainer>
+                        <LinkContainer to={{pathname: '/products/kids'}}>
+                          <Breadcrumb.Item className="navbar-categories">
+                            Kids
+                          </Breadcrumb.Item>
+                        </LinkContainer>
+                        <LinkContainer to={{pathname: '/products/pets'}}>
+                          <Breadcrumb.Item className="navbar-categories">
+                            Pets
+                          </Breadcrumb.Item>
+                        </LinkContainer>
+                        <LinkContainer to={{pathname: '/products/sale'}}>
+                          <Breadcrumb.Item className="navbar-categories">
+                            Sale
+                          </Breadcrumb.Item>
+                        </LinkContainer>
                     </Breadcrumb>
                   </Nav>
                 </Col>
@@ -104,10 +114,10 @@ const NavBar = (props) => {
                 <LoginSignup auth={props.auth} collapse={true}/> }
               <NavDropdown
                 title={<Glyphicon glyph="shopping-cart" />}
-                noCaret eventKey={2} href="#" id="cart-dropdown-collapse">
+                noCaret eventKey={2} id="cart-dropdown-collapse">
                 {props.cart.order_items ?
                   <LinkContainer to={{ pathname: `/cart/${props.cart.id}` }}>
-                    <MenuItem eventKey={2.1}>{`Cart(${props.cart.order_items.length})`}</MenuItem>
+                    <MenuItem eventKey={2.1}>{`Cart (${props.cart.order_items.length})`}</MenuItem>
                   </LinkContainer> :  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>}
               </NavDropdown>
               <Navbar.Form id="search-collapse">

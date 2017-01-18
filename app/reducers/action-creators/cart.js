@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { RECEIVE_CART, DELETE_CART, RECEIVE_CART_ITEM,
+import { RECEIVE_CART, RECEIVE_CART_ITEM,
          UPDATE_CART_ITEM, DELETE_CART_ITEM } from './constants'
 
 
@@ -9,11 +9,6 @@ export const receiveCart = cart => ({
   type: RECEIVE_CART,
   loading: false,
   cart
-})
-
-export const deleteCartItem = () => ({
-  type: DELETE_CART,
-  loading: true
 })
 
 export const receiveCartItem = () => ({
@@ -26,34 +21,32 @@ export const updateCartItem = () => ({
   loading: true
 })
 
-export const removeCartItem = () => ({
+export const deleteCartItem = () => ({
   type: DELETE_CART_ITEM,
   loading: true
 })
 
 /* ------------     THUNKS     ------------------ */
 
+//HELPER FUNCTION TO GRAB THE UPDATED CART AFTER UPDATE/DELETE
 export const getCart = (orderId) => {
-  return dispatch => {
-    return axios.get(`/api/cart/${orderId}`)
-    .then(res => res.data)
-    .then(cart => dispatch(receiveCart(cart)))
-    .catch(console.error)
-  }
+  return axios.get(`/api/cart/${orderId}`)
+  .then(res => res.data)
 }
 
-//TODO
-// export const deleteCart = (orderId) => {
-//   return dispatch => {
-//     dispatch(deleteCart())
-//     return axios.delete(`/api/cart/:${orderId}`)
-//     .then(deletedCart => )
-//   }
-// }
+export const getAndRenderCart = (cartId) => {
+  return dispatch => {
+    getCart(cartId)
+    .then(res => res.data)
+    .then(cart => dispatch(receiveCart(cart)))
+    .catch(err => console.error(`Error: No cart found with id ${cartId}`))
+  }
+}
 
 export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
   return dispatch => {
     dispatch(receiveCartItem())
+
     return axios.post('/api/cart', orderItemObj)
     .then(res => res.data)
     .then(cart => dispatch(receiveCart(cart)))
@@ -64,20 +57,21 @@ export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
 export const updateCartItemAndGetUpdatedCart = (itemChanges) => {
   return dispatch => {
     dispatch(updateCartItem())
+
     return axios.put('/api/cart/', itemChanges)
     .then(res => res.data)
-    .then(updatedOrderItem => getCart())
-    .then(res => res.data)
     .then(updatedCart => dispatch(receiveCart(updatedCart)))
-    .catch(console.error)
+    .catch(err => console.error(`Error: No item found with id ${itemId}. Unable to update item.`))
   }
 }
 
-export const deleteCartItemAndGetUpdatedCart = (itemId) => {
+export const deleteCartItemAndGetUpdatedCart = (cartId, itemId) => {
   return dispatch => {
     dispatch(deleteCartItem())
-    return axios.delete(`/api/cart/`).then(res => res.data)
-    .then(deletedOrderItem => getCart())
-    .catch(console.error)
+
+    return axios.delete(`/api/cart/${cartId}/${itemId}`)
+    .then(res => res.data)
+    .then(updatedCart => dispatch(receiveCart(updatedCart)))
+    .catch(err => console.error(`Error: No item found with id ${itemId}. Unable to delete item.`))
   }
 }

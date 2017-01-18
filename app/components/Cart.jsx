@@ -1,14 +1,14 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Table, Button, Image, Glyphicon } from 'react-bootstrap'
-// import { updateCartItemAndGetUpdatedCart, deleteCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
+import { updateCartItemAndGetUpdatedCart, deleteCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import { LinkContainer } from 'react-router-bootstrap'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
     // this.changeQuantity = this.changeQuantity.bind(this)
-    // this.removeFromCart = this.removeFromCart.bind(this)
+    this.removeFromCart = this.removeFromCart.bind(this)
     this.getTotal = this.getTotal.bind(this)
   }
 
@@ -25,18 +25,9 @@ class Cart extends Component {
   //   this.props.dispatch(updateCartItemAndGetUpdatedCart(itemChanges))
   // }
   //
-  // removeFromCart(event) {
-  //   event.preventDefault()
-  //   const item = {
-  //     orderItem: {
-  //       size: this.state.selectedItem.size,
-  //       quantity: this.state.selectedQuantity
-  //     },
-  //     productId: this.props.currentProduct.id,
-  //     orderId: this.props.orderId.length ? this.props.orderId : null
-  //   }
-  //   this.props.dispatch(deleteCartItemAndGetUpdatedCart(item))
-  // }
+  removeFromCart(cartId, itemId) {
+    this.props.handleRemoveItem(cartId, itemId)
+  }
 
   getTotal() {
     const cart = this.props.cart.order_items
@@ -64,13 +55,14 @@ class Cart extends Component {
               <td>Subtotal</td>
             </tr>
             { cart && cart.map(item => {
+
                 return (
                   <tr key={item.id}>
                     <td>
                       <Button bsStyle="primary" className="cart-item-button">
                         <Glyphicon glyph="pencil"/>
                       </Button>
-                      <Button bsStyle="primary" className="cart-item-button">
+                      <Button onClick={() => this.removeFromCart(this.props.cart.id, item.id)} bsStyle="primary" className="cart-item-button">
                         <Glyphicon glyph="trash"/>
                       </Button>
                     </td>
@@ -113,9 +105,13 @@ class Cart extends Component {
 }
 
 Cart.propTypes = {
-  cart: PropTypes.object.isRequired
+  cart: PropTypes.object.isRequired,
+  handleRemoveItem: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({cart: state.cart})
+const mapDispatchToProps = (dispatch) => ({
+  handleRemoveItem: (cartId, itemId) => dispatch(deleteCartItemAndGetUpdatedCart(cartId, itemId))
+})
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

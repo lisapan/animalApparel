@@ -16,7 +16,7 @@ import ProductContainer from './containers/ProductContainer'
 import CartContainer from './components/Cart'
 
 import { getProductsByTag, getProductById } from './reducers/action-creators/products'
-import { getCart } from './reducers/action-creators/cart'
+import { getAndRenderCart } from './reducers/action-creators/cart'
 
 const onProductsContainerEnter = function (nextRouterState) {
   const tag = nextRouterState.params.tag;
@@ -30,7 +30,7 @@ const onProductContainerEnter = function (nextRouterState) {
 
 const onCartContainerEnter = function (nextRouterState) {
   const cartId = nextRouterState.params.cartId;
-  store.dispatch(getCart(cartId));
+  store.dispatch(getAndRenderCart(cartId));
 };
 
 
@@ -39,7 +39,7 @@ const Routes = () => (
       <Router history={browserHistory}>
         <Route path="/" component={App}>
           <Route path="/home" component={Home}/>
-          <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
+          <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter}/>
           <Route path="/products/product/:productId" component={ProductContainer} onEnter={onProductContainerEnter} />
           <Route path="/cart/:cartId" component={CartContainer} onEnter={onCartContainerEnter}/>
           <Route path="/account/login" component={LoginSignup}/>
