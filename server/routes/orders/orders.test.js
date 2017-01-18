@@ -2,7 +2,7 @@ const request = require('supertest-as-promised')
 const {expect} = require('chai')
 const db = require('APP/db')
 const Order = require('APP/db/models/order')
-const OrderItem = require('APP/db/models/order-item')
+const OrderItem = require('APP/db/models/order_item')
 const app = require('../../start')
 
 //USER authentication not implemented yet.

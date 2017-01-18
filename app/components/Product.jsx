@@ -30,9 +30,9 @@ export default class Product extends Component {
         size: this.state.selectedItem.size,
         quantity: this.state.selectedQuantity
       },
-      productId: this.props.currentProduct.id
+      product_id: this.props.currentProduct.id,
+      order_id: this.props.order_id ? this.props.order_id : null
     }
-    console.log(item)
     this.props.dispatch(addCartItemAndGetUpdatedCart(item))
   }
 
@@ -104,7 +104,9 @@ export default class Product extends Component {
                </FormGroup>
              </Form>
            </Row>
-           <Button className="product-detail" bsStyle="primary" bsSize="large" type="submit" onClick={this.addToCart}> Add to Bag </Button>
+           <Button className="product-detail" bsStyle="primary" bsSize="large" type="submit" onClick={this.addToCart}>{
+              this.props.loading ? 'Adding to bag...' : 'Add to Bag'
+             }</Button>
              {/*
                <Col xs={12} sm={12} md={6} lg={6}>
                <Button bsSize="large">
@@ -132,6 +134,7 @@ export default class Product extends Component {
 Product.propTypes = {
   currentProduct: PropTypes.object.isRequired,
   relatedProducts: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   params: PropTypes.object.isRequired,
   handleAddReview: PropTypes.func.isRequired

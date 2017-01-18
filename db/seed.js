@@ -24,7 +24,7 @@ const seedUsers = () => db.Promise.map([
   {name: 'Chloe Rice', email: 'chloe@animalapparel.com', password: '5678'},
   {name: 'Sophia Bok', email: 'sophia@animalapparel.com', password: '5678'},
   {name: 'Barack Obama', email: 'barack@example.gov', password: '1234'},
-], user => db.model('users').create(user))
+], user => db.model('user').create(user))
 
 const productList = [
   {
@@ -277,7 +277,7 @@ const seedOrderItems = () => db.Promise.map([
   { size: 'XXL', color: 'Red', quantity: 1, order_id: 2, product_id: 7 },
   { size: 'XL', color: 'Purple', quantity: 7, order_id: 2, product_id: 30 },
   { size: 'M', color: 'Yellow', quantity: 9, order_id: 3, product_id: 4 }
-], item => db.model('order-item').create(item))
+], item => db.model('order_item').create(item))
 
 db.didSync
   .then(() => db.sync({ force: true }))

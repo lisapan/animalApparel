@@ -4,6 +4,7 @@ import BillingAddressForm from './BillingAddressForm';
 import PaymentMethodForm from './PaymentMethodForm';
 import ReviewOrderForm from './ReviewOrderForm';
 import { updateOrder } from '../reducers/action-creators/checkout'
+import {connect} from 'react-redux'
 
 import { Row, Col } from 'react-bootstrap'
 
@@ -11,15 +12,20 @@ class Checkout extends Component {
 
   constructor(props) {
     super(props)
-    this.nextPage = this.nextPage.bind(this)
-    this.previousPage = this.previousPage.bind(this)
     this.state = {
       page: 1
     }
+    this.nextPage = this.nextPage.bind(this)
+    this.previousPage = this.previousPage.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit = (values) => {
-    console.log(values)
+    const result = {}
+    result.shippingInfo = values
+    result.status = 'submitted'
+    this.props.dispatch(updateOrder(this.props.cart.id, result))
+
     const shippingAddress = {
         name: `${values.shippingFirstName} ${values.shippingLastName}`,
         address1: values.shippingAddressLine1,
@@ -51,9 +57,7 @@ class Checkout extends Component {
       status: 'submitted'
     }
 
-    //TO-DO
-    this.props.dispatch(updateOrder(1, result))
-    //this.props.dispatch(updateOrder(props.orderId, result))
+    this.props.dispatch(updateOrder(this.props.cart.id, result))
   }
 
   nextPage() {
@@ -81,6 +85,10 @@ class Checkout extends Component {
 Checkout.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
-  //orderId: PropTypes.number.isRequired
+  cart: PropTypes.object.isRequired
 }
-export default Checkout
+
+
+const mapState = (state) => ({ cart: state.cart })
+
+export default connect(mapState)(Checkout)

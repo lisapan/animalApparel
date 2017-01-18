@@ -5,7 +5,7 @@ const db = require('APP/db')
 
 const Inventory = db.define('inventory', {
   size: {
-    type: Sequelize.STRING,
+    type: Sequelize.ENUM('XS', 'S', 'M', 'L', 'XL', 'XXL'),
     allowNull: false
   },
   quantity: {

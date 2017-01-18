@@ -220,7 +220,7 @@ sup {
 
 .btn-primary, .btn-primary:hover, .btn-primary:focus {
   background: black;
-  color: white;
+  color: white !important;
   text-decoration: none;
 }
 
@@ -554,4 +554,61 @@ h3{
 div .row .reviewForm {
   margin: 10px;
   padding: 10px;
+}
+
+/*~~~~~~~~~~~~~~~~CART~~~~~~~~~~~~~~~~~~*/
+
+h5 {
+  font-size: 12px;
+  font-weight: 100;
+  text-align: center;
+  float: right;
+}
+
+.img-responsive{
+  width: 80px;
+}
+
+.cart-item {
+  text-align: center;
+}
+
+.cart-item-button {
+  margin-top: 12px;
+  /*float: left;*/
+}
+
+.cart-total {
+  text-align: center;
+  margin: 15px 25px 15px 25px;
+}
+
+.cart-checkout {
+  text-align: center;
+  margin: 15px 25px 45px 25px;
+}
+
+td {
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+}
+
+.table-bordered>tbody>tr>td:first-child {
+  width: 40px !important;
+}
+
+.table-bordered>tbody>tr>td:nth-child(2) {
+  max-width: 100px !important;
+}
+
+.img-responsive {
+  display: inline;
+  max-width: 80px;
+}
+
+table {
+  position: relative;
+  max-width: 40% !important;
+  left: 30vw;
 }
