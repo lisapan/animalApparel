@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { INITIALIZE_USERS, CREATE_USER } from './action-creators/constants'
+import { INITIALIZE_USERS, CREATE_USER } from './constants'
 
 /* ------------     ACTION CREATORS     ------------------ */
 export const initUser = users => ({

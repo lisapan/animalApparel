@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Navbar, Nav, Breadcrumb, Row, FormGroup, FormControl,
-         NavDropdown, MenuItem, Glyphicon, Button, Col, Grid, InputGroup } from 'react-bootstrap'
+         NavDropdown, MenuItem, Glyphicon, Button, Col, InputGroup } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { logout as logOutUser } from '../reducers/action-creators/auth'
 
@@ -11,7 +11,6 @@ const LoginSignup = (props) => {
   return (
     <NavDropdown
       noCaret
-      collapse={props.collapse}
       eventKey={3}
       title="Account"
       id={props.collapse ? 'login-dropdown-collapse' : 'login-dropdown'}
@@ -29,20 +28,19 @@ LoginSignup.propTypes = {
 }
 
 const Logout = (props) => {
-  const name = Object.keys(props.auth).length ? null : (props.auth.name || props.auth.email)
+  const name = (!props.auth || props.auth === 'string') ? null : (props.auth.name || props.auth.email)
 
   return (
     <NavDropdown
-      collapse={props.collapse}
+      href="#"
       noCaret eventKey={3}
       title={`Hi, ${name}! `}
       id={props.collapse ? 'logout-dropdown-collapse' : 'logout-dropdown'}
       className="navbar-login">
       <MenuItem eventKey={3.1}>Account</MenuItem>
       <MenuItem eventKey={3.1}>Order Status</MenuItem>
-      <MenuItem eventKey={3.1}>Wishlist</MenuItem>
       <LinkContainer to={{pathname: '/'}}>
-        <MenuItem eventKey={3.1} onClick={this.props.logout}>
+        <MenuItem eventKey={3.1} onClick={props.logout}>
           Logout
         </MenuItem>
       </LinkContainer>
@@ -54,8 +52,6 @@ Logout.propTypes = {
   collapse: PropTypes.bool.isRequired,
   auth: PropTypes.object.isRequired
 }
-
-const shoppingCart = <Glyphicon glyph="shopping-cart" />
 
 const NavBar = (props) => {
   return (
@@ -100,16 +96,19 @@ const NavBar = (props) => {
         </Col>
       </Row>
       <Row>
-        <Col xs={12} sm={12} mdHidden={true} lgHidden={true} class="lower-nav-collapse">
+        <Col xs={12} sm={12} mdHidden={true} lgHidden={true} className="lower-nav-collapse">
           <Navbar.Collapse>
             <Nav id="lower-nav-collapse">
-              { Object.keys(props.auth).length ? <Logout collapse={true}/> : <LoginSignup collapse={true}/> }
+              { typeof props.auth !== 'string' ?
+                <Logout auth={props.auth} collapse={true} logout={logOutUser}/> :
+                <LoginSignup auth={props.auth} collapse={true}/> }
               <NavDropdown
-                title={shoppingCart}
+                title={<Glyphicon glyph="shopping-cart" />}
                 noCaret eventKey={2} href="#" id="cart-dropdown-collapse">
-                <LinkContainer to={{ pathname: '/cart' }}>
-                  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
-                </LinkContainer>
+                {props.cart.order_items ?
+                  <LinkContainer to={{ pathname: `/cart/${props.cart.id}` }}>
+                    <MenuItem eventKey={2.1}>{`Cart(${props.cart.order_items.length})`}</MenuItem>
+                  </LinkContainer> :  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>}
               </NavDropdown>
               <Navbar.Form id="search-collapse">
                 <FormGroup>
@@ -128,13 +127,15 @@ const NavBar = (props) => {
       <Row className="lower-nav">
         <Col md={12} lg={12} xsHidden={true} smHidden={true} id="lower-nav">
           <Nav pullRight={true}>
-            { Object.keys(props.auth).length ? <Logout collapse={false}/> : <LoginSignup collapse={false}/> }
+            { typeof props.auth !== 'string' ?
+              <Logout auth={props.auth} collapse={true} logout={logOutUser}/> :
+              <LoginSignup auth={props.auth} collapse={true}/> }
             <NavDropdown
-              title={shoppingCart}
+              title={<Glyphicon glyph="shopping-cart" />}
               noCaret eventKey={2} href="#" id="cart-dropdown">
-              <LinkContainer to={{ pathname: '/cart' }}>
-                <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
-              </LinkContainer>
+              {props.cart.order_items ? <LinkContainer to={{ pathname: `/cart/${props.cart.id}` }}>
+                <MenuItem eventKey={2.1}>{`Cart(${props.cart.order_items.length})`}</MenuItem>
+              </LinkContainer> :  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>}
             </NavDropdown>
             <Navbar.Form pullRight={true} id="search">
               <FormGroup>
@@ -153,7 +154,11 @@ const NavBar = (props) => {
   )
 }
 
-const mapState = ({auth}) => ({auth});
+NavBar.propTypes = {
+  cart: PropTypes.object
+}
+
+const mapState = ({auth, cart}) => ({auth, cart});
 // // equivalent to:
 // const mapState = state => {
 //   return {

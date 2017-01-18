@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 
-const OrderItem = db.define('order-item', {
+const OrderItem = db.define('order_item', {
   size: {
     type: Sequelize.ENUM('XS', 'S', 'M', 'L', 'XL', 'XXL'),
     allowNull: false

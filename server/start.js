@@ -21,9 +21,10 @@ if (!pkg.isProduction && !pkg.isTesting) {
 
 module.exports = app
   // We'll store the whole session in a cookie
-  .use(require('cookie-session') ({
+  .use(require('cookie-session')({
     name: 'session',
     keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days (reduces abandonment)
   }))
 
   // Body parsing middleware
@@ -33,24 +34,30 @@ module.exports = app
   // Authentication middleware
   .use(passport.initialize())
   .use(passport.session())
-  
+
   // Serve static files from ../public
   .use(express.static(resolve(__dirname, '..', 'public')))
 
   // Serve our api
   .use('/api', require('./api'))
 
+  // Log the current session (for development, delete this for production)
+  .use(function (req, res, next) {
+    console.log('session', req.session);
+    next();
+  })
+
   // Send index.html for anything else.
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 
 if (module === require.main) {
   // Start listening only if we're the main module.
-  // 
+  //
   // https://nodejs.org/api/modules.html#modules_accessing_the_main_module
   const server = app.listen(
     process.env.PORT || 1337,
     () => {
-      console.log(`--- Started HTTP Server for ${pkg.name} ---`)      
+      console.log(`--- Started HTTP Server for ${pkg.name} ---`)
       console.log(`Listening on ${JSON.stringify(server.address())}`)
     }
   )

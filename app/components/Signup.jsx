@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Col, Form, FormGroup, FormControl,
          ControlLabel, HelpBlock, Button } from 'react-bootstrap'
 
-import { addUser } from '../reducers/user-reducer';
+import { addUser } from '../reducers/action-creators/user';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -64,8 +64,12 @@ class Signup extends Component {
 
   onSignupSubmit(event) {
     event.preventDefault()
-    const newUser = this.state.newUser
-    this.props.dispatch(addUser(newUser))
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
+    }
+    this.props.signup(newUser)
   }
 
   render() {
@@ -166,7 +170,7 @@ Signup.propTypes = {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = () => ({ message: 'Sign up' });
-const mapDispatch = (dispatch) => ({ dispatch })
+const mapDispatch = { signup: addUser }
 // // equivalent to:
 // const mapDispatch = (dispatch) => {
 //   return {

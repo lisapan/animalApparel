@@ -1,24 +1,65 @@
 'use strict'
 
 const db = require('APP/db')
-const OrderItem = db.model('order-item')
+const OrderItem = db.model('order_item')
 const Order = db.model('order')
+const Product = db.model('products')
 
 // const {mustBeLoggedIn, forbidden} = require('../../auth.filters')
 
+const cart = (req, res, next) => {
+  if (req.session.cart) {
+    Order.find({
+      where: {id: req.session.cart.id},
+      include: [{model: OrderItem, include: [Product]}]
+    })
+    .then(foundCart => {
+      req.session.cart = foundCart
+    })
+    .finally(next)
+  } else {
+    Order.create({
+      status: 'unsubmitted',
+      user_id: req.user ? req.session.user.id : null
+    }, {
+      include: [{model: OrderItem, include: [Product]}]
+    })
+      .then(createdCart => {
+        req.session.cart = createdCart
+      })
+      .finally(next)
+  }
+}
+
 module.exports = require('express').Router()
+  .use(cart)
+
   //User adds a product to the cart
   .post('/', (req, res, next) => {
-    OrderItem.create(req.body.orderItem)
-    .then(pendingOrderItem => pendingOrderItem.setProduct(req.body.productId)) // asso. w/ product
-    .then(pendingOrderItem => pendingOrderItem.setOrder(req.session.orderId)) // asso. w/ user's order)
-    .then(createdOrderItem => res.status(201).json(createdOrderItem))
+    OrderItem.create({
+      size: req.body.orderItem.size,
+      quantity: req.body.orderItem.quantity,
+      order_id: req.session.cart.id,
+      product_id: req.body.product_id
+    }, {include: [Order]})
+    .then(createdOrderItem => {
+      if (!req.session.cart.order_items) {
+        req.session.cart.order_items = [createdOrderItem] //If this is the first item in the cart, init the cart
+      }
+      else {
+        req.session.cart.order_items.push(createdOrderItem) //Otherwise add item to existing cart
+      }
+      res.send(req.session.cart)})
     .catch(next)
   })
+
   //All items in an order are rendered to the cart
-  .get('/', (req, res, next) => {
-    OrderItem.findAll({ where: { orderId: req.session.orderId } })
-    .then(foundItems => res.json(foundItems))
+  .get('/:cartId', (req, res, next) => {
+    Order.find({
+      where: {id: req.params.cartId},
+      include: [{model: OrderItem, include: [Product]}]
+    })
+    .then(foundOrder => res.json(foundOrder))
     .catch(next)
   })
   //A User views a list of past orders
@@ -46,18 +87,6 @@ module.exports = require('express').Router()
       }
     })
     .then(deletedItem => res.status(204).json(deletedItem))
-    .catch(next)
-  })
-  //A User clears their cart
-  .delete('/:orderId', (req, res, next) => {
-    Order.destroy({
-      where: {
-        id: req.params.orderId
-      },
-      include: [OrderItem],
-      returning: true
-    })
-    .then(deletedOrder => res.status(204).json(deletedOrder))
     .catch(next)
   })
   //submit order - it updates the shipping info, and updates to 'submitted'

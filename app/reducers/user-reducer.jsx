@@ -1,15 +1,15 @@
 import { INITIALIZE_USERS, CREATE_USER } from './action-creators/constants'
 
-export default function userReducer (users = [], action) {
+export default function userReducer (user = {}, action) {
   switch (action.type) {
 
     case INITIALIZE_USERS:
-      return action.users;
+      return action.user
 
     case CREATE_USER:
-      return [action.user, ...users];
+      return action.user
 
     default:
-      return users;
+      return user
   }
 }

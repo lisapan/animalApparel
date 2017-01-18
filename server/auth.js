@@ -118,12 +118,13 @@ passport.use(new (require('passport-local').Strategy) (
   }
 ))
 
-auth.get('/whoami', (req, res) => res.send(req.user))
+auth.get('/whoami', (req, res) => {
+  req.session.user = req.user
+  res.send(req.user)
+})
 
 auth.post('/:strategy/login', (req, res, next) =>
-  passport.authenticate(req.params.strategy, {
-    successRedirect: '/'
-  })(req, res, next)
+  passport.authenticate(req.params.strategy, {successRedirect: '/'})(req, res, next)
 )
 
 auth.post('/logout', (req, res, next) => {
@@ -132,4 +133,3 @@ auth.post('/logout', (req, res, next) => {
 })
 
 module.exports = auth
-
