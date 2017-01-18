@@ -15,7 +15,7 @@ const cart = (req, res, next) => {
   } else {
     Order.create({
       status: "unsubmitted"
-      user_id: req.user? req.session.user.id : null
+      user_id: req.user ? req.session.user.id : null
     })
       .then(cart => req.session.cart = cart)
       .finally(next)
@@ -37,21 +37,6 @@ module.exports = require('express').Router()
     .catch(next)
   })
 
-  // .post('/', (req, res, next) => {
-  //   OrderItem.create(req.body.orderItem)
-  //   .then(pendingOrderItem => pendingOrderItem.setProduct(req.body.productId)) // asso. w/ product
-  //   .then(pendingOrderItem => {
-  //     if (req.body.orderId) {
-  //       return pendingOrderItem.setOrder(req.body.orderId) // if there's already an order, asso w/ that order
-  //     } else {
-  //       return Order.create({ status: 'unsubmitted' }) // otherwise, create one and associate
-  //       .then(pendingOrder => pendingOrder.setUser(req.session.userId)) // asso w/ user
-  //       .then(createdOrder => pendingOrderItem.setOrder(createdOrder.id))
-  //     }
-  //   })
-  //   .then(createdOrderItem => res.status(201).json(createdOrderItem))
-  //   .catch(next)
-  // })
   //All items in an order are rendered to the cart
   .get('/:orderId', (req, res, next) => {
     OrderItem.findAll({
@@ -89,15 +74,15 @@ module.exports = require('express').Router()
     .then(deletedItem => res.status(204).json(deletedItem))
     .catch(next)
   })
-  // // to use for wishlist implementation (can delete a wishlist, not a cart-- can only add/delete cart items)
-  // .delete('/', (req, res, next) => {
-  //   Order.destroy({
-  //     where: {
-  //       id: req.session.orderId
-  //     },
-  //     include: [OrderItem],
-  //     returning: true
-  //   })
-  //   .then(deletedOrder => res.status(204).json(deletedOrder))
-  //   .catch(next)
-  // })
+  //submit order - it updates the shipping info, and updates to 'submitted'
+  .put('/order/:orderId', (req, res, next) => {
+    Order.update(req.body, {
+      where: {
+        id: req.params.orderId
+      },
+      returning: true
+    })
+    .then(updatedOrder => res.status(201).json(updatedOrder))
+    .catch(next)
+  })
+

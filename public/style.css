@@ -485,3 +485,13 @@ p {
 h3{
   font-size: 14px;
 }
+
+/*~~~~~~~~~~~~~~~~REVIEWS~~~~~~~~~~~~~~~~~~*/
+.reviewGrid {
+  margin: 10px;
+}
+
+div .row .reviewForm {
+  margin: 10px;
+  padding: 10px;
+}

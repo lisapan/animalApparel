@@ -4,10 +4,10 @@ import currentProductReducer from './currentProduct-reducer'
 import relatedProductsReducer from './relatedProducts-reducer'
 import authReducer from './auth-reducer'
 import loadingReducer from './loading-reducer'
+import submittedOrderReducer from './submittedOrder-reducer'
 import cartReducer from './cart-reducer'
 import orderIdReducer from './orderId-reducer'
 import { reducer as formReducer } from 'redux-form';
-
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -16,9 +16,9 @@ const rootReducer = combineReducers({
   currentProduct: currentProductReducer,
   relatedProducts: relatedProductsReducer,
   cart: cartReducer,
-  orderId: orderIdReducer,
-  form: formReducer
-
+  order_id: orderIdReducer,
+  form: formReducer,
+  submittedOrder: submittedOrderReducer
 })
 
 export default rootReducer

@@ -11,11 +11,11 @@ describe('Orders Route:', function () {
   before('wait for the db', () => db.didSync)
 
   before(() => {
-    Order.bulkCreate([]])
+    Order.bulkCreate([])
   })
 
   before(() => {
-    OrderItem.bulkCreate([]])
+    OrderItem.bulkCreate([])
   })
 })
 
