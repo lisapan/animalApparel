@@ -21,10 +21,6 @@ class Checkout extends Component {
   }
 
   handleSubmit = (values) => {
-    const result = {}
-    result.shippingInfo = values
-    result.status = 'submitted'
-    this.props.dispatch(updateOrder(this.props.cart.id, result))
 
     const shippingAddress = {
         name: `${values.shippingFirstName} ${values.shippingLastName}`,
