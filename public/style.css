@@ -486,6 +486,8 @@ h3{
   font-size: 14px;
 }
 
+/*~~~~~~~~~~~~~~~~Checkout~~~~~~~~~~~~~~~~~~*/
+
 .checkoutFormDiv {
   display: block;
 }
@@ -544,3 +546,12 @@ h3{
   margin: 10px;
 }
 
+/*~~~~~~~~~~~~~~~~REVIEWS~~~~~~~~~~~~~~~~~~*/
+.reviewGrid {
+  margin: 10px;
+}
+
+div .row .reviewForm {
+  margin: 10px;
+  padding: 10px;
+}

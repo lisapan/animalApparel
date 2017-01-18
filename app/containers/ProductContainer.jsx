@@ -1,16 +1,22 @@
 import Product from '../components/Product';
 import { connect } from 'react-redux';
+import { addReview } from '../reducers/action-creators/review'
 
 const mapStateToProps = (state) => {
 
   return {
     currentProduct: state.currentProduct,
-    relatedProducts: state.relatedProducts
+    relatedProducts: state.relatedProducts,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return { dispatch }
+
+  return {
+    handleAddReview: (newReview) => {
+      return dispatch(addReview(newReview))
+    }
+  }
 }
 
 export default connect(

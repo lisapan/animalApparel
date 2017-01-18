@@ -30,7 +30,8 @@ const mapState = (state, ownProps) => {
     users: state.users,
     form: state.form,
     submittedOrder: state.submittedOrder,
-    loading: state.loading
+    loading: state.loading,
+    reviews: state.reviews
   }
 }
 const mapDispatch = (dispatch) => ({ dispatch })

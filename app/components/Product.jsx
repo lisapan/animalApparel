@@ -7,6 +7,7 @@ import { Grid, Row, Col, Form,
 import { addCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import RelatedProducts from './RelatedProducts'
 import Reviews from './Reviews'
+import ReviewForm from './ReviewForm'
 
 export default class Product extends Component {
 
@@ -117,7 +118,11 @@ export default class Product extends Component {
            </Row>
          </Col>
         </Row>
-        <Reviews reviews={this.props.reviews} />
+        <Row className="product-reviews">
+          <h3>Reviews</h3>
+        </Row>
+        <Reviews reviews={this.props.currentProduct.reviews} />
+        <ReviewForm dispatch={this.props.dispatch} handleAddReview={this.props.handleAddReview} currentProduct={this.props.currentProduct} />
         <RelatedProducts relatedProducts={this.props.relatedProducts} />
       </Grid>
     )
@@ -127,7 +132,7 @@ export default class Product extends Component {
 Product.propTypes = {
   currentProduct: PropTypes.object.isRequired,
   relatedProducts: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired
+  params: PropTypes.object.isRequired,
+  handleAddReview: PropTypes.func.isRequired
 }

@@ -11,15 +11,11 @@ const Order = require('./order')
 const OrderItem = require('./order-item')
 const Review = require('./review')
 
-Product.hasMany(Inventory) // puts a productId on the inventory item
-OrderItem.belongsTo(Order) // puts an orderId on the order item
-OrderItem.belongsTo(Product) // puts a productId on the order item
-User.hasMany(Order, { // puts a userId on the order
-  foreignKey: {
-    name: 'userId',
-    allowNull: true
-  }
-})
+Product.hasMany(Inventory) // puts a product_id on the inventory item
+OrderItem.belongsTo(Order) // puts an order_id on the order item
+OrderItem.belongsTo(Product) // puts a product_id on the order item
+User.hasMany(Order) // puts a user_id on the order
+
 Product.hasMany(Review) // puts a product_id on the review
 User.hasMany(Review) // puts a user_id on the review
 
