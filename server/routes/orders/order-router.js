@@ -13,7 +13,10 @@ const cart = (req, res, next) => {
       .then(cart => req.session.cart = cart)
       .finally(next)
   } else {
-    Order.create({user_id: req.user? req.session.user.id : null})
+    Order.create({
+      status: "unsubmitted"
+      user_id: req.user? req.session.user.id : null
+    })
       .then(cart => req.session.cart = cart)
       .finally(next)
   }
