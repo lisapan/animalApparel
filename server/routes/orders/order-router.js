@@ -51,13 +51,13 @@ module.exports = require('express').Router()
   })
 
   //All items in an order are rendered to the cart
-  .get('/:orderId', (req, res, next) => {
-    OrderItem.findAll({
-      where: { order_id: req.params.orderId },
-      include: [Product]
+  .get('/:cartId', (req, res, next) => {
+    Order.find({
+      where: {id: req.params.cartId},
+      include: [{model: OrderItem, include: [Product]}]
     })
-    .then(foundItems => {
-      res.json(foundItems)})
+    .then(foundOrder => {
+      res.json(foundOrder)})
     .catch(next)
   })
   //A User views a list of past orders

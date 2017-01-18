@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
 import { updateCartItemAndGetUpdatedCart, deleteCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export default class CartComponent extends Component {
   constructor(props) {
@@ -37,12 +38,12 @@ export default class CartComponent extends Component {
   }
 
   getSubtotal() {
-    const cart = this.props.cart
+    const cart = this.props.cart.order_items
     let total = 0
     cart.forEach(item => {
-      total += item.product.price * item.quantity
+      total += +item.product.price * item.quantity
     })
-    return total
+    return total.toFixed(2)
   }
 
   render() {
@@ -91,8 +92,8 @@ export default class CartComponent extends Component {
           </tbody>
         </Table>
         <div>Subtotal</div>
-        <div>{`$${this.getSubtotal()}`}</div>
-        <Button>Checkout</Button>
+        <div>{cart && `$${this.getSubtotal()}`}</div>
+        <LinkContainer to={{ pathname: `/checkout` }}><Button type="button" >Checkout</Button></LinkContainer>
       </div>
     )
   }
