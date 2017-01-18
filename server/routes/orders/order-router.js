@@ -63,6 +63,20 @@ module.exports = require('express').Router()
     .then(foundOrder => res.json(foundOrder))
     .catch(next)
   })
+  //submit order - it updates the shipping info, and updates to 'submitted'
+  .put('/order/:orderId', (req, res, next) => {
+    console.log('hello')
+    Order.update(req.body, {
+      where: {
+        id: req.params.orderId
+      },
+      include: [OrderItem],
+      returning: true
+    })
+    .then(updatedOrder => {
+      res.status(201).json(updatedOrder)})
+    .catch(next)
+  })
   //A User updates an order item in the cart
   .put('/:cartId/:itemId', (req, res, next) => {
     OrderItem.update(req.body, {
@@ -98,19 +112,5 @@ module.exports = require('express').Router()
   .get('/orders', (req, res, next) => {
     Order.findAll({ where: { userId: req.session.userId } })
     .then(foundOrders => res.json(foundOrders))
-    .catch(next)
-  })
-  //submit order - it updates the shipping info, and updates to 'submitted'
-  .put('/order/:orderId', (req, res, next) => {
-    console.log('hello')
-    Order.update(req.body, {
-      where: {
-        id: req.params.orderId
-      },
-      include: [OrderItem],
-      returning: true
-    })
-    .then(updatedOrder => {
-      res.status(201).json(updatedOrder)})
     .catch(next)
   })
