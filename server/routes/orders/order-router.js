@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-const OrderItem = db.model('order-item')
+const OrderItem = db.model('order_item')
 const Order = db.model('order')
 const Product = db.model('products')
 
@@ -9,13 +9,18 @@ const Product = db.model('products')
 
 const cart = (req, res, next) => {
   if (req.session.cart) {
-    Order.findById(req.session.cart.id)
-      .then(cart => req.session.cart = cart)
-      .finally(next)
+    Order.find({
+      where: {id: req.session.cart.id},
+      include: [{model: OrderItem, include: [Product]}]
+    })
+    .then(cart => req.session.cart = cart)
+    .finally(next)
   } else {
     Order.create({
-      status: "unsubmitted"
+      status: "unsubmitted",
       user_id: req.user ? req.session.user.id : null
+    }, {
+      include: [{model: OrderItem, include: [Product]}]
     })
       .then(cart => req.session.cart = cart)
       .finally(next)
@@ -32,8 +37,16 @@ module.exports = require('express').Router()
       quantity: req.body.orderItem.quantity,
       order_id: req.session.cart.id,
       product_id: req.body.product_id
-    })
-    .then(createdOrderItem => res.send(req.session.cart))
+    }, {include: [Order]})
+    .then(createdOrderItem => {
+      console.log("this is the req.session.cart", req.session.cart)
+      if (!req.session.cart.order_items) {
+        req.session.cart.order_items = [createdOrderItem] //If this is the first item in the cart, init the cart
+      }
+      else {
+        req.session.cart.order_items.push(createdOrderItem) //Otherwise add item to existing cart
+      }
+      res.send(req.session.cart)})
     .catch(next)
   })
 

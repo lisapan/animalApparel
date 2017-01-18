@@ -29,6 +29,12 @@ const onProductContainerEnter = function (nextRouterState) {
   store.dispatch(getProductById(id));
 };
 
+const onCartContainerEnter = function (nextRouterState) {
+  const cartId = nextRouterState.params.cartId;
+  store.dispatch(getCart(cartId));
+};
+
+
 const Routes = () => (
     <Provider store={store}>
       <Router history={browserHistory}>
@@ -36,7 +42,7 @@ const Routes = () => (
           <Route path="/home" component={Home}/>
           <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
           <Route path="/products/product/:productId" component={ProductContainer} onEnter={onProductContainerEnter} />
-          <Route path="/cart" component={CartContainer} />
+          <Route path="/cart/:cartId" component={CartContainer} onEnter={onCartContainerEnter}/>
           <Route path="/account/login" component={LoginSignup}/>
           <Route path="/checkout" component={Checkout}/>
           <Route path="/orderConfirmation" component={OrderConfirmation}/>

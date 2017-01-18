@@ -30,8 +30,8 @@ export default class Product extends Component {
         size: this.state.selectedItem.size,
         quantity: this.state.selectedQuantity
       },
-      productId: this.props.currentProduct.id,
-      orderId: this.props.orderId ? this.props.orderId : null
+      product_id: this.props.currentProduct.id,
+      order_id: this.props.order_id ? this.props.order_id : null
     }
     this.props.dispatch(addCartItemAndGetUpdatedCart(item))
   }

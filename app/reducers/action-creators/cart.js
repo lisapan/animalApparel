@@ -60,8 +60,10 @@ export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
     dispatch(receiveCartItem())
     return axios.post('/api/cart', orderItemObj)
     .then(res => res.data)
-    .then(createdOrderItem => dispatch(getCart(createdOrderItem.order_id)))
-    .then(orderId => dispatch(setOrderId(orderId)))
+    .then(cart => {
+      dispatch(receiveCart(cart))
+      dispatch(setOrderId(cart.id))
+    })
     .catch(console.error)
   }
 }

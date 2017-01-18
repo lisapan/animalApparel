@@ -46,7 +46,7 @@ export default class CartComponent extends Component {
   }
 
   render() {
-    const cart = this.props.cart
+    const cart = this.props.cart.order_items
 
     return (
       <div className="cart">

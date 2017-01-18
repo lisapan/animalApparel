@@ -1,9 +1,9 @@
 import { SET_ORDER_ID } from './action-creators/constants'
 
-const orderIdReducer = (orderId = '', action) => {
+const orderIdReducer = (order_id = '', action) => {
   switch (action.type) {
-    case SET_ORDER_ID: return action.orderId
-    default: return orderId
+    case SET_ORDER_ID: return action.order_id
+    default: return order_id
   }
 }
 

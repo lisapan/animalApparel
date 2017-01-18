@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-const OrderItem = db.model('order-item')
+const OrderItem = db.model('order_item')
 const { expect } = require('chai')
 
 describe('Order Items', () => {

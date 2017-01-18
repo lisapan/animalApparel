@@ -104,9 +104,10 @@ const NavBar = (props) => {
               <NavDropdown
                 title={<Glyphicon glyph="shopping-cart" />}
                 noCaret eventKey={2} href="#" id="cart-dropdown-collapse">
-                <LinkContainer to={{ pathname: '/cart' }}>
-                  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
-                </LinkContainer>
+                {props.cart.order_items ?
+                  <LinkContainer to={{ pathname: `/cart/${props.cart.id}` }}>
+                    <MenuItem eventKey={2.1}>{`Cart(${props.cart.order_items.length})`}</MenuItem>
+                  </LinkContainer> :  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>}
               </NavDropdown>
               <Navbar.Form id="search-collapse">
                 <FormGroup>
@@ -129,9 +130,9 @@ const NavBar = (props) => {
             <NavDropdown
               title={<Glyphicon glyph="shopping-cart" />}
               noCaret eventKey={2} href="#" id="cart-dropdown">
-              <LinkContainer to={{ pathname: '/cart' }}>
-                <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>
-              </LinkContainer>
+              {props.cart.order_items ? <LinkContainer to={{ pathname: `/cart/${props.cart.id}` }}>
+                <MenuItem eventKey={2.1}>{`Cart(${props.cart.order_items.length})`}</MenuItem>
+              </LinkContainer> :  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>}
             </NavDropdown>
             <Navbar.Form pullRight={true} id="search">
               <FormGroup>
@@ -150,7 +151,7 @@ const NavBar = (props) => {
   )
 }
 
-const mapState = ({auth}) => ({auth});
+const mapState = ({auth, cart}) => ({auth, cart});
 // // equivalent to:
 // const mapState = state => {
 //   return {
