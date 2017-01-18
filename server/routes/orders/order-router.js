@@ -102,6 +102,7 @@ module.exports = require('express').Router()
   })
   //submit order - it updates the shipping info, and updates to 'submitted'
   .put('/order/:orderId', (req, res, next) => {
+    console.log('hello')
     Order.update(req.body, {
       where: {
         id: req.params.orderId
@@ -109,6 +110,7 @@ module.exports = require('express').Router()
       include: [OrderItem],
       returning: true
     })
-    .then(updatedOrder => res.status(201).json(updatedOrder))
+    .then(updatedOrder => {
+      res.status(201).json(updatedOrder)})
     .catch(next)
   })

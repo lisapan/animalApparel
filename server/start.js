@@ -40,6 +40,9 @@ module.exports = app
 
   // Serve our api
   .use('/api', require('./api'))
+  .use('/github', function(req,res, next){
+    res.redirect('https://github.com/lisapan/animalApparel')
+  })
 
   // Log the current session (for development, delete this for production)
   .use(function (req, res, next) {
