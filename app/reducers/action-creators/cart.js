@@ -2,7 +2,6 @@ import axios from 'axios'
 import { RECEIVE_CART, DELETE_CART, RECEIVE_CART_ITEM,
          UPDATE_CART_ITEM, DELETE_CART_ITEM } from './constants'
 
-import { setOrderId } from './orderId'
 
 /* ------------     ACTION CREATORS     ------------------ */
 

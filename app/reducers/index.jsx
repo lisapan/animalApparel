@@ -6,8 +6,8 @@ import authReducer from './auth-reducer'
 import loadingReducer from './loading-reducer'
 import submittedOrderReducer from './submittedOrder-reducer'
 import cartReducer from './cart-reducer'
-import orderIdReducer from './orderId-reducer'
-import { reducer as formReducer } from 'redux-form';
+import { reducer as formReducer } from 'redux-form'
+import userReducer from './user-reducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -16,9 +16,9 @@ const rootReducer = combineReducers({
   currentProduct: currentProductReducer,
   relatedProducts: relatedProductsReducer,
   cart: cartReducer,
-  order_id: orderIdReducer,
   form: formReducer,
-  submittedOrder: submittedOrderReducer
+  submittedOrder: submittedOrderReducer,
+  user: userReducer
 })
 
 export default rootReducer

@@ -495,3 +495,15 @@ div .row .reviewForm {
   margin: 10px;
   padding: 10px;
 }
+
+/*~~~~~~~~~~~~~~~~CART~~~~~~~~~~~~~~~~~~*/
+
+.cart-item {
+  height: 30vh;
+  width: 24vh;
+}
+
+.cart-item-button {
+  position: relative;
+  bottom: 0;
+}
