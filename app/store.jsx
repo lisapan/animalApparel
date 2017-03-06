@@ -6,7 +6,7 @@ import thunkMiddleware from 'redux-thunk'
 
 import { whoami } from './reducers/action-creators/auth'
 
-const store = createStore(rootReducer, applyMiddleware(createLogger(), thunkMiddleware))
+const store = createStore(rootReducer, applyMiddleware(createLogger({collapsed: true}), thunkMiddleware))
 
 export default store
 

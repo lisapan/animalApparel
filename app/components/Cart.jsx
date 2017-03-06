@@ -72,7 +72,7 @@ class Cart extends Component {
                         className="cart-item"
                         src={item.product.imageURL}
                         alt={`${item.product.name} photo`}
-                        href={`/products/product/${item.product.id}`}/>
+                        href={`/products/${this.props.params.tag}/${item.product.id}`} />
                     </td>
                     <td>{item.size}</td>
                     <td>{item.quantity}</td>
