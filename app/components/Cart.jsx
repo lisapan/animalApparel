@@ -47,40 +47,37 @@ class Cart extends Component {
         <Table>
           <tbody>
             <tr>
-              <td></td>
+              <td />
               <td>Item</td>
               <td>Size</td>
               <td>Quantity</td>
               <td>Price</td>
               <td>Subtotal</td>
             </tr>
-            { cart && cart.map(item => {
-
-                return (
-                  <tr key={item.id}>
-                    <td>
-                      <Button bsStyle="primary" className="cart-item-button">
-                        <Glyphicon glyph="pencil"/>
-                      </Button>
-                      <Button onClick={() => this.removeFromCart(this.props.cart.id, item.id)} bsStyle="primary" className="cart-item-button">
-                        <Glyphicon glyph="trash"/>
-                      </Button>
-                    </td>
-                    <td>
-                      <Image
-                        responsive
-                        className="cart-item"
-                        src={item.product.imageURL}
-                        alt={`${item.product.name} photo`}
-                        href={`/products/${this.props.params.tag}/${item.product.id}`} />
-                    </td>
-                    <td>{item.size}</td>
-                    <td>{item.quantity}</td>
-                    <td>{`$${item.product.price}`}</td>
-                    <td>{`$${(+item.product.price * item.quantity).toFixed(2)}`}</td>
-                  </tr>
-                )
-              })
+            { cart && cart.map(item => (
+                <tr key={item.id}>
+                  <td>
+                    <Button bsStyle="primary" className="cart-item-button">
+                      <Glyphicon glyph="pencil" />
+                    </Button>
+                    <Button onClick={() => this.removeFromCart(this.props.cart.id, item.id)} bsStyle="primary" className="cart-item-button">
+                      <Glyphicon glyph="trash" />
+                    </Button>
+                  </td>
+                  <td>
+                    <Image
+                      responsive
+                      className="cart-item"
+                      src={item.product.image_URL}
+                      alt={`${item.product.name} photo`}
+                      href={`/products/${item.product.category}/${item.product.id}`} />
+                  </td>
+                  <td>{item.size}</td>
+                  <td>{item.quantity}</td>
+                  <td>{`$${item.product.price}`}</td>
+                  <td>{`$${(+item.product.price * item.quantity).toFixed(2)}`}</td>
+                </tr>
+              ))
             }
           </tbody>
         </Table>
@@ -114,4 +111,4 @@ const mapDispatchToProps = (dispatch) => ({
   handleRemoveItem: (cartId, itemId) => dispatch(deleteCartItemAndGetUpdatedCart(cartId, itemId))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

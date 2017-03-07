@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-
+import { connect } from 'react-redux'
 import { Grid, Row, Col, Form,
          Thumbnail, Button, FormControl,
          FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap'
-
 import { addCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import RelatedProducts from './RelatedProducts'
-import Reviews from './Reviews'
-import ReviewForm from './ReviewForm'
+import Reviews from './ProductReviews'
+import ReviewForm from './ProductReviewForm'
 
-export default class Product extends Component {
+class Product extends Component {
 
   constructor (props) {
     super(props)
@@ -63,7 +62,7 @@ export default class Product extends Component {
          <Col xs={12} sm={12} md={6} lg={6}>
            <Thumbnail
              className="product-detail"
-             src={ product.imageURL } alt={`${product.name} photo`} />
+             src={ product.image_URL } alt={`${product.name} photo`} />
          </Col>
          <Col xs={12} sm={12} md={6} lg={6}>
            <Row className="product-detail">
@@ -97,34 +96,32 @@ export default class Product extends Component {
                  <FormControl
                    value={this.state.selectedQuantity}
                    placeholder="Enter Quantity"
-                   onChange={this.handleChange}/>
+                   onChange={this.handleChange} />
                  <HelpBlock>
                    {`Only ${this.state.selectedItem.quantity} left`}
                  </HelpBlock>
                </FormGroup>
              </Form>
            </Row>
-           <Button className="product-detail" bsStyle="primary" bsSize="large" type="submit" onClick={this.addToCart}>{
-              this.props.loading ? 'Adding to bag...' : 'Add to Bag'
-             }</Button>
-             {/*
-               <Col xs={12} sm={12} md={6} lg={6}>
-               <Button bsSize="large">
-                 <Glyphicon glyph="heart" /> Add to Wishlist!
-               </Button>
-             </Col>
-               */}
+           <Button
+             className="product-detail"
+             bsStyle="primary"
+             bsSize="large"
+             type="submit"
+             onClick={this.addToCart}>
+             { this.props.loading ? 'Adding to bag...' : 'Add to Bag' }
+           </Button>
            <Row className="product-detail" >
              <h3>Description:</h3>
              <p>{product.description}</p>
            </Row>
          </Col>
         </Row>
-        <Row className="product-reviews">
-          <h3>Reviews</h3>
+        <Row>
+          { this.props.currentProduct.reviews &&
+            <Reviews reviews={this.props.currentProduct.reviews} /> }
+          <ReviewForm currentProduct={this.props.currentProduct} />
         </Row>
-        <Reviews reviews={this.props.currentProduct.reviews} />
-        <ReviewForm dispatch={this.props.dispatch} handleAddReview={this.props.handleAddReview} currentProduct={this.props.currentProduct} />
         <RelatedProducts relatedProducts={this.props.relatedProducts} />
       </Grid>
     )
@@ -134,8 +131,14 @@ export default class Product extends Component {
 Product.propTypes = {
   currentProduct: PropTypes.object.isRequired,
   relatedProducts: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired,
-  handleAddReview: PropTypes.func.isRequired
+  loading: PropTypes.bool.isRequired
 }
+
+const mapStateToProps = state => ({
+  currentProduct: state.currentProduct,
+  relatedProducts: state.relatedProducts,
+  loading: state.loading,
+  order_id: state.order_id
+})
+
+export default connect(mapStateToProps)(Product)

@@ -207,11 +207,18 @@ sup {
   background: none !important;
   letter-spacing: -2px;
   overflow: visible;
+  margin-bottom: 0 !important;
 }
 
 .breadcrumb-nav {
   position: absolute;
   right: 0px;
+}
+
+.breadcrumb-mobile {
+  margin: 0px 5px;
+  font-size: 1.5em;
+
 }
 
 .navbar-collapse {
@@ -309,6 +316,11 @@ h1.promo {
   margin-top: 15px;
 }
 
+h1.page-title {
+  margin-top: 0 !important;
+  padding: 0px 5px;
+}
+
 .home-pic  {
   color: white !important;
   height: 300px;
@@ -347,7 +359,7 @@ h1.promo {
   float: left;
   font-size: 1em;
   margin-left: 15px;
-
+  color: white;
 }
 
 #petSale {
@@ -355,6 +367,7 @@ h1.promo {
   float: right;
   font-size: 1em;
   margin-right: 15px;
+  color: white;
 }
 
 #women-xs-sm {
@@ -373,7 +386,6 @@ h1.promo {
   background-size: cover;
   padding-right: 7.5px;
   transition: background 1s;
-
 }
 
 .women{
@@ -384,15 +396,10 @@ h1.promo {
   -o-background-size: cover;
   background-size: cover;
   padding-right: 7.5px;
-
 }
 
 #men-xs-sm {
   padding-left: 15px !important;
-}
-
-#men {
-  padding-left: 7.5px !important;
 }
 
 .men:hover {
@@ -401,7 +408,6 @@ h1.promo {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  padding-right: 7.5px;
   transition: background 1s;
 }
 
@@ -412,8 +418,6 @@ h1.promo {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  padding-left: 7.5px;
-
 }
 
 .dogs:hover {
@@ -447,7 +451,12 @@ h1.promo {
   margin-bottom: 15px;
 }
 
-/*~~~~~~~~~Products~~~~~~~~~~~*/
+/*~~~~~~~~~PRODUCTS/SALE~~~~~~~~~~~*/
+
+.page-title {
+  text-transform: capitalize;
+  margin-top: 0 !important;
+}
 
 h2 {
   font-size: 2em;
@@ -486,7 +495,7 @@ h3{
   font-size: 14px;
 }
 
-/*~~~~~~~~~~~~~~~~Checkout~~~~~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~~~CHECKOUT~~~~~~~~~~~~~~~~~~*/
 
 .checkoutFormDiv {
   display: block;

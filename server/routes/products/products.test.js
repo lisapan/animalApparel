@@ -14,15 +14,15 @@ describe('Products Route:', function () {
       name: 'Pokemon Dog Costume',
       description: 'Cute, soft, yellow one piece Pikachu costume for your pup.',
       price: '30.00',
-      imageURL: 'wYu7cQs.jpg',
-      tags: ['pokemon', 'costume', 'halloween', 'pikachu', 'dog']
+      image_URL: 'wYu7cQs.jpg',
+      category: ['pokemon', 'costume', 'halloween', 'pikachu', 'dog']
     },
     {
       name: 'Pokemon Woman Costume',
       description: 'Cute, soft, yellow one piece Pikachu costume for ladies.',
       price: '60.00',
-      imageURL: 'xxxxxxx.jpg',
-      tags: ['pokemon', 'costume', 'halloween', 'pikachu', 'woman']
+      image_URL: 'xxxxxxx.jpg',
+      category: ['pokemon', 'costume', 'halloween', 'pikachu', 'woman']
     }])
   })
 
@@ -61,8 +61,8 @@ describe('Products Route:', function () {
         name: 'Panda Dog Costume',
         description: 'Cuddly black and white one piece costume for your pup.',
         price: '35.00',
-        imageURL: 'yyyyyy.jpg',
-        tags: ['panda', 'costume', 'halloween', 'dog']
+        image_URL: 'yyyyyy.jpg',
+        category: ['panda', 'costume', 'halloween', 'dog']
       })
       .expect(201, res => {
         expect(res.body.name).to.equal('Panda Dog Costume');
@@ -75,8 +75,8 @@ describe('Products Route:', function () {
       .send({
         description: 'Cuddly black and white one piece costume for your pup.',
         price: '35.00',
-        imageURL: 'yyyyyy.jpg',
-        tags: ['panda', 'costume', 'halloween', 'dog']
+        image_URL: 'yyyyyy.jpg',
+        category: ['panda', 'costume', 'halloween', 'dog']
       })
       .expect(500)
     });
