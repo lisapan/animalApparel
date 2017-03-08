@@ -23,13 +23,6 @@ describe('Reviews Route:', function () {
       request(app)
       .get('/api/reviews')
       .expect(201)
-      .expect(function (res) {
-        expect(res.body).to.be.an.instanceOf(Array)
-        expect(res.body.length).to.equal(1)
-        expect(res.body[1].title).to.equal("So GREAT.")
-      })
     })
   })
 })
-
-

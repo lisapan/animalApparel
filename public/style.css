@@ -48,7 +48,13 @@ table {
 	border-spacing: 0;
 }
 
-/* DO NOT EDIT ABOVE THIS LINE!! CSS RESET!!! */
+hr {
+  border-top: 1px solid darkslategray;
+  margin: 0px 15px;
+}
+
+/*_____________________________________________*/
+/* DO NOT EDIT ABOVE ^THIS LINE!! CSS RESET!!! */
 
 @font-face {
   font-family: "animalApparelFont";
@@ -72,6 +78,14 @@ body {
 .form-control {
   min-width: 220px !important;
   border: 1px solid black;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.no-margin {
+  margin: 0 !important;
 }
 
 /*~~~~~~~~~NAVBAR~~~~~~~~~~~*/
@@ -484,6 +498,7 @@ h2 {
 p {
   font-family: Helvetica;
   font-weight: 200 !important;
+  line-height: 1.25em;
 }
 
 .thumbnail {
@@ -493,6 +508,30 @@ p {
 
 h3{
   font-size: 14px;
+}
+
+/*~~~~~~~~~~~~~~~~REVIEWS~~~~~~~~~~~~~~~~~~*/
+.review {
+  padding: 10px 0px;
+}
+
+.form-title {
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 6px;
+  border: darkslategray solid 1px;
+  margin: 5px 0px 10px 0px;
+}
+
+textarea {
+  padding: 6px;
+  border: darkslategray solid 1px;
+  margin: 5px 0px 10px 0px;
+  height: 150px;
+  width: 100%;
+  line-height: 1.5em;
 }
 
 /*~~~~~~~~~~~~~~~~CHECKOUT~~~~~~~~~~~~~~~~~~*/
@@ -553,16 +592,6 @@ h3{
   border: 1px solid #d5d5d5;
   color: #000;
   margin: 10px;
-}
-
-/*~~~~~~~~~~~~~~~~REVIEWS~~~~~~~~~~~~~~~~~~*/
-.reviewGrid {
-  margin: 10px;
-}
-
-div .row .reviewForm {
-  margin: 10px;
-  padding: 10px;
 }
 
 /*~~~~~~~~~~~~~~~~CART~~~~~~~~~~~~~~~~~~*/

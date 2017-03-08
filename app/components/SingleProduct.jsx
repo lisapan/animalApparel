@@ -6,7 +6,6 @@ import { Grid, Row, Col, Form,
 import { addCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import RelatedProducts from './RelatedProducts'
 import Reviews from './ProductReviews'
-import ReviewForm from './ProductReviewForm'
 
 class Product extends Component {
 
@@ -69,8 +68,9 @@ class Product extends Component {
              <h2>{ product.name }</h2>
            </Row>
            <Row className="product-detail">
-             <p>{ `$${product.price}` }</p>
+             <p className="no-margin">{ `$${product.price}` }</p>
            </Row>
+           <hr />
            <Row className="product-detail">
              <h3>Size:</h3>
               { product.inventories && (
@@ -98,7 +98,9 @@ class Product extends Component {
                    placeholder="Enter Quantity"
                    onChange={this.handleChange} />
                  <HelpBlock>
-                   {`Only ${this.state.selectedItem.quantity} left`}
+                   {this.state.selectedItem.quantity ?
+                    `Only ${this.state.selectedItem.quantity} left`
+                    : ''}
                  </HelpBlock>
                </FormGroup>
              </Form>
@@ -111,16 +113,18 @@ class Product extends Component {
              onClick={this.addToCart}>
              { this.props.loading ? 'Adding to bag...' : 'Add to Bag' }
            </Button>
-           <Row className="product-detail" >
+           <hr />
+           <Row className="product-detail">
              <h3>Description:</h3>
              <p>{product.description}</p>
            </Row>
+           <Row className="product-detail">
+             <h3>Reviews:</h3>
+             <Reviews
+               currentProduct={this.props.currentProduct || {}}
+               reviews={this.props.currentProduct.reviews} />
+           </Row>
          </Col>
-        </Row>
-        <Row>
-          { this.props.currentProduct.reviews &&
-            <Reviews reviews={this.props.currentProduct.reviews} /> }
-          <ReviewForm currentProduct={this.props.currentProduct} />
         </Row>
         <RelatedProducts relatedProducts={this.props.relatedProducts} />
       </Grid>

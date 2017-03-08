@@ -8,10 +8,11 @@ api
   .use('/users', require('./users'))
   .use('/products', require('./routes/products/product-router'))
   .use('/cart', require('./routes/orders/order-router'))
-  .use('/reviews', require('./routes/review-router') )
+  .use('/reviews', require('./routes/reviews/review-router') )
 
 // Send along any errors
 api.use((err, req, res, next) => {
+  console.error(err)
   res.status(500).send(err)
 })
 

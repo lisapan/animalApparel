@@ -11,12 +11,9 @@ export const createReview = () => ({
 
 /* ------------     THUNKS     ------------------ */
 
-export const addReview = newReview => {
-  return dispatch => {
-    dispatch(createReview())
-    return axios.post('/api/reviews', newReview)
-    .then(response => dispatch(getProductById(newReview.product_id)))
-    .then(response => console.log('We did it!'))
-    .catch(err => console.error(`Creating review: ${newReview} unsuccesful`, err))
-  }
+export const addReview = newReview => dispatch => {
+  dispatch(createReview())
+  return axios.post('/api/reviews', newReview)
+  .then(response => dispatch(getProductById(newReview.category, newReview.product_id)))
+  .catch(err => console.error(`Creating review: ${newReview} unsuccesful.\n${err}`))
 }

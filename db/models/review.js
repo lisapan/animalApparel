@@ -5,15 +5,14 @@ const db = require('APP/db')
 
 const Review = db.define('reviews', {
   title: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   comment: {
-    type: Sequelize.TEXT
-  },
-  stars: {
-    type: Sequelize.ENUM('1', '2', '3', '4', '5'),
+    type: Sequelize.TEXT,
     allowNull: false
-  }
+  },
+  stars: Sequelize.INTEGER
 })
 
 module.exports = Review
