@@ -3,6 +3,7 @@ export const SET_ORDER_ID = 'SET_ORDER_ID'
 
 // Auth
 export const AUTHENTICATED = 'AUTHENTICATED'
+export const NOT_AUTHENTICATED = 'NOT_AUTHENTICATED'
 
 // User
 export const INITIALIZE_USERS = 'INITIALIZE_USERS'

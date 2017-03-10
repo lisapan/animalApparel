@@ -1,30 +1,30 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Table, Button, Image, Glyphicon } from 'react-bootstrap'
-import { updateCartItemAndGetUpdatedCart, deleteCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
+import { updateCartItemAndGetUpdatedCart, deleteCartItemAndGetUpdatedCart } from '../../reducers/action-creators/cart'
 import { LinkContainer } from 'react-router-bootstrap'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
-    // this.changeQuantity = this.changeQuantity.bind(this)
+    this.changeQuantity = this.changeQuantity.bind(this)
     this.removeFromCart = this.removeFromCart.bind(this)
     this.getTotal = this.getTotal.bind(this)
   }
 
-  // changeQuantity(event){
-  //   event.preventDefault()
-  //   const itemChanges = {
-  //     orderItem: {
-  //       size: this.state.selectedItem.size,
-  //       quantity: event.target.value
-  //     },
-  //     productId: this.props.currentProduct.id,
-  //     orderId: this.props.orderId.length ? this.props.orderId : null
-  //   }
-  //   this.props.dispatch(updateCartItemAndGetUpdatedCart(itemChanges))
-  // }
-  //
+  changeQuantity(event){
+    event.preventDefault()
+    const itemChanges = {
+      orderItem: {
+        size: this.state.selectedItem.size,
+        quantity: event.target.value
+      },
+      productId: this.props.currentProduct.id,
+      orderId: this.props.orderId.length ? this.props.orderId : null
+    }
+    this.props.dispatch(updateCartItemAndGetUpdatedCart(itemChanges))
+  }
+
   removeFromCart(cartId, itemId) {
     this.props.handleRemoveItem(cartId, itemId)
   }
@@ -32,14 +32,14 @@ class Cart extends Component {
   getTotal() {
     const cart = this.props.cart.order_items
     let total = 0
-    cart.forEach(item => {
-      total += +item.product.price * item.quantity
+    cart && cart.forEach(item => {
+      total += item.product.price * item.quantity
     })
     return total.toFixed(2)
   }
 
   render() {
-    const cart = this.props.cart.order_items
+    const cart = this.props.cart.order_items || []
 
     return (
       <div className="cart">
@@ -106,8 +106,8 @@ Cart.propTypes = {
   handleRemoveItem: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => ({cart: state.cart})
-const mapDispatchToProps = (dispatch) => ({
+const mapStateToProps = state => ({ cart: state.cart })
+const mapDispatchToProps = dispatch => ({
   handleRemoveItem: (cartId, itemId) => dispatch(deleteCartItemAndGetUpdatedCart(cartId, itemId))
 })
 

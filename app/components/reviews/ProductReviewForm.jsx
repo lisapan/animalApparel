@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm, formValueSelector, reset } from 'redux-form'
-import { addReview } from '../reducers/action-creators/review'
+import { addReview } from '../../reducers/action-creators/review'
 import { Row, Col, Button } from 'react-bootstrap'
 
 class ReviewForm extends Component {
@@ -16,12 +16,12 @@ class ReviewForm extends Component {
     event.preventDefault()
     review.product_id = this.props.currentProduct.id
     review.category = this.props.currentProduct.category
-    console.log(review)
     this.props.handleAddReview(review)
     this.props.resetReview()
   }
 
   render() {
+
     return (
       <Row >
         <form className="reviewForm" onSubmit={this.props.handleSubmit(this.submit)}>

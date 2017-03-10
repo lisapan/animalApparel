@@ -1,11 +1,13 @@
-const app = require('APP'), {env} = app
+'use strict'
+
+const app = require('APP')
+const { env } = app
 const debug = require('debug')(`${app.name}:auth`)
 const passport = require('passport')
 
 const User = require('APP/db/models/user')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
-
 
 /*************************
  * Auth strategies

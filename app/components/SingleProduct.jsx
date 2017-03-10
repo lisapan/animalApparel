@@ -5,7 +5,7 @@ import { Grid, Row, Col, Form,
          FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap'
 import { addCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import RelatedProducts from './RelatedProducts'
-import Reviews from './ProductReviews'
+import Reviews from './reviews/ProductReviews'
 
 class Product extends Component {
 
@@ -55,6 +55,7 @@ class Product extends Component {
 
   render() {
     const product = this.props.currentProduct
+
     return  (
       <Grid fluid={true}>
         <Row>
@@ -80,7 +81,7 @@ class Product extends Component {
                       type="button"
                       className="size-thumbnail"
                       onClick={(event) => this.sizeClicked(event, inventory)}
-                      disabled={ inventory.quantity < 0}>
+                      disabled={inventory.quantity < 1}>
                       { inventory.size }
                     </Button>
                   )

@@ -3,7 +3,7 @@
 const db = require('APP/db')
 const User = db.model('user')
 
-const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
+const { mustBeLoggedIn, forbidden } = require('./auth.filters')
 
 module.exports = require('express').Router()
 
@@ -12,10 +12,18 @@ module.exports = require('express').Router()
 		.then(users => res.json(users))
 		.catch(next))
 
-	.post('/', (req, res, next) =>
-		User.create(req.body)
-		.then(user => res.status(201).json(user))
-		.catch(next))
+	.post('/', (req, res, next) => {
+    const cart = req.session.cart || null
+
+    User.create(req.body)
+		.then(user => {
+      req.session.user = user.get({ plain: true })
+      if (cart) req.session.cart = cart
+      console.log(req.session)
+      res.status(201).json(user)
+    })
+		.catch(next)
+  })
 
 	.get('/:id', mustBeLoggedIn, (req, res, next) =>
 		User.findById(req.params.id)

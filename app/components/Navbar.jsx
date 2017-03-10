@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { Navbar, Nav, Breadcrumb, Row, FormGroup, FormControl,
          NavDropdown, MenuItem, Glyphicon, Button, Col, InputGroup } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { logout as logOutUser } from '../reducers/action-creators/auth'
+import { logout } from '../reducers/action-creators/auth'
 
 const LoginSignup = (props) => {
   return (
@@ -27,8 +27,8 @@ LoginSignup.propTypes = {
   collapse: PropTypes.bool.isRequired
 }
 
-const Logout = (props) => {
-  const name = (!props.auth || props.auth === 'string') ? null : (props.auth.name || props.auth.email)
+const Logout = props => {
+  const name = (!props.auth || (typeof props.auth === 'string')) ? null : (props.auth.name || props.auth.email)
 
   return (
     <NavDropdown
@@ -52,7 +52,7 @@ Logout.propTypes = {
   auth: PropTypes.object.isRequired
 }
 
-const NavBar = (props) => {
+const NavBar = props => {
   return (
     <Navbar>
       <Row className="black-bar">
@@ -109,7 +109,7 @@ const NavBar = (props) => {
           <Navbar.Collapse>
             <Nav id="lower-nav-collapse">
               { typeof props.auth !== 'string' ?
-                <Logout auth={props.auth} collapse={true} logout={logOutUser} /> :
+                <Logout auth={props.auth} collapse={true} logout={props.logOutUser} /> :
                 <LoginSignup auth={props.auth} collapse={true} /> }
               <NavDropdown
                 title={<Glyphicon glyph="shopping-cart" />}
@@ -169,7 +169,7 @@ const NavBar = (props) => {
         <Col md={12} lg={12} xsHidden={true} smHidden={true} id="lower-nav">
           <Nav pullRight={true}>
             { typeof props.auth !== 'string' ?
-              <Logout auth={props.auth} collapse={true} logout={logOutUser} /> :
+              <Logout auth={props.auth} collapse={true} logout={props.logOutUser} /> :
               <LoginSignup auth={props.auth} collapse={true} /> }
             <NavDropdown
               title={<Glyphicon glyph="shopping-cart" />}
@@ -196,16 +196,12 @@ const NavBar = (props) => {
 }
 
 NavBar.propTypes = {
-  cart: PropTypes.object
+  cart: PropTypes.object.isRequired,
+  logOutUser: PropTypes.func.isRequired
 }
 
-const mapState = ({auth, cart}) => ({auth, cart})
+const mapState = ({ auth, cart }) => ({ auth, cart })
 
-const mapDispatch = dispatch => ({
-  logout: () => {
-    dispatch(logOutUser());
-    // browserHistory.push('/'); // removed to demo logout instant re-render
-  }
-})
+const mapDispatch = dispatch => ({ logOutUser: () => dispatch(logout()) })
 
 export default connect(mapState, mapDispatch)(NavBar)

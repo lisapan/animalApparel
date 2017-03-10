@@ -650,3 +650,9 @@ table {
   max-width: 40% !important;
   left: 30vw;
 }
+
+/*~~~~~~~~~~~~~~~~LOGIN/SIGNUP~~~~~~~~~~~~~~~~~~*/
+
+.login-signup {
+  margin-bottom: 35px;
+}
