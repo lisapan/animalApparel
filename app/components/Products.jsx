@@ -5,10 +5,10 @@ import Sidebar from './Sidebar';
 
 import { Grid, Row, Col, Thumbnail } from 'react-bootstrap';
 
-const Products = (props) => {
+const Products = props => {
 
   return (
-    <Grid fluid={true}>
+    <Grid>
       <Row>
         <Sidebar />
         <Col xs={12} sm={12} md={10} lg={10}>
@@ -20,7 +20,7 @@ const Products = (props) => {
                   className="product"
                   key={ product.id }
                   xs={12} sm={6} md={4} lg={4}>
-                  <Link to={`/products/product/${product.id}`}>
+                  <Link to={`/products/${props.params.tag}/${product.id}`}>
                     <Thumbnail src={ product.imageURL } alt={`${product.name} photo`}>
                     <h5>{ product.name }</h5>
                     <p>{ `$${product.price}` }</p>
@@ -39,6 +39,7 @@ const Products = (props) => {
 //Debugging tool. Will throw error if props are not correctly passed down.
 Products.propTypes = {
   products: PropTypes.array.isRequired,
+  params: PropTypes.object.isRequired
 }
 
 export default Products

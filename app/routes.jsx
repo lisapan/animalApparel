@@ -35,20 +35,20 @@ const onCartContainerEnter = function (nextRouterState) {
 
 
 const Routes = () => (
-    <Provider store={store}>
-      <Router history={browserHistory}>
-        <Route path="/" component={App}>
-          <Route path="/home" component={Home}/>
-          <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter}/>
-          <Route path="/products/product/:productId" component={ProductContainer} onEnter={onProductContainerEnter} />
-          <Route path="/cart/:cartId" component={CartContainer} onEnter={onCartContainerEnter}/>
-          <Route path="/account/login" component={LoginSignup}/>
-          <Route path="/checkout" component={Checkout}/>
-          <Route path="/orderConfirmation" component={OrderConfirmation}/>
-          <IndexRedirect to={'/home'}/>
-        </Route>
-      </Router>
-    </Provider>
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={App}>
+        <Route path="/home" component={Home} />
+        <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
+        <Route path="/products/:tag/:productId" component={ProductContainer} onEnter={onProductContainerEnter} />
+        <Route path="/cart/:cartId" component={CartContainer} onEnter={onCartContainerEnter} />
+        <Route path="/account/login" component={LoginSignup} />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/orderConfirmation" component={OrderConfirmation} />
+        <IndexRedirect to={'/home'} />
+      </Route>
+    </Router>
+  </Provider>
 )
 
 export default Routes
