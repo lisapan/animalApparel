@@ -26,7 +26,7 @@ describe('Inventory', () => {
     description: 'Cute, soft, yellow for your pup.',
     price: '30.00',
     image_URL:'wYu7cQs.jpg',
-    tags: ['pokemon', 'dog'],
+    category: 'pets',
     inventories: [PokemonXS, PokemonS, PokemonM]
   }
 

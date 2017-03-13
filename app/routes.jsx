@@ -1,8 +1,8 @@
 'use strict'
+
 import React from 'react'
 import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
-
 
 import store from './store'
 
@@ -11,41 +11,54 @@ import Home from './components/Homepage'
 import LoginSignup from './components/LoginSignup'
 import Checkout from './components/Checkout'
 import OrderConfirmation from './components/OrderConfirmation'
-import ProductsContainer from './containers/ProductsContainer'
-import ProductContainer from './containers/ProductContainer'
+import AllProducts from './components/AllProducts'
+import SaleProducts from './components/SaleProducts'
+import SingleProduct from './components/SingleProduct'
 import CartContainer from './components/Cart'
 
-import { getProductsByTag, getProductById } from './reducers/action-creators/products'
+import { getProductsByCategory, getProductById,
+         getSaleProductsByCategory, getSaleProducts } from './reducers/action-creators/products'
 import { getAndRenderCart } from './reducers/action-creators/cart'
 
-const onProductsContainerEnter = function (nextRouterState) {
-  const tag = nextRouterState.params.tag;
-  store.dispatch(getProductsByTag(tag));
-};
+const onSaleCategoryEnter = function(nextRouterState) {
+  const category = nextRouterState.params.category
+  store.dispatch(getSaleProductsByCategory(category))
+}
 
-const onProductContainerEnter = function (nextRouterState) {
-  const id = nextRouterState.params.productId;
-  store.dispatch(getProductById(id));
-};
+const onSaleProductsEnter = function(nextRouterState) {
+  store.dispatch(getSaleProducts())
+}
 
-const onCartContainerEnter = function (nextRouterState) {
-  const cartId = nextRouterState.params.cartId;
-  store.dispatch(getAndRenderCart(cartId));
-};
+const onAllProductsEnter = function(nextRouterState) {
+  const category = nextRouterState.params.category
+  store.dispatch(getProductsByCategory(category, null))
+}
 
+const onSingleProductEnter = function(nextRouterState) {
+  const id = nextRouterState.params.productId
+  const category = nextRouterState.params.category
+  store.dispatch(getProductById(category, id))
+}
+
+const onCartContainerEnter = function(nextRouterState) {
+  const cartId = nextRouterState.params.cartId
+  store.dispatch(getAndRenderCart(cartId))
+}
 
 const Routes = () => (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <Route path="/home" component={Home} />
-        <Route path="/products/:tag" component={ProductsContainer} onEnter={onProductsContainerEnter} />
-        <Route path="/products/:tag/:productId" component={ProductContainer} onEnter={onProductContainerEnter} />
+        <Route path="/sale" component={SaleProducts} onEnter={onSaleProductsEnter} />
+        <Route path="/sale/:category" component={SaleProducts} onEnter={onSaleCategoryEnter} />
+        <Route path="/products/:category" component={AllProducts} onEnter={onAllProductsEnter} />
+        <Route path="/products/:category/:productId" component={SingleProduct} onEnter={onSingleProductEnter} />
         <Route path="/cart/:cartId" component={CartContainer} onEnter={onCartContainerEnter} />
         <Route path="/account/login" component={LoginSignup} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/orderConfirmation" component={OrderConfirmation} />
-        <IndexRedirect to={'/home'} />
+        <IndexRedirect to="/home" />
       </Route>
     </Router>
   </Provider>
