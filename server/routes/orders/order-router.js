@@ -43,29 +43,31 @@ module.exports = require('express').Router()
       product_id: req.body.product_id
     }, {include: [Order, Product]})
     .then(createdOrderItem => {
-      console.log('This is the newly created order item: ', createdOrderItem)
       if (!req.session.cart.order_items) {
         req.session.cart.order_items = [createdOrderItem] //If this is the first item in the cart, init the cart
       }
       else {
         req.session.cart.order_items.push(createdOrderItem) //Otherwise add item to existing cart
       }
-      res.send(req.session.cart)})
+      res.status(201).send(req.session.cart)
+    })
     .catch(next)
   })
 
   //All items in an order are rendered to the cart
   .get('/:cartId', (req, res, next) => {
-    Order.find({
-      where: { id: req.params.cartId },
-      include: [{model: OrderItem, include: [Product]}]
+    if (req.session.cart.id === req.params.cartId) {
+      res.send(req.session.cart)
+    }
+
+    Order.findById(req.params.cartId,
+      {include: [{model: OrderItem, include: [Product]}]
     })
     .then(foundOrder => res.json(foundOrder))
     .catch(next)
   })
   //submit order - it updates the shipping info, and updates to 'submitted'
   .put('/order/:orderId', (req, res, next) => {
-    console.log('hello')
     Order.update(req.body, {
       where: {
         id: req.params.orderId

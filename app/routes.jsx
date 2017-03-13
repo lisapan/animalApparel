@@ -8,13 +8,13 @@ import store from './store'
 
 import App from './components/App'
 import Home from './components/Homepage'
-import LoginSignup from './components/LoginSignup'
-import Checkout from './components/Checkout'
+import LoginSignup from './components/auth/LoginSignup'
+import Checkout from './components/checkout/Checkout'
 import OrderConfirmation from './components/OrderConfirmation'
 import AllProducts from './components/AllProducts'
 import SaleProducts from './components/SaleProducts'
 import SingleProduct from './components/SingleProduct'
-import CartContainer from './components/Cart'
+import Cart from './components/cart/Cart'
 
 import { getProductsByCategory, getProductById,
          getSaleProductsByCategory, getSaleProducts } from './reducers/action-creators/products'
@@ -40,7 +40,7 @@ const onSingleProductEnter = function(nextRouterState) {
   store.dispatch(getProductById(category, id))
 }
 
-const onCartContainerEnter = function(nextRouterState) {
+const onCartEnter = function(nextRouterState) {
   const cartId = nextRouterState.params.cartId
   store.dispatch(getAndRenderCart(cartId))
 }
@@ -54,7 +54,7 @@ const Routes = () => (
         <Route path="/sale/:category" component={SaleProducts} onEnter={onSaleCategoryEnter} />
         <Route path="/products/:category" component={AllProducts} onEnter={onAllProductsEnter} />
         <Route path="/products/:category/:productId" component={SingleProduct} onEnter={onSingleProductEnter} />
-        <Route path="/cart/:cartId" component={CartContainer} onEnter={onCartContainerEnter} />
+        <Route path="/cart/:cartId" component={Cart} onEnter={onCartEnter} />
         <Route path="/account/login" component={LoginSignup} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/orderConfirmation" component={OrderConfirmation} />

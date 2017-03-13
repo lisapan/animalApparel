@@ -2,21 +2,6 @@ const db = require('APP/db')
 
 const randQty = () => Math.round(Math.random() * 100)
 
-const generateInventory = () => {
-  const inventory = []
-  let i = 1
-  while (i <= productList.length) {
-    inventory.push({size: 'XS', quantity: randQty(), product_id: i})
-    inventory.push({size: 'S', quantity: randQty(), product_id: i})
-    inventory.push({size: 'M', quantity: randQty(), product_id: i})
-    inventory.push({size: 'L', quantity: randQty(), product_id: i})
-    inventory.push({size: 'XL', quantity: randQty(), product_id: i})
-    inventory.push({size: 'XXL', quantity: randQty(), product_id: i})
-    i++
-  }
-  return inventory
-}
-
 const seedUsers = () => db.Promise.map([
   {name: 'Katie Jackson', email: 'katie@animalapparel.com', password: '12345678'},
   {name: 'Lisa Pan', email: 'lisa@animalapparel.com', password: '12345678'},
@@ -305,6 +290,21 @@ const productList = [
     style_id: 1106
   }
 ]
+
+const generateInventory = () => {
+  const inventory = []
+  let i = 1
+  while (i <= productList.length) {
+    inventory.push({size: 'XS', quantity: randQty(), product_id: i})
+    inventory.push({size: 'S', quantity: randQty(), product_id: i})
+    inventory.push({size: 'M', quantity: randQty(), product_id: i})
+    inventory.push({size: 'L', quantity: randQty(), product_id: i})
+    inventory.push({size: 'XL', quantity: randQty(), product_id: i})
+    inventory.push({size: 'XXL', quantity: randQty(), product_id: i})
+    i++
+  }
+  return inventory
+}
 
 const seedProducts = () => db.Promise.map(productList, product => db.model('products').create(product))
 
