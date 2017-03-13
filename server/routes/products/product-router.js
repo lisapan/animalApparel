@@ -5,79 +5,37 @@ const Product = db.model('products')
 const Inventory = db.model('inventory')
 const Review = db.model('reviews')
 
-const { mustBeLoggedIn, forbidden } = require('../users/auth.filters')
-
 module.exports = require('express').Router()
-	.get('/', (req, res, next) => {
-		Product.findAll({include: [Inventory]})
-		.then(products => {
-			res.json(products)
-		})
-		.catch(next)
-	})
-	.get('/product/:productId', (req, res, next) => {
-		console.log(req.params)
+  .get('/sale', (req, res, next) => {
+    Product.findAll({ where: {sale: true} })
+    .then(products => {
+      products = products.sort((a, b) => a.style_id - b.style_id)
+      res.json(products)
+    })
+    .catch(next)
+  })
+  .get('/sale/:category', (req, res, next) => {
+    Product.findAll({ where: {sale: true} })
+    .then(products => {
+      if (req.params.category === 'people') products = products.filter(product => product.category !== 'pets')
+      else products = products.filter(product => product.category === 'pets')
+      res.json(products)
+    })
+    .catch(next)
+  })
+  .get('/:category', (req, res, next) => {
+    Product.findAll({ where: {category: req.params.category} })
+    .then(products => res.json(products))
+    .catch(next)
+  })
+	.get('/:category/:productId', (req, res, next) => {
+    let product
+
 		Product.findById(req.params.productId, {include: [Inventory, Review]})
-		.then(product => {
-			res.json(product)
-		})
-		.catch(next)
-	})
-	.get('/product/:productId/:name', (req, res, next) => {
-		Product.findAll({
-			where: {
-				name: {
-					$like: `%${req.params.name}%`
-				},
-				id: {
-					$not: req.params.productId
-				}
-			},
-			include: [Inventory]
-		})
-		.then(products => {
-			res.json(products)
-		})
-		.catch(next)
-	})
-	.get('/sale/:tag', (req, res, next) => {
-		Product.findByTag([req.params.tag, 'sale'], {include: [Inventory, Review]})
-		.then(products => {
-			res.json(products)
-		})
-		.catch(next)
-	})
-	.get('/:tag', (req, res, next) => {
-		Product.findByTag(req.params.tag, {include: [Inventory, Review]})
-		.then(products => {
-			res.json(products)
-		})
-		.catch(next)
-	})
-	.post('/'/*, forbidden('only admins can list users')*/, (req, res, next) => {
-		Product.create(req.body)
-		.then(product => res.status(201).json(product))
-		.catch(next)
-	})
-	.delete('/:productId'/*, forbidden('only admins can list users')*/, (req, res, next) => {
-		Product.destroy({
-			where: {
-				id: req.params.productId
-			},
-			include: [Inventory, Review],
-			returning: true
-		})
-		.then(product => res.status(204).json(product))
-		.catch(next)
-	})
-	.put('/:productId'/*, forbidden('only admins can list users')*/, (req, res, next) => {
-		Product.update(req.body, {
-			where: {
-				id: req.params.productId
-			},
-			include: [Inventory, Review],
-			returning: true
-		})
-		.spread((numUpated, updatedProductArray) => res.status(201).json(updatedProductArray[0]))
+		.then(foundProduct => {
+      product = foundProduct
+      return foundProduct.findRelated()
+    })
+    .then(relatedProducts => res.json({product, relatedProducts}))
 		.catch(next)
 	})
