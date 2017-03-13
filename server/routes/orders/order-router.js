@@ -5,7 +5,7 @@ const OrderItem = db.model('order_item')
 const Order = db.model('order')
 const Product = db.model('products')
 
-// const {mustBeLoggedIn, forbidden} = require('../../auth.filters')
+// const { mustBeLoggedIn, forbidden } = require('../users/auth.filters')
 
 const cart = (req, res, next) => {
   if (req.session.cart) {

@@ -5,7 +5,7 @@ const Product = db.model('products')
 const Inventory = db.model('inventory')
 const Review = db.model('reviews')
 
-const {mustBeLoggedIn, forbidden } = require('../../auth.filters')
+const { mustBeLoggedIn, forbidden } = require('../users/auth.filters')
 
 module.exports = require('express').Router()
 	.get('/', (req, res, next) => {
