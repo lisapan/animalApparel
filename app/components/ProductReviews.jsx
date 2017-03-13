@@ -1,36 +1,32 @@
 'use strict'
 
-import React, { PropTypes } from 'react'
-import { Row, Col } from 'react-bootstrap'
+'use strict'
 
-const Reviews = (props) => {
+import React, { PropTypes } from 'react'
+import ReviewForm from './ProductReviewForm'
+
+const Reviews = props => {
   const reviews = props.reviews || []
   return (
-    <Row className="reviews">
+    <div className="reviews">
       { reviews.length > 0 ?
         reviews.map(review => (
-          <div key={review.id} >
-            <Row className="reviewTitle">
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <h5>{review.title}</h5>
-              </Col>
-            </Row>
-            <Row className="reviewText">
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <h4>{review.comment}</h4>
-              </Col>
-            </Row>
+          <div key={review.id} className="review">
+            <p className="italic reviewHeading">
+              {`${review.created_at.substring(0, 10)}  -  ${review.title}`}
+            </p>
+            <p className="reviewText">{review.comment}</p>
           </div>
         ))
-        : <Col xs={12} sm={12} md={12} lg={12}>
-            <h3>Be the first to review this product!</h3>
-          </Col>
+        : <p>Be the first to review this product!</p>
       }
-    </Row>
+      <ReviewForm currentProduct={props.currentProduct} />
+    </div>
 )}
 
 Reviews.propTypes = {
-  reviews: PropTypes.array
+  reviews: PropTypes.array,
+  currentProduct: PropTypes.object.isRequired
 }
 
 export default Reviews
