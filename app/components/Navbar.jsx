@@ -1,4 +1,5 @@
 'use strict'
+
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
@@ -40,9 +41,7 @@ const Logout = (props) => {
       <MenuItem eventKey={3.1}>Account</MenuItem>
       <MenuItem eventKey={3.1}>Order Status</MenuItem>
       <LinkContainer to={{pathname: '/'}}>
-        <MenuItem eventKey={3.1} onClick={props.logout}>
-          Logout
-        </MenuItem>
+        <MenuItem eventKey={3.1} onClick={props.logout}>Logout</MenuItem>
       </LinkContainer>
     </NavDropdown>
   )
@@ -50,6 +49,7 @@ const Logout = (props) => {
 
 Logout.propTypes = {
   collapse: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 }
 
@@ -65,53 +65,53 @@ const NavBar = (props) => {
             <Navbar.Brand>
               <Nav>
                 <Col xs={12} sm={12} md={6} lg={6} className="logo">
-                  <Link to="/">Animal Apparel<sup>®</sup></Link>
-                </Col>
-                <Col xsHidden={true} md={6} lg={6}
-                  className="breadcrumb-nav">
-                  <Nav pullRight={true}>
-                    <Breadcrumb>
-                      <LinkContainer to={{pathname: '/products/women'}}>
-                        <Breadcrumb.Item href="" className="navbar-categories">
-                          Women
-                        </Breadcrumb.Item>
-                      </LinkContainer>
-                      <LinkContainer to={{pathname: '/products/men'}}>
-                        <Breadcrumb.Item href="/products/men" className="navbar-categories">
-                          Men
-                        </Breadcrumb.Item>
-                      </LinkContainer>
-                        <LinkContainer to={{pathname: '/products/kids'}}>
-                          <Breadcrumb.Item className="navbar-categories">
-                            Kids
-                          </Breadcrumb.Item>
-                        </LinkContainer>
-                        <LinkContainer to={{pathname: '/products/pets'}}>
-                          <Breadcrumb.Item className="navbar-categories">
-                            Pets
-                          </Breadcrumb.Item>
-                        </LinkContainer>
-                        <LinkContainer to={{pathname: '/products/sale'}}>
-                          <Breadcrumb.Item className="navbar-categories">
-                            Sale
-                          </Breadcrumb.Item>
-                        </LinkContainer>
-                    </Breadcrumb>
-                  </Nav>
+                  <Link to="/home">Animal Apparel<sup>®</sup></Link>
                 </Col>
               </Nav>
+              <Col xsHidden sm={12} md={6} lg={6} className="breadcrumb-nav">
+                <Nav pullRight={true}>
+                  <Breadcrumb>
+                    <LinkContainer to={{pathname: '/products/women'}}>
+                      <Breadcrumb.Item href="" className="navbar-categories">
+                        Women
+                      </Breadcrumb.Item>
+                    </LinkContainer>
+                    <LinkContainer to={{pathname: '/products/men'}}>
+                      <Breadcrumb.Item href="/products/men" className="navbar-categories">
+                        Men
+                      </Breadcrumb.Item>
+                    </LinkContainer>
+                      <LinkContainer to={{pathname: '/products/kids'}}>
+                        <Breadcrumb.Item className="navbar-categories">
+                          Kids
+                        </Breadcrumb.Item>
+                      </LinkContainer>
+                      <LinkContainer to={{pathname: '/products/pets'}}>
+                        <Breadcrumb.Item className="navbar-categories">
+                          Pets
+                        </Breadcrumb.Item>
+                      </LinkContainer>
+                      <LinkContainer to={{pathname: '/sale'}}>
+                        <Breadcrumb.Item className="navbar-categories">
+                          Sale
+                        </Breadcrumb.Item>
+                      </LinkContainer>
+                  </Breadcrumb>
+                </Nav>
+              </Col>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
         </Col>
       </Row>
+      { /* mobile menu */ }
       <Row>
-        <Col xs={12} sm={12} mdHidden={true} lgHidden={true} className="lower-nav-collapse">
+        <Col xs={12} sm={12} mdHidden lgHidden className="lower-nav-collapse">
           <Navbar.Collapse>
             <Nav id="lower-nav-collapse">
               { typeof props.auth !== 'string' ?
-                <Logout auth={props.auth} collapse={true} logout={logOutUser}/> :
-                <LoginSignup auth={props.auth} collapse={true}/> }
+                <Logout auth={props.auth} collapse={true} logout={logOutUser} /> :
+                <LoginSignup auth={props.auth} collapse={true} /> }
               <NavDropdown
                 title={<Glyphicon glyph="shopping-cart" />}
                 noCaret eventKey={2} id="cart-dropdown-collapse">
@@ -133,13 +133,45 @@ const NavBar = (props) => {
             </Nav>
           </Navbar.Collapse>
         </Col>
+        <Col xs={12} smHidden mdHidden lgHidden className="breadcrumb-mobile">
+          <Nav pullRight={true}>
+            <Breadcrumb>
+              <LinkContainer to={{pathname: '/products/women'}}>
+                <Breadcrumb.Item href="" className="navbar-categories">
+                  Women
+                </Breadcrumb.Item>
+              </LinkContainer>
+              <LinkContainer to={{pathname: '/products/men'}}>
+                <Breadcrumb.Item href="/products/men" className="navbar-categories">
+                  Men
+                </Breadcrumb.Item>
+              </LinkContainer>
+                <LinkContainer to={{pathname: '/products/kids'}}>
+                  <Breadcrumb.Item className="navbar-categories">
+                    Kids
+                  </Breadcrumb.Item>
+                </LinkContainer>
+                <LinkContainer to={{pathname: '/products/pets'}}>
+                  <Breadcrumb.Item className="navbar-categories">
+                    Pets
+                  </Breadcrumb.Item>
+                </LinkContainer>
+                <LinkContainer to={{pathname: '/sale'}}>
+                  <Breadcrumb.Item className="navbar-categories">
+                    Sale
+                  </Breadcrumb.Item>
+                </LinkContainer>
+            </Breadcrumb>
+          </Nav>
+        </Col>
       </Row>
+      { /* desktop menu */ }
       <Row className="lower-nav">
         <Col md={12} lg={12} xsHidden={true} smHidden={true} id="lower-nav">
           <Nav pullRight={true}>
             { typeof props.auth !== 'string' ?
-              <Logout auth={props.auth} collapse={true} logout={logOutUser}/> :
-              <LoginSignup auth={props.auth} collapse={true}/> }
+              <Logout auth={props.auth} collapse={true} logout={logOutUser} /> :
+              <LoginSignup auth={props.auth} collapse={true} /> }
             <NavDropdown
               title={<Glyphicon glyph="shopping-cart" />}
               noCaret eventKey={2} href="#" id="cart-dropdown">
@@ -168,19 +200,13 @@ NavBar.propTypes = {
   cart: PropTypes.object
 }
 
-const mapState = ({auth, cart}) => ({auth, cart});
-// // equivalent to:
-// const mapState = state => {
-//   return {
-//     currentUser: state.currentUser
-//   };
-// };
+const mapState = ({auth, cart}) => ({auth, cart})
 
 const mapDispatch = dispatch => ({
   logout: () => {
     dispatch(logOutUser());
     // browserHistory.push('/'); // removed to demo logout instant re-render
   }
-});
+})
 
-export default connect(mapState, mapDispatch)(NavBar);
+export default connect(mapState, mapDispatch)(NavBar)
