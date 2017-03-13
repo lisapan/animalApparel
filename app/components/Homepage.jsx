@@ -32,7 +32,7 @@ const Home = props => (
         </div>
       </Col>
     </Row>
-    <Row className="show-grid">
+    <Row>
       <Col mdHidden={true} lgHidden={true} xs={12} sm={12} id="women-xs-sm">
         <Link to={'/products/women'}>
           <div className="home-pic women">

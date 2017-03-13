@@ -112,10 +112,22 @@ h4 {
   float: none !important;
 }
 
+@media(min-width: 768px) {
+  .navbar-header {
+    margin-bottom: -20px;
+  }
+}
+
 .navbar {
   background-color: white;
   border: none;
   margin-bottom: 0;
+}
+
+@media(min-width: 768px) {
+  .navbar-nav>li>a {
+    padding-top: 18px;
+  }
 }
 
 #search-collapse>.btn {
@@ -137,7 +149,7 @@ h4 {
 .navbar .navbar-brand {
   color: black;
   font-family: "animalApparelFont";
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 100;
   padding: 15px, 50px !important;
   margin-bottom: 25px;
@@ -164,12 +176,6 @@ h4 {
 #login-dropdown-collapse {
   margin-bottom: 0;
 }
-
-/*.navbar-default .navbar-nav>li>a {
-  color: black;
-  margin: 0px 15px 0px 15px;
-  padding: 0px 15px 0px 15px;
-}*/
 
 .navbar-default .navbar-nav>.open>a {
   background: none;
@@ -206,6 +212,7 @@ sup {
   width: 100%;
   padding-top: 10px;
   padding-left: 3px;
+
 }
 
 .breadcrumb>li+li:before {
@@ -230,8 +237,7 @@ sup {
 
 .breadcrumb-mobile {
   margin: 0px 5px;
-  font-size: 1.5em;
-
+  font-size: 1.25em;
 }
 
 .navbar-collapse {
@@ -321,17 +327,23 @@ a {
 h1 {
   margin-top: 15px;
   padding: 10px;
+  font-size: 2em;
 }
 
-h1.promo {
-  padding: 10px;
+h1#promo {
+  padding: 0;
+  margin: 0;
   display: inline-block;
-  margin-top: 15px;
+}
+
+@media(max-width: 768px) {
+  h1#promo {
+    max-width: 280px;
+  }
 }
 
 h1.page-title {
   margin-top: 0 !important;
-  padding: 0px 5px;
 }
 
 .home-pic  {
@@ -347,11 +359,12 @@ h1.page-title {
   -o-background-size: cover;
   background-size: cover;
   height: 100%;
+  padding: 20px;
 }
 
 #promo {
   text-align: left;
-  font-size: 2.75em;
+  font-size: 2em;
   margin: 15px;
   width: inherit;
 }
@@ -359,7 +372,7 @@ h1.page-title {
 #promoCode {
   text-align: right;
   font-size: 1.5em;
-  margin-right: 15px;
+  padding: 0;
 }
 
 #bottomRow{
@@ -371,16 +384,16 @@ h1.page-title {
   text-align: left;
   float: left;
   font-size: 1em;
-  margin-left: 15px;
   color: white;
+  padding: 0px;
 }
 
 #petSale {
   text-align: right;
   float: right;
   font-size: 1em;
-  margin-right: 15px;
   color: white;
+  padding: 0px;
 }
 
 #women-xs-sm {
@@ -490,10 +503,6 @@ h2 {
   width: 20px;
 }
 
-.product {
-
-}
-
 p {
   font-family: Helvetica;
   font-weight: 200 !important;
@@ -506,6 +515,7 @@ p {
 }
 
 h3{
+  padding-bottom: 10px;
   font-size: 14px;
 }
 
@@ -515,7 +525,13 @@ h3{
 }
 
 .form-title {
-  margin-bottom: 20px;
+  margin: 15px 0px 0px 0px;
+  padding-bottom: 12px;
+}
+
+label {
+  font-family: Helvetica;
+  font-weight: 200 !important;
 }
 
 input {
@@ -648,4 +664,10 @@ table {
   position: relative;
   max-width: 40% !important;
   left: 30vw;
+}
+
+/*~~~~~~~~~~~~~~~~LOGIN/SIGNUP~~~~~~~~~~~~~~~~~~*/
+
+.login-signup {
+  margin-bottom: 35px;
 }
