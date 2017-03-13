@@ -63,7 +63,7 @@ export default class Product extends Component {
          <Col xs={12} sm={12} md={6} lg={6}>
            <Thumbnail
              className="product-detail"
-             src={ product.imageURL } alt={`${product.name} photo`} />
+             src={ product.image_URL } alt={`${product.name} photo`} />
          </Col>
          <Col xs={12} sm={12} md={6} lg={6}>
            <Row className="product-detail">

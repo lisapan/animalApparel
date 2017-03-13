@@ -9,7 +9,7 @@ const RelatedProducts = (props) => (
          <Col className="product" key={ prod.id } xs={12} sm={6} md={3} lg={3}>
           <Thumbnail
            href={ `/products/product/${prod.id}` }
-           src={ prod.imageURL } alt={`${prod.name} photo`}>
+           src={ prod.image_URL } alt={`${prod.name} photo`}>
           <h5>{ prod.name }</h5>
           <p>{ `$${prod.price}` }</p>
           </Thumbnail>

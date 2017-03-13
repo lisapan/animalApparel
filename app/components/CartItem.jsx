@@ -6,7 +6,7 @@ const CartItem = (props) => (
     <td>
       <Image
         className="cart-props.item"
-        src={props.item.product.imageURL}
+        src={props.item.product.image_URL}
         alt={`${props.item.product.name} photo`}
         href={`/products/product/${props.item.product.id}`}/>
     </td>

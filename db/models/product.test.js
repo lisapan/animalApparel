@@ -12,7 +12,7 @@ describe('Product', () => {
    name: 'Pokemon Dog Costume',
    description: 'Cute, soft, yellow one piece Pikachu costume for your pup.',
    price: '30.00',
-   imageURL: 'wYu7cQs.jpg',
+   image_URL: 'wYu7cQs.jpg',
    tags: ['pokemon', 'costume', 'halloween', 'pikachu', 'dog']
   }
 
@@ -23,7 +23,7 @@ describe('Product', () => {
           expect(createdProduct.name).to.equal(dogPokemonSuit.name)
           expect(createdProduct.description).to.equal(dogPokemonSuit.description)
           expect(createdProduct.price).to.equal(dogPokemonSuit.price)
-          expect(createdProduct.imageURL).to.equal(dogPokemonSuit.imageURL)
+          expect(createdProduct.image_URL).to.equal(dogPokemonSuit.image_URL)
           expect(createdProduct.tags).to.deep.equal(dogPokemonSuit.tags)
         })
     )

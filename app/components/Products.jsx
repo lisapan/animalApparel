@@ -21,7 +21,7 @@ const Products = props => {
                   key={ product.id }
                   xs={12} sm={6} md={4} lg={4}>
                   <Link to={`/products/${props.params.tag}/${product.id}`}>
-                    <Thumbnail src={ product.imageURL } alt={`${product.name} photo`}>
+                    <Thumbnail src={ product.image_URL } alt={`${product.name} photo`}>
                     <h5>{ product.name }</h5>
                     <p>{ `$${product.price}` }</p>
                     </Thumbnail>

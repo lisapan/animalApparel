@@ -13,7 +13,7 @@ const Product = db.define('products', {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false
   },
-  imageURL: {
+  image_URL: {
     type: Sequelize.STRING,
     allowNull: false
   },

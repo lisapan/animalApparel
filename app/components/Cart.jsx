@@ -70,7 +70,7 @@ class Cart extends Component {
                       <Image
                         responsive
                         className="cart-item"
-                        src={item.product.imageURL}
+                        src={item.product.image_URL}
                         alt={`${item.product.name} photo`}
                         href={`/products/${this.props.params.tag}/${item.product.id}`} />
                     </td>
