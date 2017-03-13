@@ -61,7 +61,7 @@ if (module === require.main) {
     process.env.PORT || 1337,
     () => {
       console.log(`--- Started HTTP Server for ${pkg.name} ---`)
-      console.log(`Listening on ${JSON.stringify(server.address())}`)
+      console.log(`Listening on ${JSON.stringify(server.address().port)}`)
     }
   )
 }
