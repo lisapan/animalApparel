@@ -1,5 +1,5 @@
 
-``/* http://meyerweb.com/eric/tools/css/reset/
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -47,8 +47,14 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /* __________________________________________ */
 /* DO NOT EDIT ABOVE THIS LINE!! CSS RESET!!! */
+
+hr {
+  border-top: 1px solid darkslategray;
+  margin: 0px 15px;
+}
 
 @font-face {
   font-family: "animalApparelFont";
@@ -72,6 +78,14 @@ body {
 .form-control {
   min-width: 220px !important;
   border: 1px solid black;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.no-margin {
+  margin: 0 !important;
 }
 
 /*~~~~~~~~~HOMEPAGE~~~~~~~~~~~*/
