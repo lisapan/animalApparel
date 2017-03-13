@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm, formValueSelector, reset } from 'redux-form'
-import { addReview } from '../reducers/action-creators/review'
+import { addReview } from '../../reducers/action-creators/review'
 import { Row, Col, Button } from 'react-bootstrap'
 
 class ReviewForm extends Component {
@@ -21,6 +21,7 @@ class ReviewForm extends Component {
   }
 
   render() {
+
     return (
       <Row >
         <form className="reviewForm" onSubmit={this.props.handleSubmit(this.submit)}>
@@ -31,7 +32,7 @@ class ReviewForm extends Component {
             <label htmlFor="title">Title</label>
           </Col>
           <Col xs={12} sm={12} md={12} lg={12}>
-            <Field name="title" component="input" type="text" />
+            <Field className="review" name="title" component="input" type="text" />
           </Col>
           <Col xs={12} sm={12} md={12} lg={12}>
             <label htmlFor="comment">Comment</label>

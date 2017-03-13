@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { Grid, Row, Col } from 'react-bootstrap'
 
 const Home = props => (
-  <Grid fluid={true}>
+  <div>
     <Row className="promo-box">
       <Col xs={12} sm={12} md={12} lg={12}>
         <div className="home-pic promo">
@@ -80,7 +80,7 @@ const Home = props => (
         </Link>
       </Col>
     </Row>
-  </Grid>
+  </div>
 )
 
 export default Home

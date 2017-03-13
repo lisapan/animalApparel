@@ -2,12 +2,12 @@
 
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Grid, Row, Col, Form,
+import { Row, Col, Form,
          Thumbnail, Button, FormControl,
          FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap'
 import { addCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import RelatedProducts from './RelatedProducts'
-import Reviews from './ProductReviews'
+import Reviews from './reviews/ProductReviews'
 
 class Product extends Component {
 
@@ -15,15 +15,13 @@ class Product extends Component {
     super(props)
     this.state = {
       selectedItem: {},
-      selectedQuantity: '',
+      selectItemIsValid: false,
+      selectedQuantity: 1,
+      selectedQuantityIsValid: true
     }
-    this.addToCart = this.addToCart.bind(this)
-    this.sizeClicked = this.sizeClicked.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.getValidationState = this.getValidationState.bind(this)
   }
 
-  addToCart(event) {
+  addToCart = event => {
     event.preventDefault()
     const item = {
       orderItem: {
@@ -33,32 +31,45 @@ class Product extends Component {
       product_id: this.props.currentProduct.id,
       order_id: this.props.order_id ? this.props.order_id : null
     }
-    this.props.dispatch(addCartItemAndGetUpdatedCart(item))
+
+    this.setState({
+      selectedItem: {},
+      selectItemIsValid: false,
+      selectedQuantity: '',
+      selectedQuantityIsValid: false
+    })
+
+    this.props.handleAddItem(item)
   }
 
-  sizeClicked (event, item) {
+  sizeClicked = (event, item) => {
     event.preventDefault()
     this.setState({
-      selectedItem: item
+      selectedItem: item,
+      selectItemIsValid: true
     })
   }
 
-  getValidationState() {
-    const quantity = this.state.selectedQuantity
-    const stock = this.state.selectedItem.quantity
-    if (quantity > stock || quantity < 0) return 'error'
-    else if (quantity > 0 && quantity <= stock) return 'success'
-    else if (quantity === 0) return 'warning'
+  isInvalid = () => {
+    return !(
+      this.state.selectItemIsValid &&
+      this.state.selectedQuantityIsValid
+    )
   }
 
-  handleChange(event) {
-    this.setState({ selectedQuantity: event.target.value });
+  handleChange = event => {
+    this.setState({
+      selectedQuantity: event.target.value,
+      selectedQuantityIsValid: true
+    })
   }
 
   render() {
     const product = this.props.currentProduct
+    const quantities = Array((this.state.selectedItem.quantity) || 1).fill().map((_, idx) => idx + 1)
+
     return  (
-      <Grid fluid={true}>
+      <div>
         <Row>
          <Col xs={12} sm={12} md={6} lg={6}>
            <Thumbnail
@@ -82,8 +93,8 @@ class Product extends Component {
                       type="button"
                       className="size-thumbnail"
                       onClick={(event) => this.sizeClicked(event, inventory)}
-                      disabled={ inventory.quantity < 0}>
-                      { inventory.size }
+                      disabled={inventory.quantity < 1}>
+                      {inventory.size}
                     </Button>
                   )
                 )
@@ -92,18 +103,20 @@ class Product extends Component {
            <Row className="product-detail">
              <Form>
                <FormGroup
-                 controlId="quantity"
-                 validationState={this.getValidationState()}>
-                 <ControlLabel>Quantity:</ControlLabel>
+                 controlId="quantity">
+                 <ControlLabel className="detail">Quantity:</ControlLabel>
                  <FormControl
+                   componentClass="select"
+                   type="text"
+                   placeholder="..."
                    value={this.state.selectedQuantity}
-                   placeholder="Enter Quantity"
-                   onChange={this.handleChange} />
-                 <HelpBlock>
-                   {this.state.selectedItem.quantity ?
-                    `Only ${this.state.selectedItem.quantity} left`
-                    : ''}
-                 </HelpBlock>
+                   onChange={this.handleChange}>
+                   { quantities && quantities.map(quantity =>
+                       <option key={quantity} value={quantity}>
+                         {quantity}
+                       </option>
+                     ) }
+                 </FormControl>
                </FormGroup>
              </Form>
            </Row>
@@ -112,8 +125,9 @@ class Product extends Component {
              bsStyle="primary"
              bsSize="large"
              type="submit"
+             disabled={this.isInvalid()}
              onClick={this.addToCart}>
-             { this.props.loading ? 'Adding to bag...' : 'Add to Bag' }
+             { this.props.loading && this.state.selectedItem ? 'Adding to bag...' : 'Add to Bag' }
            </Button>
            <hr />
            <Row className="product-detail">
@@ -129,7 +143,7 @@ class Product extends Component {
          </Col>
         </Row>
         <RelatedProducts relatedProducts={this.props.relatedProducts} />
-      </Grid>
+      </div>
     )
   }
 }
@@ -137,14 +151,18 @@ class Product extends Component {
 Product.propTypes = {
   currentProduct: PropTypes.object.isRequired,
   relatedProducts: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  handleAddItem: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   currentProduct: state.currentProduct,
   relatedProducts: state.relatedProducts,
   loading: state.loading,
-  order_id: state.order_id
 })
 
-export default connect(mapStateToProps)(Product)
+const mapDispatchToProps = dispatch => ({
+  handleAddItem: item => dispatch(addCartItemAndGetUpdatedCart(item))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product)

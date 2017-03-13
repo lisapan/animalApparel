@@ -4,10 +4,10 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 
-import { Grid, Row, Col, Thumbnail } from 'react-bootstrap'
+import { Row, Col, Thumbnail } from 'react-bootstrap'
 
 const Products = props => (
-  <Grid fluid>
+  <div>
     <Row>
       <Col xs={12} sm={12} mdOffset={1} md={10} lg={10}>
         <h1 className="page-title">{`${props.params.category}`}</h1>
@@ -28,7 +28,7 @@ const Products = props => (
         </Row>
       </Col>
     </Row>
-  </Grid>
+  </div>
 )
 
 Products.propTypes = {

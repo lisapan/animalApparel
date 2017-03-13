@@ -79,6 +79,11 @@ body {
   border: 1px solid black;
 }
 
+#quantity.form-control {
+  min-width: 50px !important;
+  border: 1px solid black;
+}
+
 .italic {
   font-style: italic;
 }
@@ -238,6 +243,8 @@ sup {
 .breadcrumb-mobile {
   margin: 0px 5px;
   font-size: 1.25em;
+  padding-right: 0;
+  max-width: 300px;
 }
 
 .navbar-collapse {
@@ -344,6 +351,7 @@ h1#promo {
 
 h1.page-title {
   margin-top: 0 !important;
+  padding: 15px 0px;
 }
 
 .home-pic  {
@@ -485,7 +493,7 @@ h1.page-title {
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin-top: 0;
 }
 
@@ -512,6 +520,28 @@ p {
 .thumbnail {
   border: 0px !important;
   border-radius: 0px !important;
+  padding: 0;
+}
+
+.related-product {
+  width: 25vw;
+  padding: 0 !important;
+  margin-right: 15px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 900px) {
+  .related-product {
+    width: 30vw;
+  }
+
+  .caption>h5 {
+    text-align: left;
+    float: none;
+  }
+
+  .caption {
+    padding: 9px 0px !important;
+  }
 }
 
 h3{
@@ -520,9 +550,6 @@ h3{
 }
 
 /*~~~~~~~~~~~~~~~~REVIEWS~~~~~~~~~~~~~~~~~~*/
-.review {
-  padding: 10px 0px;
-}
 
 .form-title {
   margin: 15px 0px 0px 0px;
@@ -532,6 +559,13 @@ h3{
 label {
   font-family: Helvetica;
   font-weight: 200 !important;
+}
+
+label.detail {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 14px;
+  padding-bottom: 10px;
 }
 
 input {
@@ -619,7 +653,7 @@ h5 {
 }
 
 .img-responsive{
-  width: 80px;
+  width: 60px;
 }
 
 .cart-item {
@@ -627,8 +661,7 @@ h5 {
 }
 
 .cart-item-button {
-  margin-top: 12px;
-  /*float: left;*/
+
 }
 
 .cart-total {
@@ -663,7 +696,28 @@ td {
 table {
   position: relative;
   max-width: 40% !important;
-  left: 30vw;
+  margin: 10px 10px 10px 12px;
+  border-top: none;
+  border-bottom: none;
+}
+
+@media(min-width: 768px) {
+  h1.center {
+    text-align: center !important;
+  }
+  table {
+    left: 29vw;
+  }
+}
+
+@media(min-width: 568px) and (max-width: 767px) {
+  h1.page-title.center {
+    text-align: center !important;
+  }
+
+  table {
+    left: 15vw !important;
+  }
 }
 
 /*~~~~~~~~~~~~~~~~LOGIN/SIGNUP~~~~~~~~~~~~~~~~~~*/

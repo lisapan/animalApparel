@@ -4,13 +4,12 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 
-import { Grid, Row, Col, Thumbnail } from 'react-bootstrap'
+import { Row, Col, Thumbnail } from 'react-bootstrap'
 
 const Products = props => (
-  <Grid fluid>
-    <Row>
-      <Col xs={12} sm={12} mdOffset={1} md={10} lg={10}>
-        <h1>Sale</h1>
+  <Row>
+    <Col xs={12} sm={12} mdOffset={1} md={10} lg={10}>
+      <h1>Sale</h1>
         <Row>
           { props.products.map(product => (
               <Col className="product" key={ product.id } xs={12} sm={6} md={4} lg={4}>
@@ -25,7 +24,6 @@ const Products = props => (
         </Row>
       </Col>
     </Row>
-  </Grid>
 )
 
 Products.propTypes = {
