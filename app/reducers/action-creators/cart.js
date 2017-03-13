@@ -44,14 +44,12 @@ export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
   }
 }
 
-export const updateCartItemAndGetUpdatedCart = (itemChanges) => {
-  return dispatch => {
-    dispatch(updateCartItem())
+export const updateCartItemAndGetUpdatedCart = itemChanges => dispatch => {
+  dispatch(updateCartItem())
 
-    return axios.put('/api/cart/', itemChanges)
-    .then(res => dispatch(receiveCart(res.data)))
-    .catch(err => console.error(`Error: No item found with id ${itemId}. Unable to update item.`))
-  }
+  return axios.put(`/api/cart/${itemChanges.cartId}/${itemChanges.itemId}`, itemChanges)
+  .then(res => dispatch(receiveCart(res.data)))
+  .catch(err => console.error(`Error: Unable to update item ${itemChanges.itemId}.`))
 }
 
 export const deleteCartItemAndGetUpdatedCart = (cartId, itemId) => {

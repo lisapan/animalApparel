@@ -17,9 +17,10 @@ module.exports = require('express').Router()
 
     User.create(req.body)
 		.then(user => {
-      req.session.user = user.get({ plain: true })
-      if (cart) req.session.cart = cart
-      console.log(req.session)
+      if (cart && cart.user_id === null) {
+        req.session.cart = cart
+        req.session.cart.user_id = user.id
+      }
       res.status(201).json(user)
     })
 		.catch(next)

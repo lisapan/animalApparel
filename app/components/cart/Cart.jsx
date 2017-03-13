@@ -7,29 +7,30 @@ import { LinkContainer } from 'react-router-bootstrap'
 class Cart extends Component {
   constructor(props) {
     super(props)
-    this.changeQuantity = this.changeQuantity.bind(this)
-    this.removeFromCart = this.removeFromCart.bind(this)
-    this.getTotal = this.getTotal.bind(this)
+    this.state = {
+      selectedItemId: null,
+      selectedItemQty: null
+    }
   }
 
-  changeQuantity(event){
+  changeQuantity = (id, qty) => event => {
     event.preventDefault()
     const itemChanges = {
       orderItem: {
-        size: this.state.selectedItem.size,
         quantity: event.target.value
       },
-      productId: this.props.currentProduct.id,
-      orderId: this.props.orderId.length ? this.props.orderId : null
+      itemId: id,
+      cartId: this.props.cart.id || null
     }
     this.props.dispatch(updateCartItemAndGetUpdatedCart(itemChanges))
   }
 
-  removeFromCart(cartId, itemId) {
+  removeFromCart = (cartId, itemId) => event => {
+    event.preventDefault()
     this.props.handleRemoveItem(cartId, itemId)
   }
 
-  getTotal() {
+  getTotal = () => {
     const cart = this.props.cart.order_items
     let total = 0
     cart && cart.forEach(item => {
@@ -60,7 +61,7 @@ class Cart extends Component {
                     <Button bsStyle="primary" className="cart-item-button">
                       <Glyphicon glyph="pencil" />
                     </Button>
-                    <Button onClick={() => this.removeFromCart(this.props.cart.id, item.id)} bsStyle="primary" className="cart-item-button">
+                    <Button onClick={this.removeFromCart(this.props.cart.id, item.id)} bsStyle="primary" className="cart-item-button">
                       <Glyphicon glyph="trash" />
                     </Button>
                   </td>
