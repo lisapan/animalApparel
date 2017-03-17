@@ -548,7 +548,6 @@ h3{
 /*~~~~~~~~~~~~~~~~REVIEWS~~~~~~~~~~~~~~~~~~*/
 
 .form-title {
-  margin: 15px 0px 0px 0px;
   padding-bottom: 12px;
 }
 
@@ -580,7 +579,7 @@ textarea {
 }
 
 .review {
-  margin: 15px 0;
+  margin-bottom: 15px;
 }
 
 .reviewHeading {
