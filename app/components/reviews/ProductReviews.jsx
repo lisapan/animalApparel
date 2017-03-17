@@ -18,7 +18,7 @@ const Reviews = props => {
             <p className="reviewText">{review.comment}</p>
           </div>
         ))
-        : <p>Be the first to review this product!</p>
+        : <p className="review">Be the first to review this product!</p>
       }
       <ReviewForm currentProduct={props.currentProduct} />
     </div>
