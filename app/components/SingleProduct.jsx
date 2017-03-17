@@ -2,8 +2,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, Form,
-         Thumbnail, Button, FormControl,
+import { Row, Col, Thumbnail, Button, FormControl,
          FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap'
 import { addCartItemAndGetUpdatedCart } from '../reducers/action-creators/cart'
 import RelatedProducts from './RelatedProducts'
@@ -28,6 +27,7 @@ class Product extends Component {
         size: this.state.selectedItem.size,
         quantity: this.state.selectedQuantity
       },
+      totalInStock: this.state.selectedItem.quantity,
       product_id: this.props.currentProduct.id,
       order_id: this.props.order_id ? this.props.order_id : null
     }
@@ -101,7 +101,7 @@ class Product extends Component {
               }
            </Row>
            <Row className="product-detail">
-             <Form>
+             <form>
                <FormGroup
                  controlId="quantity">
                  <ControlLabel className="detail">Quantity:</ControlLabel>
@@ -118,7 +118,7 @@ class Product extends Component {
                      ) }
                  </FormControl>
                </FormGroup>
-             </Form>
+             </form>
            </Row>
            <Button
              className="product-detail"

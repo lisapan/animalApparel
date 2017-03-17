@@ -46,11 +46,11 @@ export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
   }
 }
 
-export const updateCartItemAndGetUpdatedCart = (itemChanges) => {
+export const updateCartItemAndGetUpdatedCart = (cartId, itemId, itemChanges) => {
   return dispatch => {
     dispatch(updateCartItem())
 
-    return axios.put('/api/cart/', itemChanges)
+    return axios.put(`/api/cart/${cartId}/${itemId}`, itemChanges)
     .then(res => dispatch(receiveCart(res.data)))
     .catch(err => console.error(`Error: No item found with id ${itemId}. Unable to update item.`))
   }

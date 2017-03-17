@@ -54,7 +54,7 @@ export const creatingUser = newUser => dispatch => {
 
 export const createUserAndGoToHome = newUser => dispatch => {
   dispatch(creatingUser(newUser))
-  .then(response => browserHistory.push('/home'))
+  .then(response => dispatch(loginAndGoToHome(newUser.email, newUser.password)))
   .catch(err => console.error(`Could not create user: ${newUser.name}\n`, err))
 }
 

@@ -1,19 +1,19 @@
 import React from 'react'
-import { Grid, Row } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 
 import Login from './Login'
 import Signup from './Signup'
 
-const LoginSignup = (props) => (
-  <Grid fluid={true}>
+const LoginSignup = props => (
+  <div className="login-signup">
     <Row>
-      <h1 id="accountHeader">Account</h1>
+      <h1 className="accountHeader">Account</h1>
     </Row>
     <Row>
-      <Login/>
-      <Signup/>
+      <Login />
+      <Signup />
     </Row>
-  </Grid>
+  </div>
 )
 
 export default LoginSignup

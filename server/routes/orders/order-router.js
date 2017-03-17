@@ -20,7 +20,7 @@ const cart = (req, res, next) => {
   } else {
     Order.create({
       status: 'unsubmitted',
-      user_id: req.user ? req.session.user.id : null
+      user_id: req.session.user_id ? req.session.user_id : null
     }, {
       include: [{model: OrderItem, include: [Product]}]
     })
@@ -66,37 +66,21 @@ module.exports = require('express').Router()
     .then(foundOrder => res.json(foundOrder))
     .catch(next)
   })
-  //submit order - it updates the shipping info, and updates to 'submitted'
-  .put('/order/:orderId', (req, res, next) => {
-    Order.update(req.body, {
-      where: {
-        id: req.params.orderId
-      },
-      include: [OrderItem],
-      returning: true
-    })
-    .then(updatedOrder => {
-      res.status(201).json(updatedOrder)})
-    .catch(next)
-  })
+
   //A User updates an order item in the cart
   .put('/:cartId/:itemId', (req, res, next) => {
-    OrderItem.update(req.body, {
-      where: {
-        id: req.params.itemId
-      },
-      returning: true
+    const indexToUpdate = req.session.cart.order_items.forEach((item, idx) => {
+      if (item.id === req.params.itemId) return idx
     })
-    .spread(numUpdatedItems, updatedItemArr => {
-      const updatedItem = updatedItemArr[0]
-      if (updatedItem) {
-        req.session.cart.order_items = req.session.cart.order_items.filter(item => item.id !== updatedItem.id)
-        req.session.cart.order_items.push(updatedItem)
-      }
-      res.status(201).json(req.session.cart)
+    OrderItem.findById(req.params.itemId)
+    .then(item => item.update({quantity: req.body.quantity}))
+    .then(updatedItem => {
+      req.session.cart = req.session.cart[indexToUpdate] = updatedItem
+      res.status(200).json(req.session.cart)
     })
     .catch(next)
   })
+
   //A User deletes an item from the cart
   .delete('/:cartId/:itemId', (req, res, next) => {
     OrderItem.destroy({
@@ -110,9 +94,17 @@ module.exports = require('express').Router()
     })
     .catch(next)
   })
-  //A User views a list of past orders
-  .get('/orders', (req, res, next) => {
-    Order.findAll({ where: { userId: req.session.userId } })
-    .then(foundOrders => res.json(foundOrders))
+
+  //submit order - it updates the shipping info, and updates to 'submitted'
+  .put('/order/:orderId', (req, res, next) => {
+    Order.update(req.body, {
+      where: {
+        id: req.params.orderId
+      },
+      include: [OrderItem],
+      returning: true
+    })
+    .then(updatedOrder => {
+      res.status(201).json(updatedOrder)})
     .catch(next)
   })

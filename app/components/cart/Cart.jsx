@@ -2,16 +2,17 @@
 
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { Grid, Row, Col, Table, Button, Image, Glyphicon } from 'react-bootstrap'
+import { Row, Col, Table, Button, Image,
+         FormControl, FormGroup, ControlLabel } from 'react-bootstrap'
 import { updateCartItemAndGetUpdatedCart, deleteCartItemAndGetUpdatedCart } from '../../reducers/action-creators/cart'
 import { LinkContainer } from 'react-router-bootstrap'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
-    // this.changeQuantity = this.changeQuantity.bind(this)
-    this.removeFromCart = this.removeFromCart.bind(this)
-    this.getTotal = this.getTotal.bind(this)
+    this.state = {
+      selectedQuantity: ''
+    }
   }
 
   // changeQuantity(event){
@@ -27,11 +28,15 @@ class Cart extends Component {
   //   this.props.dispatch(updateCartItemAndGetUpdatedCart(itemChanges))
   // }
 
-  removeFromCart(cartId, itemId) {
-    this.props.handleRemoveItem(cartId, itemId)
+  removeFromCart = (cartId, itemId) => this.props.handleRemoveItem(cartId, itemId)
+
+  handleChange = (cartId, itemId) => event => {
+    const selectedQuantity = event.target.value
+    this.setState({ selectedQuantity })
+    this.props.handleUpdateItem(cartId, itemId, this.state)
   }
 
-  getTotal() {
+  getTotal = () => {
     const cart = this.props.cart.order_items
     let total = 0
     cart && cart.forEach(item => {
@@ -44,50 +49,74 @@ class Cart extends Component {
     const cart = this.props.cart.order_items || []
 
     return (
-      <div className="cart">
-        <Row>
-          <Col>
-            <h1 className="center page-title">Order Summary</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
+      <div>
+        <h1 className="center page-title">Order Summary</h1>
+        <div className="cart">
+          <div className="cart-items">
             <Table>
               <tbody>
                 <tr>
                   <td>Item</td>
-                  <td>Sz</td>
+                  <td>Size</td>
                   <td>Qty</td>
                   <td>Price</td>
                   <td>Subtotal</td>
                 </tr>
-                { cart && cart.map(item => (
+                { cart && cart.map(item => {
+                  const quantities = Array((item.totalInStock) || 1).fill().map((_, idx) => idx + 1)
+
+                  return (
                     <tr key={item.id}>
                       <td>
-                        <Image
-                          responsive
-                          className="cart-item"
-                          src={item.product.image_URL}
-                          alt={`${item.product.name} photo`}
-                          href={`/products/${item.product.category}/${item.product.id}`}
-                        />
-                        <a
-                          onClick={() => this.removeFromCart(this.props.cart.id, item.id)}
-                          className="cart-item-button">
-                          Remove
-                        </a>
+                        <div>
+                          <Image
+                            responsive
+                            className="cart-item"
+                            src={item.product.image_URL}
+                            alt={`${item.product.name} photo`}
+                            href={`/products/${item.product.category}/${item.product.id}`}
+                          />
+                        </div>
+                        <div>
+                          <a
+                            onClick={() => this.removeFromCart(this.props.cart.id, item.id)}
+                            className="cart-item-button">
+                            Remove
+                          </a>
+                        </div>
                       </td>
                       <td>{item.size}</td>
-                      <td>{item.quantity}</td>
+                      <td>
+                        <form>
+                          <FormGroup
+                            controlId="quantity">
+                            <ControlLabel className="detail sr-only">Quantity:</ControlLabel>
+                            <FormControl
+                              componentClass="select"
+                              type="text"
+                              value={this.state.selectedQuantity}
+                              onChange={this.handleChange}>
+                              { quantities && quantities.map(quantity => {
+                                  quantity === item.quantity ?
+
+                                  <option selected={true} key={quantity} value={quantity}>{quantity}</option>
+                                  :
+                                  <option key={quantity} value={quantity}>{quantity}</option>
+                                }) }
+                            </FormControl>
+                          </FormGroup>
+                        </form>
+                      </td>
                       <td>{`$${item.product.price}`}</td>
                       <td>{`$${(+item.product.price * item.quantity).toFixed(2)}`}</td>
                     </tr>
-                  ))
+                    )
+                  })
                 }
-              </tbody>
+                </tbody>
             </Table>
-          </Col>
-        </Row>
+          </div>
+        </div>
         <Row className="cart-total">
           <Col xs={12} sm={12} md={12} lg={12}>
             <h3>Total</h3>
@@ -113,7 +142,8 @@ Cart.propTypes = {
 
 const mapStateToProps = state => ({ cart: state.cart })
 const mapDispatchToProps = dispatch => ({
-  handleRemoveItem: (cartId, itemId) => dispatch(deleteCartItemAndGetUpdatedCart(cartId, itemId))
+  handleRemoveItem: (cartId, itemId) => dispatch(deleteCartItemAndGetUpdatedCart(cartId, itemId)),
+  handleUpdateItem: (cartId, itemId, updateObj) => dispatch(updateCartItemAndGetUpdatedCart(cartId, itemId, updateObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

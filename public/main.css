@@ -656,12 +656,13 @@ h5 {
   width: 60px;
 }
 
-.cart-item {
-  text-align: center;
+.cart {
+  display: flex;
 }
 
-.cart-item-button {
-
+.cart-items {
+  justify-content: center;
+  width: 100%;
 }
 
 .cart-total {
@@ -680,14 +681,6 @@ td {
   margin: 5px;
 }
 
-.table-bordered>tbody>tr>td:first-child {
-  width: 40px !important;
-}
-
-.table-bordered>tbody>tr>td:nth-child(2) {
-  max-width: 100px !important;
-}
-
 .img-responsive {
   display: inline;
   max-width: 80px;
@@ -695,33 +688,69 @@ td {
 
 table {
   position: relative;
-  max-width: 40% !important;
-  margin: 10px 10px 10px 12px;
+  margin-left: auto;
+  margin-right: auto;
   border-top: none;
   border-bottom: none;
+  max-width: 50%;
 }
 
-@media(min-width: 768px) {
-  h1.center {
-    text-align: center !important;
-  }
-  table {
-    left: 29vw;
-  }
+h1.page-title.center {
+  text-align: center !important;
 }
 
-@media(min-width: 568px) and (max-width: 767px) {
-  h1.page-title.center {
-    text-align: center !important;
-  }
-
-  table {
-    left: 15vw !important;
+@media(max-width: 320px) {
+  td {
+    font-size: 80%;
+    /* ^sneaky resize of table!! */
   }
 }
 
 /*~~~~~~~~~~~~~~~~LOGIN/SIGNUP~~~~~~~~~~~~~~~~~~*/
 
-.login-signup {
-  margin-bottom: 35px;
+@media (min-width: 768px) {
+  .login-signup-button {
+    position: relative;
+  }
+
+  .login {
+    top: 145px;
+  }
+
+  .signup {
+    top: 5px;
+  }
+
+  .login-signup-box {
+    padding: 15px;
+    border: 1px solid darkslategray;
+    height: 404.5px;
+  }
+}
+
+@media (max-width: 767px) {
+  #login, #signup {
+    margin-bottom: 30px;
+  }
+
+  .account, .accountHeader {
+    text-align: center;
+  }
+
+  .login-signup-box {
+    border-top: 1px solid darkslategray;
+  }
+
+  .login-signup-button .btn-primary {
+    width: 100%;
+  }
+}
+
+.account {
+  margin: 15px 0;
+}
+
+.accountHeader {
+  margin: 15px;
+  padding: 0;
 }
