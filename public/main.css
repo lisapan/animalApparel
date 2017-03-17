@@ -80,6 +80,7 @@ body {
 }
 
 #quantity.form-control {
+  min-width: 50px !important;
   width: 50px !important;
   border: 1px solid darkslategray;
 }
