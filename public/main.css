@@ -579,6 +579,14 @@ textarea {
   line-height: 1.5em;
 }
 
+.review {
+  margin: 15px 0;
+}
+
+.reviewHeading {
+  margin-bottom: 5px;
+}
+
 /*~~~~~~~~~~~~~~~~CHECKOUT~~~~~~~~~~~~~~~~~~*/
 
 .checkoutFormDiv {
