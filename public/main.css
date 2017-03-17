@@ -76,12 +76,12 @@ body {
 
 .form-control {
   min-width: 220px !important;
-  border: 1px solid black;
+  border: 1px solid darkslategray;
 }
 
 #quantity.form-control {
-  min-width: 50px !important;
-  border: 1px solid black;
+  width: 50px !important;
+  border: 1px solid darkslategray;
 }
 
 .italic {
@@ -507,10 +507,6 @@ h2 {
   margin: 15px;
 }
 
-#quantity {
-  width: 20px;
-}
-
 p {
   font-family: Helvetica;
   font-weight: 200 !important;
@@ -699,11 +695,21 @@ h1.page-title.center {
   text-align: center !important;
 }
 
-@media(max-width: 320px) {
+@media(max-width: 374px) {
   td {
-    font-size: 80%;
+    font-size: 70%;
     /* ^sneaky resize of table!! */
   }
+
+  table {
+    left: -2vw;
+  }
+}
+
+#cart-quantity.form-control {
+  display: inline;
+  min-width: 50px !important;
+  width: 50px !important;
 }
 
 /*~~~~~~~~~~~~~~~~LOGIN/SIGNUP~~~~~~~~~~~~~~~~~~*/

@@ -23,13 +23,10 @@ class Product extends Component {
   addToCart = event => {
     event.preventDefault()
     const item = {
-      orderItem: {
-        size: this.state.selectedItem.size,
-        quantity: this.state.selectedQuantity
-      },
+      size: this.state.selectedItem.size,
+      quantity: this.state.selectedQuantity,
       totalInStock: this.state.selectedItem.quantity,
-      product_id: this.props.currentProduct.id,
-      order_id: this.props.order_id ? this.props.order_id : null
+      product_id: this.props.currentProduct.id
     }
 
     this.setState({
@@ -42,8 +39,9 @@ class Product extends Component {
     this.props.handleAddItem(item)
   }
 
-  sizeClicked = (event, item) => {
+  sizeClicked = item => event => {
     event.preventDefault()
+    console.log(item)
     this.setState({
       selectedItem: item,
       selectItemIsValid: true
@@ -92,7 +90,7 @@ class Product extends Component {
                       key={inventory.id}
                       type="button"
                       className="size-thumbnail"
-                      onClick={(event) => this.sizeClicked(event, inventory)}
+                      onClick={this.sizeClicked(inventory)}
                       disabled={inventory.quantity < 1}>
                       {inventory.size}
                     </Button>

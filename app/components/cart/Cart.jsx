@@ -31,9 +31,7 @@ class Cart extends Component {
   removeFromCart = (cartId, itemId) => this.props.handleRemoveItem(cartId, itemId)
 
   handleChange = (cartId, itemId) => event => {
-    const selectedQuantity = event.target.value
-    this.setState({ selectedQuantity })
-    this.props.handleUpdateItem(cartId, itemId, this.state)
+    this.props.handleUpdateItem(cartId, itemId, {quantity: event.target.value})
   }
 
   getTotal = () => {
@@ -63,7 +61,7 @@ class Cart extends Component {
                   <td>Subtotal</td>
                 </tr>
                 { cart && cart.map(item => {
-                  const quantities = Array((item.totalInStock) || 1).fill().map((_, idx) => idx + 1)
+                  const quantities = Array(item.totalInStock).fill().map((_, idx) => idx + 1)
 
                   return (
                     <tr key={item.id}>
@@ -89,19 +87,20 @@ class Cart extends Component {
                       <td>
                         <form>
                           <FormGroup
-                            controlId="quantity">
+                            controlId="cart-quantity">
                             <ControlLabel className="detail sr-only">Quantity:</ControlLabel>
                             <FormControl
                               componentClass="select"
                               type="text"
                               value={this.state.selectedQuantity}
-                              onChange={this.handleChange}>
-                              { quantities && quantities.map(quantity => {
-                                  quantity === item.quantity ?
-
-                                  <option selected={true} key={quantity} value={quantity}>{quantity}</option>
-                                  :
-                                  <option key={quantity} value={quantity}>{quantity}</option>
+                              onChange={this.handleChange(item.order_id, item.id)}>
+                              { quantities &&
+                                quantities.map(quantity => {
+                                  if (quantity === item.quantity) {
+                                    return <option defaultValue={quantity} key={quantity} value={quantity}>{quantity}</option>
+                                  } else {
+                                    return <option key={quantity} value={quantity}>{quantity}</option>
+                                  }
                                 }) }
                             </FormControl>
                           </FormGroup>

@@ -317,12 +317,12 @@ const seedOrders = () => db.Promise.map([
 ], order => db.model('order').create(order))
 
 const seedOrderItems = () => db.Promise.map([
-  { size: 'S', color: 'Pink', quantity: 3, order_id: 1, product_id: 22 },
-  { size: 'M', color: 'Blue', quantity: 4, order_id: 1, product_id: 8 },
-  { size: 'L', color: 'Orange', quantity: 2, order_id: 1, product_id: 13 },
-  { size: 'XXL', color: 'Red', quantity: 1, order_id: 2, product_id: 7 },
-  { size: 'XL', color: 'Purple', quantity: 7, order_id: 2, product_id: 30 },
-  { size: 'M', color: 'Yellow', quantity: 9, order_id: 3, product_id: 4 }
+  { size: 'S', color: 'Pink', quantity: 3, totalInStock: 12, order_id: 1, product_id: 22 },
+  { size: 'M', color: 'Blue', quantity: 4, totalInStock: 26, order_id: 1, product_id: 8 },
+  { size: 'L', color: 'Orange', quantity: 2, totalInStock: 3, order_id: 1, product_id: 13 },
+  { size: 'XXL', color: 'Red', quantity: 1, totalInStock: 14, order_id: 2, product_id: 7 },
+  { size: 'XL', color: 'Purple', quantity: 7, totalInStock: 31, order_id: 2, product_id: 30 },
+  { size: 'M', color: 'Yellow', quantity: 9, totalInStock: 11, order_id: 3, product_id: 4 }
 ], item => db.model('order_item').create(item))
 
 db.didSync

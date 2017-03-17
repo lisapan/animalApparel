@@ -14,7 +14,8 @@ const cart = (req, res, next) => {
       include: [{model: OrderItem, include: [Product]}]
     })
     .then(foundCart => {
-      req.session.cart = foundCart
+      req.session.cart.user_id = req.user.id || null
+      if (req.session.cart.user_id) return foundCart.update({user_id: req.user.id})
     })
     .finally(next)
   } else {
@@ -37,10 +38,11 @@ module.exports = require('express').Router()
   //User adds a product to the cart
   .post('/', (req, res, next) => {
     OrderItem.create({
-      size: req.body.orderItem.size,
-      quantity: req.body.orderItem.quantity,
-      order_id: req.session.cart.id,
-      product_id: req.body.product_id
+      size: req.body.size,
+      quantity: req.body.quantity,
+      totalInStock: req.body.totalInStock,
+      product_id: req.body.product_id,
+      order_id: req.session.cart.id
     }, {include: [Order, Product]})
     .then(createdOrderItem => {
       if (!req.session.cart.order_items) {
@@ -69,11 +71,13 @@ module.exports = require('express').Router()
 
   //A User updates an order item in the cart
   .put('/:cartId/:itemId', (req, res, next) => {
-    const indexToUpdate = req.session.cart.order_items.forEach((item, idx) => {
-      if (item.id === req.params.itemId) return idx
+    const indexToUpdate = req.session.cart.order_items.findIndex((item, idx, array) => {
+      return item.id === req.params.itemId
     })
+    console.log('indexToUpdate: ', indexToUpdate)
+
     OrderItem.findById(req.params.itemId)
-    .then(item => item.update({quantity: req.body.quantity}))
+    .then(item => item.update(req.body))
     .then(updatedItem => {
       req.session.cart = req.session.cart[indexToUpdate] = updatedItem
       res.status(200).json(req.session.cart)
