@@ -1,3 +1,5 @@
+'use strict'
+
 const app = require('APP'), {env} = app
 const debug = require('debug')(`${app.name}:auth`)
 const passport = require('passport')
@@ -41,20 +43,20 @@ OAuth.setupStrategy({
   config: {
     clientID: env.FACEBOOK_CLIENT_ID,
     clientSecret: env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: `${app.rootUrl}/api/auth/login/facebook`,
+    callbackURL: `${app.baseUrl}/api/auth/login/facebook`,
   },
   passport
 })
 
-// Google needs the GOOGLE_CONSUMER_SECRET AND GOOGLE_CONSUMER_KEY
+// Google needs the GOOGLE_CLIENT_SECRET AND GOOGLE_CLIENT_ID
 // environment variables.
 OAuth.setupStrategy({
   provider: 'google',
-  strategy: require('passport-google-oauth').Strategy,
+  strategy: require('passport-google-oauth').OAuth2Strategy,
   config: {
-    consumerKey: env.GOOGLE_CONSUMER_KEY,
-    consumerSecret: env.GOOGLE_CONSUMER_SECRET,
-    callbackURL: `${app.rootUrl}/api/auth/login/google`,
+    clientID: env.GOOGLE_CLIENT_ID,
+    clientSecret: env.GOOGLE_CLIENT_SECRET,
+    callbackURL: `${app.baseUrl}/api/auth/login/google`,
   },
   passport
 })
@@ -66,18 +68,17 @@ OAuth.setupStrategy({
   strategy: require('passport-github2').Strategy,
   config: {
     clientID: env.GITHUB_CLIENT_ID,
-    clientSecrets: env.GITHUB_CLIENT_SECRET,
-    callbackURL: `${app.rootUrl}/api/auth/login/github`,
+    clientSecret: env.GITHUB_CLIENT_SECRET,
+    callbackURL: `${app.baseUrl}/api/auth/login/github`,
   },
   passport
 })
 
 // Other passport configuration:
-
+// Passport review in the Week 6 Concept Review:
+// https://docs.google.com/document/d/1MHS7DzzXKZvR6MkL8VWdCxohFJHGgdms71XNLIET52Q/edit?usp=sharing
 passport.serializeUser((user, done) => {
-  debug('will serialize user.id=%d', user.id)
   done(null, user.id)
-  debug('did serialize user.id=%d', user.id)
 })
 
 passport.deserializeUser(
@@ -85,7 +86,8 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
-        debug('deserialize did ok user.id=%d', user.id)
+        if (!user) debug('deserialize retrieved null user for id=%d', id)
+        else debug('deserialize did ok user.id=%d', id)
         done(null, user)
       })
       .catch(err => {
@@ -95,6 +97,7 @@ passport.deserializeUser(
   }
 )
 
+// require.('passport-local').Strategy => a function we can use as a constructor, that takes in a callback
 passport.use(new (require('passport-local').Strategy) (
   (email, password, done) => {
     debug('will authenticate user(email: "%s")', email)
@@ -110,7 +113,7 @@ passport.use(new (require('passport-local').Strategy) (
               debug('authenticate user(email: "%s") did fail: bad password')
               return done(null, false, { message: 'Login incorrect' })
             }
-            debug('authenticate user(email: "%s") did ok: user.id=%d', user.id)
+            debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id)
             done(null, user)
           })
       })
@@ -123,8 +126,17 @@ auth.get('/whoami', (req, res) => {
   res.send(req.user)
 })
 
-auth.post('/:strategy/login', (req, res, next) =>
-  passport.authenticate(req.params.strategy, {successRedirect: '/'})(req, res, next)
+// POST requests for local login:
+auth.post('/login/local', passport.authenticate('local', { successRedirect: '/', }))
+
+// GET requests for OAuth login:
+// Register this route as a callback URL with OAuth provider
+auth.get('/login/:strategy', (req, res, next) =>
+  passport.authenticate(req.params.strategy, {
+    scope: 'email',
+    successRedirect: '/',
+    // Specify other config here, such as "scope"
+  })(req, res, next)
 )
 
 auth.post('/logout', (req, res, next) => {
