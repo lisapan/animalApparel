@@ -25,8 +25,8 @@ describe('Inventory', () => {
     name: 'Pokemon Dog Costume',
     description: 'Cute, soft, yellow for your pup.',
     price: '30.00',
-    imageURL:'wYu7cQs.jpg',
-    tags: ['pokemon', 'dog'],
+    image_URL:'wYu7cQs.jpg',
+    category: 'pets',
     inventories: [PokemonXS, PokemonS, PokemonM]
   }
 

@@ -1,5 +1,4 @@
-
-``/* http://meyerweb.com/eric/tools/css/reset/
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -48,7 +47,13 @@ table {
 	border-spacing: 0;
 }
 
-/* DO NOT EDIT ABOVE THIS LINE!! CSS RESET!!! */
+hr {
+  border-top: 1px solid darkslategray;
+  margin: 0px 15px;
+}
+
+/*_____________________________________________*/
+/* DO NOT EDIT ABOVE ^THIS LINE!! CSS RESET!!! */
 
 @font-face {
   font-family: "animalApparelFont";
@@ -71,7 +76,21 @@ body {
 
 .form-control {
   min-width: 220px !important;
-  border: 1px solid black;
+  border: 1px solid darkslategray;
+}
+
+#quantity.form-control {
+  min-width: 50px !important;
+  width: 50px !important;
+  border: 1px solid darkslategray;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.no-margin {
+  margin: 0 !important;
 }
 
 /*~~~~~~~~~NAVBAR~~~~~~~~~~~*/
@@ -99,10 +118,22 @@ h4 {
   float: none !important;
 }
 
+@media(min-width: 768px) {
+  .navbar-header {
+    margin-bottom: -20px;
+  }
+}
+
 .navbar {
   background-color: white;
   border: none;
   margin-bottom: 0;
+}
+
+@media(min-width: 768px) {
+  .navbar-nav>li>a {
+    padding-top: 18px;
+  }
 }
 
 #search-collapse>.btn {
@@ -124,7 +155,7 @@ h4 {
 .navbar .navbar-brand {
   color: black;
   font-family: "animalApparelFont";
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 100;
   padding: 15px, 50px !important;
   margin-bottom: 25px;
@@ -151,12 +182,6 @@ h4 {
 #login-dropdown-collapse {
   margin-bottom: 0;
 }
-
-/*.navbar-default .navbar-nav>li>a {
-  color: black;
-  margin: 0px 15px 0px 15px;
-  padding: 0px 15px 0px 15px;
-}*/
 
 .navbar-default .navbar-nav>.open>a {
   background: none;
@@ -193,6 +218,7 @@ sup {
   width: 100%;
   padding-top: 10px;
   padding-left: 3px;
+
 }
 
 .breadcrumb>li+li:before {
@@ -207,11 +233,19 @@ sup {
   background: none !important;
   letter-spacing: -2px;
   overflow: visible;
+  margin-bottom: 0 !important;
 }
 
 .breadcrumb-nav {
   position: absolute;
   right: 0px;
+}
+
+.breadcrumb-mobile {
+  margin: 0px 5px;
+  font-size: 1.25em;
+  padding-right: 0;
+  max-width: 300px;
 }
 
 .navbar-collapse {
@@ -301,12 +335,24 @@ a {
 h1 {
   margin-top: 15px;
   padding: 10px;
+  font-size: 2em;
 }
 
-h1.promo {
-  padding: 10px;
+h1#promo {
+  padding: 0;
+  margin: 0;
   display: inline-block;
-  margin-top: 15px;
+}
+
+@media(max-width: 768px) {
+  h1#promo {
+    max-width: 280px;
+  }
+}
+
+h1.page-title {
+  margin-top: 0 !important;
+  padding: 15px 0px;
 }
 
 .home-pic  {
@@ -322,11 +368,12 @@ h1.promo {
   -o-background-size: cover;
   background-size: cover;
   height: 100%;
+  padding: 20px;
 }
 
 #promo {
   text-align: left;
-  font-size: 2.75em;
+  font-size: 2em;
   margin: 15px;
   width: inherit;
 }
@@ -334,7 +381,7 @@ h1.promo {
 #promoCode {
   text-align: right;
   font-size: 1.5em;
-  margin-right: 15px;
+  padding: 0;
 }
 
 #bottomRow{
@@ -346,15 +393,16 @@ h1.promo {
   text-align: left;
   float: left;
   font-size: 1em;
-  margin-left: 15px;
-
+  color: white;
+  padding: 0px;
 }
 
 #petSale {
   text-align: right;
   float: right;
   font-size: 1em;
-  margin-right: 15px;
+  color: white;
+  padding: 0px;
 }
 
 #women-xs-sm {
@@ -373,7 +421,6 @@ h1.promo {
   background-size: cover;
   padding-right: 7.5px;
   transition: background 1s;
-
 }
 
 .women{
@@ -384,15 +431,10 @@ h1.promo {
   -o-background-size: cover;
   background-size: cover;
   padding-right: 7.5px;
-
 }
 
 #men-xs-sm {
   padding-left: 15px !important;
-}
-
-#men {
-  padding-left: 7.5px !important;
 }
 
 .men:hover {
@@ -401,7 +443,6 @@ h1.promo {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  padding-right: 7.5px;
   transition: background 1s;
 }
 
@@ -412,8 +453,6 @@ h1.promo {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  padding-left: 7.5px;
-
 }
 
 .dogs:hover {
@@ -447,10 +486,15 @@ h1.promo {
   margin-bottom: 15px;
 }
 
-/*~~~~~~~~~Products~~~~~~~~~~~*/
+/*~~~~~~~~~PRODUCTS/SALE~~~~~~~~~~~*/
+
+.page-title {
+  text-transform: capitalize;
+  margin-top: 0 !important;
+}
 
 h2 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin-top: 0;
 }
 
@@ -464,29 +508,86 @@ h2 {
   margin: 15px;
 }
 
-#quantity {
-  width: 20px;
-}
-
-.product {
-
-}
-
 p {
   font-family: Helvetica;
   font-weight: 200 !important;
+  line-height: 1.25em;
 }
 
 .thumbnail {
   border: 0px !important;
   border-radius: 0px !important;
+  padding: 0;
+}
+
+.related-product {
+  width: 25vw;
+  padding: 0 !important;
+  margin-right: 15px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 900px) {
+  .related-product {
+    width: 30vw;
+  }
+
+  .caption>h5 {
+    text-align: left;
+    float: none;
+  }
+
+  .caption {
+    padding: 9px 0px !important;
+  }
 }
 
 h3{
+  padding-bottom: 10px;
   font-size: 14px;
 }
 
-/*~~~~~~~~~~~~~~~~Checkout~~~~~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~~~REVIEWS~~~~~~~~~~~~~~~~~~*/
+
+.form-title {
+  padding-bottom: 12px;
+}
+
+label {
+  font-family: Helvetica;
+  font-weight: 200 !important;
+}
+
+label.detail {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 14px;
+  padding-bottom: 10px;
+}
+
+input {
+  padding: 6px;
+  border: darkslategray solid 1px;
+  margin: 5px 0px 10px 0px;
+}
+
+textarea {
+  padding: 6px;
+  border: darkslategray solid 1px;
+  margin: 5px 0px 10px 0px;
+  height: 150px;
+  width: 100%;
+  line-height: 1.5em;
+}
+
+.review {
+  margin-bottom: 15px;
+}
+
+.reviewHeading {
+  margin-bottom: 5px;
+}
+
+/*~~~~~~~~~~~~~~~~CHECKOUT~~~~~~~~~~~~~~~~~~*/
 
 .checkoutFormDiv {
   display: block;
@@ -546,16 +647,6 @@ h3{
   margin: 10px;
 }
 
-/*~~~~~~~~~~~~~~~~REVIEWS~~~~~~~~~~~~~~~~~~*/
-.reviewGrid {
-  margin: 10px;
-}
-
-div .row .reviewForm {
-  margin: 10px;
-  padding: 10px;
-}
-
 /*~~~~~~~~~~~~~~~~CART~~~~~~~~~~~~~~~~~~*/
 
 h5 {
@@ -566,16 +657,16 @@ h5 {
 }
 
 .img-responsive{
-  width: 80px;
+  width: 60px;
 }
 
-.cart-item {
-  text-align: center;
+.cart {
+  display: flex;
 }
 
-.cart-item-button {
-  margin-top: 12px;
-  /*float: left;*/
+.cart-items {
+  justify-content: center;
+  width: 100%;
 }
 
 .cart-total {
@@ -594,14 +685,6 @@ td {
   margin: 5px;
 }
 
-.table-bordered>tbody>tr>td:first-child {
-  width: 40px !important;
-}
-
-.table-bordered>tbody>tr>td:nth-child(2) {
-  max-width: 100px !important;
-}
-
 .img-responsive {
   display: inline;
   max-width: 80px;
@@ -609,6 +692,79 @@ td {
 
 table {
   position: relative;
-  max-width: 40% !important;
-  left: 30vw;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: none;
+  border-bottom: none;
+  max-width: 50%;
+}
+
+h1.page-title.center {
+  text-align: center !important;
+}
+
+@media(max-width: 374px) {
+  td {
+    font-size: 70%;
+    /* ^sneaky resize of table!! */
+  }
+
+  table {
+    left: -2vw;
+  }
+}
+
+#cart-quantity.form-control {
+  display: inline;
+  min-width: 50px !important;
+  width: 50px !important;
+}
+
+/*~~~~~~~~~~~~~~~~LOGIN/SIGNUP~~~~~~~~~~~~~~~~~~*/
+
+@media (min-width: 768px) {
+  .login-signup-button {
+    position: relative;
+  }
+
+  .login {
+    top: 145px;
+  }
+
+  .signup {
+    top: 5px;
+  }
+
+  .login-signup-box {
+    padding: 15px;
+    border: 1px solid darkslategray;
+    height: 404.5px;
+  }
+}
+
+@media (max-width: 767px) {
+  #login, #signup {
+    margin-bottom: 30px;
+  }
+
+  .account, .accountHeader {
+    text-align: center;
+  }
+
+  .login-signup-box {
+    border-top: 1px solid darkslategray;
+  }
+
+  .login-signup-button .btn-primary {
+    width: 100%;
+  }
+}
+
+.account {
+  margin: 15px 0;
+}
+
+.accountHeader {
+  margin: 15px;
+  padding: 0;
 }

@@ -14,14 +14,14 @@ describe('Products Route:', function () {
       name: 'Pokemon Dog Costume',
       description: 'Cute, soft, yellow one piece Pikachu costume for your pup.',
       price: '30.00',
-      imageURL: 'wYu7cQs.jpg',
+      image_URL: 'wYu7cQs.jpg',
       tags: ['pokemon', 'costume', 'halloween', 'pikachu', 'dog']
     },
     {
       name: 'Pokemon Woman Costume',
       description: 'Cute, soft, yellow one piece Pikachu costume for ladies.',
       price: '60.00',
-      imageURL: 'xxxxxxx.jpg',
+      image_URL: 'xxxxxxx.jpg',
       tags: ['pokemon', 'costume', 'halloween', 'pikachu', 'woman']
     }])
   })
@@ -61,7 +61,7 @@ describe('Products Route:', function () {
         name: 'Panda Dog Costume',
         description: 'Cuddly black and white one piece costume for your pup.',
         price: '35.00',
-        imageURL: 'yyyyyy.jpg',
+        image_URL: 'yyyyyy.jpg',
         tags: ['panda', 'costume', 'halloween', 'dog']
       })
       .expect(201, res => {
@@ -75,7 +75,7 @@ describe('Products Route:', function () {
       .send({
         description: 'Cuddly black and white one piece costume for your pup.',
         price: '35.00',
-        imageURL: 'yyyyyy.jpg',
+        image_URL: 'yyyyyy.jpg',
         tags: ['panda', 'costume', 'halloween', 'dog']
       })
       .expect(500)

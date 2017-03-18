@@ -11,7 +11,8 @@ const OrderItem = db.define('order_item', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false
-  }
+  },
+  totalInStock: Sequelize.INTEGER
 })
 
 module.exports = OrderItem

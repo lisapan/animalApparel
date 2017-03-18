@@ -7,12 +7,12 @@ import { Grid } from 'react-bootstrap'
 import Navbar from './Navbar'
 
 const App = (props) => (
-  <div>
+  <Grid fluid>
     <Navbar />
     <div>
       { props.children && React.cloneElement(props.children, props) }
     </div>
-  </div>
+  </Grid>
 )
 
 App.propTypes = {
