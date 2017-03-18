@@ -34,7 +34,7 @@ prettyError.skipPackage('express')
 module.exports = app
   // Session middleware - compared to express-session (which is what's used in the Auther workshop), cookie-session stores sessions in a cookie, rather than some other type of session store.
   // Cookie-session docs: https://www.npmjs.com/package/cookie-session
-  .use(require('cookie-session') ({
+  .use(require('cookie-session')({
     name: 'session',
     keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days (reduces abandonment)
@@ -53,7 +53,7 @@ module.exports = app
 
   // Serve our api - ./api also requires in ../db, which syncs with our database
   .use('/api', require('./api'))
-  .use('/github', function(req,res, next){
+  .use('/github', function(req, res, next){
     res.redirect('https://github.com/lisapan/animalApparel')
   })
 
