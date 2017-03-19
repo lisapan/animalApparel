@@ -57,12 +57,6 @@ module.exports = app
     res.redirect('https://github.com/lisapan/animalApparel')
   })
 
-  // Log the current session (for development, delete this for production)
-  .use(function (req, res, next) {
-    console.log('session', req.session);
-    next();
-  })
-
   // Send index.html for anything else.
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 
