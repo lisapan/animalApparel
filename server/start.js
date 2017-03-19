@@ -23,7 +23,7 @@ if (!pkg.isProduction && !pkg.isTesting) {
 }
 
 // Pretty error prints errors all pretty.
-const prettyError = new PrettyError();
+const prettyError = new PrettyError()
 
 // Skip events.js and http.js and similar core node files.
 prettyError.skipNodeFiles()
