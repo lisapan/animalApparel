@@ -1,3 +1,3 @@
-Check out Animal Apparel, where you can buy matching clothes for you and your pet.
+Animal Apparel is an American Apparel clone built with Node, Express, Sequelize, PostgreSQL, Redis, React and Redux.
 
-http://animal-apparel.herokuapp.com/
+Check it out at http://animalapparel.herokuapp.com/
