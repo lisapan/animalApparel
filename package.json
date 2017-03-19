@@ -1,7 +1,7 @@
 {
   "name": "animalapparel",
   "version": "0.0.1",
-  "description": "An faux ecommerce store selling matching pet and owner clothing.",
+  "description": "A faux e-commerce store selling matching clothing for people and their pets.",
   "main": "index.js",
   "scripts": {
     "validate": "check-node-version --node '>= 6.7.0'",
