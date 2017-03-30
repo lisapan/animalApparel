@@ -16,7 +16,7 @@ const Products = props => (
                 <Link to={`/products/${product.category}/${product.id}`}>
                   <Thumbnail src={product.image_URL} alt={`${product.name} photo`}>
                   <h5>{product.name}</h5>
-                  <p>{`$${product.price}`}</p>
+                  <p className="price">{`$${product.price}`}</p>
                   </Thumbnail>
                 </Link>
               </Col>

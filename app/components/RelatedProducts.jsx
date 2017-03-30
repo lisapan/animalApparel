@@ -12,7 +12,7 @@ const RelatedProducts = props => (
             href={`/products/${prod.category}/${prod.id}`}
             src={prod.image_URL} alt={`${prod.name} photo`}>
             <h5>{prod.name}</h5>
-            <p>{`$${prod.price}`}</p>
+            <p className="price">{`$${prod.price}`}</p>
           </Thumbnail>
         </Col>
       )) }

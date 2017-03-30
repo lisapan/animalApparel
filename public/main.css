@@ -55,18 +55,8 @@ hr {
 /*_____________________________________________*/
 /* DO NOT EDIT ABOVE ^THIS LINE!! CSS RESET!!! */
 
-@font-face {
-  font-family: "animalApparelFont";
-    src: url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.eot");
-    src: url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.eot?#iefix") format("embedded-opentype"),
-    url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.woff2") format("woff2"),
-    url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.woff") format("woff"),
-    url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.ttf") format("truetype"),
-    url("//db.onlinewebfonts.com/t/03def1e825bb29de3582eb1de0bd5b71.svg#Helvetica Neue") format("svg");
-}
-
 body {
-  font-family: "animalApparelFont";
+  font-family: font75156, Arial, sans-serif;
   border: 0 !important;
 }
 
@@ -80,9 +70,10 @@ body {
 }
 
 #quantity.form-control {
-  min-width: 50px !important;
-  width: 50px !important;
   border: 1px solid darkslategray;
+  min-width: 50px !important;
+  width: 50px;
+  height: 40px;
 }
 
 .italic {
@@ -106,7 +97,7 @@ h4 {
   border: none;
   color: white;
   height: 25px;
-  padding: 5px;
+  padding: 7px 5px;
 }
 
 .navbar-right {
@@ -208,9 +199,10 @@ h4 {
 }
 
 sup {
-  font-size: 14px;
+  font-size: 10px;
   vertical-align: top;
-  top: 0em;
+  top: -7px;
+  margin: 2px;
 }
 
 .logo {
@@ -218,15 +210,24 @@ sup {
   width: 100%;
   padding-top: 10px;
   padding-left: 3px;
+  font-family: font75156;
+  letter-spacing: -0.5px;
+  font-weight: 900;
+}
 
+.breadcrumb>li {
+  font-family: font75156, Arial, sans-serif !important;
 }
 
 .breadcrumb>li+li:before {
-    padding: 0;
-    color: black;
-    content: "/\00a0";
-    font-weight: 100;
-    letter-spacing: -2px;
+  padding: 0;
+  color: black;
+  content: "/\00a0";
+  font-weight: 100;
+  font-family: Helvetica;
+  margin-right: -3px;
+  margin-left: 2px;
+  letter-spacing: -2px;
 }
 
 .breadcrumb {
@@ -263,6 +264,15 @@ sup {
   background: none;
   color: black;
   text-decoration: none;
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 9px;
+  border-radius: 0;
+  margin: 0px 2.5px 2.5px 0px;
+}
+
+.btn-default:hover, .btn-default:focus {
+  background: #ccc;
 }
 
 #lower-nav-collapse {
@@ -512,6 +522,10 @@ p {
   font-family: Helvetica;
   font-weight: 200 !important;
   line-height: 1.25em;
+}
+
+.price {
+  font-size: 12px;
 }
 
 .thumbnail {
