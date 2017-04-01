@@ -5,35 +5,71 @@ const OrderItem = db.model('order_item')
 const Order = db.model('order')
 const Product = db.model('products')
 
-// const { mustBeLoggedIn, forbidden } = require('../users/auth.filters')
+// This middleware checks whether the request is coming from an anonymous or an authenticated user.
 
-const cart = (req, res, next) => {
-  if (req.session.cart) {
-    Order.find({
-      where: {id: req.session.cart.id},
-      include: [{model: OrderItem, include: [Product]}]
-    })
-    .then(foundCart => {
-      req.session.cart.user_id = req.user.id || null
-      if (req.session.cart.user_id) return foundCart.update({user_id: req.user.id})
-    })
-    .finally(next)
+// If anonymous, their session will have an anonCartId so they're associated w/ the order despite it not having a user_id). Unless the user creates an account or logs in, the session will be active for 30 days.
+
+// If authenticated, the user's order is associated w/ their id, so the session can be destroyed upon logout without affecting their cart.
+
+const addUserToAnonCart = (request, next) => {
+  Order.findById(request.session.cart.id)
+  .then(foundOrder => {
+    // associate the user with anon cart
+    return foundOrder.update({user_id: request.user.id})
+  })
+  .then(updatedOrder => {
+    // update session accordingly
+    request.session.cart = {
+      id: updatedOrder.id,
+      isAnon: false
+    }
+    return updatedOrder
+  })
+  .then(() => next())
+  .catch(err => {
+    const error = new Error(`Anon to Auth Order Update Error - Could not associate user #${request.session.user_id} with cart #${request.session.cart_id}: ${err.stack}`)
+
+    next(error)
+  })
+}
+
+const createNewCart = (request, next) => {
+  Order.create({
+    status: 'unsubmitted',
+    user_id: request.user ? request.user.id : null
+  })
+  .then(createdCart => {
+    request.session.cart = {
+      id: createdCart.id,
+      isAnon: request.user === undefined
+    }
+    return createdCart
+  })
+  .then(() => next())
+  .catch(err => {
+    const error = new Error(`Order Creation Error - Could not create cart for user ${request.user ? request.user.id : 'Anonymous'}: ${err.stack}`)
+
+    next(error)
+  })
+}
+
+const cartMiddleware = (req, res, next) => {
+  // create a cart for user if needed
+  if (!req.session.cart) {
+    createNewCart(req, next)
+  // if user is authenticated now but had a cart before logging in
+  } else if (req.user) {
+    // associate the user with that cart
+    if (req.session.cart && req.session.cart.isAnon) addUserToAnonCart(req, next)
+    next()
   } else {
-    Order.create({
-      status: 'unsubmitted',
-      user_id: req.session.user_id ? req.session.user_id : null
-    }, {
-      include: [{model: OrderItem, include: [Product]}]
-    })
-      .then(createdCart => {
-        req.session.cart = createdCart
-      })
-      .finally(next)
+    // otherwise user already has a cart on session
+    next()
   }
 }
 
 module.exports = require('express').Router()
-  .use(cart)
+  .use(cartMiddleware)
 
   //User adds a product to the cart
   .post('/', (req, res, next) => {
@@ -43,60 +79,78 @@ module.exports = require('express').Router()
       totalInStock: req.body.totalInStock,
       product_id: req.body.product_id,
       order_id: req.session.cart.id
-    }, {include: [Order, Product]})
-    .then(createdOrderItem => {
-      if (!req.session.cart.order_items) {
-        req.session.cart.order_items = [createdOrderItem] //If this is the first item in the cart, init the cart
-      }
-      else {
-        req.session.cart.order_items.push(createdOrderItem) //Otherwise add item to existing cart
-      }
-      res.status(201).send(req.session.cart)
     })
-    .catch(next)
+    .then(createdOrderItem => {
+      return Order.findOne({
+        where: {
+          id: req.session.cart.id,
+        },
+        include: [{model: OrderItem, include: [Product]}]
+      })
+    })
+    .then(cart => res.status(201).json(cart))
+    .catch(err => next(
+      new Error(`OrderItem Creation Error -  ${err.stack}`)
+    ))
   })
 
-  //All items in an order are rendered to the cart
-  .get('/:cartId', (req, res, next) => {
-    if (req.session.cart.id === req.params.cartId) {
-      res.send(req.session.cart)
-    }
-
-    Order.findById(req.params.cartId,
-      {include: [{model: OrderItem, include: [Product]}]
+  // A user views their cart
+  .get('/', (req, res, next) => {
+    Order.findOne({
+      where: {
+        id: req.session.cart.id
+      },
+      include: [{model: OrderItem, include: [Product]}]
     })
-    .then(foundOrder => res.json(foundOrder))
-    .catch(next)
+    .then(foundOrder => res.status(200).json(foundOrder))
+    .catch(err => next(
+      new Error(`Order Lookup Error - Could not find cart #${req.session.cart.id}: ${err.stack}`)
+    ))
   })
 
   //A User updates an order item in the cart
-  .put('/:cartId/:itemId', (req, res, next) => {
-    const indexToUpdate = req.session.cart.order_items.findIndex((item, idx, array) => {
-      return item.id === req.params.itemId
-    })
-    console.log('indexToUpdate: ', indexToUpdate)
-
+  .put('/:itemId', (req, res, next) => {
     OrderItem.findById(req.params.itemId)
     .then(item => item.update(req.body))
     .then(updatedItem => {
-      req.session.cart = req.session.cart[indexToUpdate] = updatedItem
-      res.status(200).json(req.session.cart)
+      Order.findOne({
+        where: {
+          id: req.session.cart.id
+        },
+        include: [{model: OrderItem, include: [Product]}]
+      })
+      .then(cart => res.status(201).json(cart))
+      .catch(err => next(
+        new Error(`Post Update-Item Order Lookup Error - Could not find cart #${req.session.cart.id}: ${err.stack}`)
+      ))
     })
-    .catch(next)
+    .catch(err => next(
+      new Error(`OrderItem Update Error, ${err.status} - Could not update cart item: ${err.stack}`)
+    ))
   })
 
   //A User deletes an item from the cart
-  .delete('/:cartId/:itemId', (req, res, next) => {
+  .delete('/:itemId', (req, res, next) => {
     OrderItem.destroy({
       where: {
         id: req.params.itemId
       }
     })
     .then(deletedItem => {
-      req.session.cart.order_items = req.session.cart.order_items.filter(item => item.id !== deletedItem.id)
-      res.status(204).json(req.session.cart)
+      Order.findOne({
+        where: {
+          id: req.session.cart.id
+        },
+        include: [{model: OrderItem, include: [Product]}]
+      })
+      .then(cart => res.status(200).json(cart))
+      .catch(err => {
+        console.error(new Error(`Post Delete-Item Order Lookup Error - Could not find cart #${req.session.cart.id}: ${err.stack}`))
+      })
     })
-    .catch(next)
+    .catch(err => next(
+      new Error(`OrderItem Delete Error - Could not delete cart item: ${err.stack}`)
+    ))
   })
 
   //submit order - it updates the shipping info, and updates to 'submitted'
@@ -109,6 +163,7 @@ module.exports = require('express').Router()
       returning: true
     })
     .then(updatedOrder => {
+      req.session = {userId: updatedOrder.user_id}
       res.status(201).json(updatedOrder)})
     .catch(next)
   })

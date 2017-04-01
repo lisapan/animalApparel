@@ -30,38 +30,38 @@ export const deleteCartItem = () => ({
 
 /* ------------     THUNKS     ------------------ */
 
-export const getAndRenderCart = cartId => dispatch => {
-  return axios.get(`/api/cart/${cartId}`)
+export const getAndRenderCart = () => dispatch => {
+  return axios.get(`/api/cart`)
   .then(res => dispatch(receiveCart(res.data)))
-  .catch(err => console.error(`Error: No cart found with id ${cartId}`))
+  .catch(err => console.error(err))
 }
 
-export const addCartItemAndGetUpdatedCart = (orderItemObj) => {
+export const addCartItemAndGetUpdatedCart = orderItemObj => {
   return dispatch => {
     dispatch(receiveCartItem())
 
     return axios.post('/api/cart', orderItemObj)
     .then(res => dispatch(receiveCart(res.data)))
-    .catch(console.error)
+    .catch(err => console.error(err))
   }
 }
 
-export const updateCartItemAndGetUpdatedCart = (cartId, itemId, itemChanges) => {
+export const updateCartItemAndGetUpdatedCart = (itemId, itemChanges) => {
   return dispatch => {
     dispatch(updateCartItem())
 
-    return axios.put(`/api/cart/${cartId}/${itemId}`, itemChanges)
+    return axios.put(`/api/cart/${itemId}`, itemChanges)
     .then(res => dispatch(receiveCart(res.data)))
-    .catch(err => console.error(`Error: No item found with id ${itemId}. Unable to update item.`))
+    .catch(err => console.error(err))
   }
 }
 
-export const deleteCartItemAndGetUpdatedCart = (cartId, itemId) => {
+export const deleteCartItemAndGetUpdatedCart = itemId => {
   return dispatch => {
     dispatch(deleteCartItem())
 
-    return axios.delete(`/api/cart/${cartId}/${itemId}`)
+    return axios.delete(`/api/cart/${itemId}`)
     .then(res => dispatch(receiveCart(res.data)))
-    .catch(err => console.error(`Error: No item found with id ${itemId}. Unable to delete item.`))
+    .catch(err => console.error(err))
   }
 }

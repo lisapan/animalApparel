@@ -15,23 +15,13 @@ class Cart extends Component {
     }
   }
 
-  // changeQuantity(event){
-  //   event.preventDefault()
-  //   const itemChanges = {
-  //     orderItem: {
-  //       size: this.state.selectedItem.size,
-  //       quantity: event.target.value
-  //     },
-  //     productId: this.props.currentProduct.id,
-  //     orderId: this.props.orderId.length ? this.props.orderId : null
-  //   }
-  //   this.props.dispatch(updateCartItemAndGetUpdatedCart(itemChanges))
-  // }
+  removeFromCart = itemId => event => {
+    event.preventDefault()
+    this.props.handleRemoveItem(itemId)
+  }
 
-  removeFromCart = (cartId, itemId) => this.props.handleRemoveItem(cartId, itemId)
-
-  handleChange = (cartId, itemId) => event => {
-    this.props.handleUpdateItem(cartId, itemId, {quantity: event.target.value})
+  handleChange = itemId => event => {
+    this.props.handleUpdateItem(itemId, {quantity: event.target.value})
   }
 
   getTotal = () => {
@@ -66,20 +56,20 @@ class Cart extends Component {
                   return (
                     <tr key={item.id}>
                       <td>
-                        <div>
-                          <Image
-                            responsive
-                            className="cart-item"
-                            src={item.product.image_URL}
-                            alt={`${item.product.name} photo`}
-                            href={`/products/${item.product.category}/${item.product.id}`}
-                          />
-                        </div>
+                        <Image
+                          responsive
+                          className="cart-item"
+                          src={item.product.image_URL}
+                          alt={`${item.product.name} photo`}
+                          href={`/products/${item.product.category}/${item.product.id}`}
+                        />
                         <div>
                           <a
-                            onClick={() => this.removeFromCart(this.props.cart.id, item.id)}
+                            onClick={this.removeFromCart(item.id)}
                             className="cart-item-button">
-                            Remove
+                            <span className="glyphicon glyphicon-trash" aria-hidden="true">
+                              <span className="sr-only">Remove Item Button</span>
+                            </span>
                           </a>
                         </div>
                       </td>
@@ -87,21 +77,15 @@ class Cart extends Component {
                       <td>
                         <form>
                           <FormGroup
-                            controlId="cart-quantity">
+                            controlId="cart-item-quantity">
                             <ControlLabel className="detail sr-only">Quantity:</ControlLabel>
                             <FormControl
                               componentClass="select"
                               type="text"
-                              value={this.state.selectedQuantity}
-                              onChange={this.handleChange(item.order_id, item.id)}>
+                              value={this.state.selectedQuantity ? this.state.selectedQuantity : item.quantity}
+                              onChange={this.handleChange(item.id)}>
                               { quantities &&
-                                quantities.map(quantity => {
-                                  if (quantity === item.quantity) {
-                                    return <option defaultValue={quantity} key={quantity} value={quantity}>{quantity}</option>
-                                  } else {
-                                    return <option key={quantity} value={quantity}>{quantity}</option>
-                                  }
-                                }) }
+                                quantities.map(quantity => <option key={quantity} value={quantity}>{quantity}</option>) }
                             </FormControl>
                           </FormGroup>
                         </form>
@@ -141,8 +125,8 @@ Cart.propTypes = {
 
 const mapStateToProps = state => ({ cart: state.cart })
 const mapDispatchToProps = dispatch => ({
-  handleRemoveItem: (cartId, itemId) => dispatch(deleteCartItemAndGetUpdatedCart(cartId, itemId)),
-  handleUpdateItem: (cartId, itemId, updateObj) => dispatch(updateCartItemAndGetUpdatedCart(cartId, itemId, updateObj))
+  handleRemoveItem: (itemId) => dispatch(deleteCartItemAndGetUpdatedCart(itemId)),
+  handleUpdateItem: (itemId, updateObj) => dispatch(updateCartItemAndGetUpdatedCart(itemId, updateObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

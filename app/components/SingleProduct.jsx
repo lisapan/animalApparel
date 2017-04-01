@@ -41,7 +41,6 @@ class Product extends Component {
 
   sizeClicked = item => event => {
     event.preventDefault()
-    console.log(item)
     this.setState({
       selectedItem: item,
       selectItemIsValid: true

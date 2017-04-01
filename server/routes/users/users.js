@@ -13,13 +13,8 @@ module.exports = require('express').Router()
 		.catch(next))
 
 	.post('/', (req, res, next) => {
-    const cart = req.session.cart || null
 		User.create(req.body)
-    .then(user => {
-      req.session.user = user
-      if (cart && cart.user_id === null) req.session.cart.user_id = user.id
-      res.status(201).json(user)
-    })
+    .then(user => res.status(201).json(user))
 		.catch(next)
   })
 
@@ -27,7 +22,6 @@ module.exports = require('express').Router()
 		User.findById(req.params.id)
 		.then(user => {
       if (user) {
-        req.session.user = user
         res.sendStatus(200)
       } else {
         res.sendStatus(401)
