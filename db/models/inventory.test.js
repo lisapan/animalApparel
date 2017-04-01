@@ -25,18 +25,17 @@ describe('Inventory', () => {
     name: 'Pokemon Dog Costume',
     description: 'Cute, soft, yellow for your pup.',
     price: '30.00',
-    image_URL:'wYu7cQs.jpg',
+    image_URL: 'wYu7cQs.jpg',
     category: 'pets',
     inventories: [PokemonXS, PokemonS, PokemonM]
   }
 
   describe('created inventory successfully added to data base', () => {
-      it("has size and quantity", () =>
-          Product.create(PokemonSuit,{
+      it('has size and quantity', () =>
+          Product.create(PokemonSuit, {
           include: [Inventory]
          })
-          .then(createdProduct =>{
-            console.log(createdProduct.get())
+          .then(createdProduct => {
             expect(createdProduct.inventories[0].get().size).to.deep.equal(PokemonXS.size)
             expect(createdProduct.inventories[1].get().size).to.deep.equal(PokemonS.size)
             expect(createdProduct.inventories[2].get().size).to.deep.equal(PokemonM.size)

@@ -12,7 +12,6 @@ import { logout } from '../reducers/action-creators/auth'
 const LoginSignup = (props) => {
   return (
     <NavDropdown
-      noCaret
       eventKey={3}
       title="Account"
       id={props.collapse ? 'login-dropdown-collapse' : 'login-dropdown'}
@@ -35,7 +34,7 @@ const Logout = props => {
   return (
     <NavDropdown
       href="#"
-      noCaret eventKey={3}
+      eventKey={3}
       title={`Hi, ${name}! `}
       id={props.collapse ? 'logout-dropdown-collapse' : 'logout-dropdown'}
       className="navbar-login">
@@ -55,6 +54,15 @@ Logout.propTypes = {
 }
 
 const NavBar = props => {
+  const total = function() {
+    let count = 0
+    props.cart.order_items.forEach(item => {
+      count += item.quantity
+    })
+    return count
+  }
+
+  const itemCount = props.cart.order_items ? total() : 0
   return (
     <Row>
       <Navbar>
@@ -115,11 +123,16 @@ const NavBar = props => {
                   <Logout auth={props.auth} collapse={true} logout={props.logOutUser} /> :
                   <LoginSignup auth={props.auth} collapse={true} /> }
                 <NavDropdown
-                  title={<Glyphicon glyph="shopping-cart" />}
-                  noCaret eventKey={2} id="cart-dropdown-collapse">
-                  {props.cart.order_items ?
-                    <LinkContainer to={{ pathname: `/cart/${props.cart.id}` }}>
-                      <MenuItem eventKey={2.1}>{`Cart (${props.cart.order_items.length})`}</MenuItem>
+                  title={
+                    <span>
+                      <Glyphicon glyph="shopping-cart" />
+                      <span className="sr-only">Shopping Cart</span>
+                    </span>
+                  }
+                  eventKey={2} id="cart-dropdown-collapse">
+                  {itemCount > 0 ?
+                    <LinkContainer to={{ pathname: '/cart' }}>
+                      <MenuItem eventKey={2.1}>{`Cart (${itemCount})`}</MenuItem>
                     </LinkContainer> :  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>}
                 </NavDropdown>
                 <Navbar.Form id="search-collapse">
@@ -175,10 +188,17 @@ const NavBar = props => {
                 <Logout auth={props.auth} collapse={true} logout={props.logOutUser} /> :
                 <LoginSignup auth={props.auth} collapse={true} /> }
               <NavDropdown
-                title={<Glyphicon glyph="shopping-cart" />}
-                noCaret eventKey={2} href="#" id="cart-dropdown">
-                {props.cart.order_items ? <LinkContainer to={{ pathname: `/cart/${props.cart.id}` }}>
-                  <MenuItem eventKey={2.1}>{`Cart(${props.cart.order_items.length})`}</MenuItem>
+                title={
+                  <span>
+                    <Glyphicon glyph="shopping-cart" />
+                    <span className="sr-only">Shopping Cart</span>
+                  </span>
+                }
+                eventKey={2}
+                href="#"
+                id="cart-dropdown">
+                {itemCount > 0 ? <LinkContainer to={{ pathname: '/cart' }}>
+                  <MenuItem eventKey={2.1}>{`Cart(${itemCount})`}</MenuItem>
                 </LinkContainer> :  <MenuItem eventKey={2.1}>Your Cart is empty.</MenuItem>}
               </NavDropdown>
               <Navbar.Form pullRight={true} id="search">
