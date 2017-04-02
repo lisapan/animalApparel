@@ -32,7 +32,7 @@ class Product extends Component {
     this.setState({
       selectedItem: {},
       selectItemIsValid: false,
-      selectedQuantity: '',
+      selectedQuantity: 1,
       selectedQuantityIsValid: false
     })
 
@@ -64,7 +64,7 @@ class Product extends Component {
   render() {
     const product = this.props.currentProduct
     const quantities = Array((this.state.selectedItem.quantity) || 1).fill().map((_, idx) => idx + 1)
-
+    console.log(this.state.selectedQuantity)
     return  (
       <div>
         <Row>

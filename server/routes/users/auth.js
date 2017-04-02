@@ -62,19 +62,22 @@ auth.get('/whoami', (req, res, next) => res.send(req.user))
 auth.get('/cart', (req, res, next) => {
   // after successful authentication we check to see if the user has an unsubmitted order (cart) and reinstate it as their current cart *only* if they haven't created a new cart before logging in
   if (!req.session.cart) {
-    Order.findOne({
+    Order.findAll({
       where: {
         user_id: req.user.id,
         status: 'unsubmitted'
       },
-      include: [{model: OrderItem, include: [Product]}]
+      include: [{model: OrderItem, include: [Product]}],
+      // we want the newest unchecked out cart
+      order: [['id', 'DESC']]
     })
-    .then(cart => {
+    .then(orderArray => {
+      const newestCart = orderArray[0]
       req.session.cart = {
-        id: cart.id,
+        id: newestCart.id,
         isAnon: false
       }
-      res.json(cart)
+      res.json(newestCart)
     })
     .catch(next)
   } else {
