@@ -7,7 +7,7 @@ const Product = db.model('products')
 
 // This middleware checks whether the request is coming from an anonymous or an authenticated user.
 
-// If anonymous, their session will have an anonCartId so they're associated w/ the order despite it not having a user_id). Unless the user creates an account or logs in, the session will be active for 30 days.
+// If anonymous, their session will have isAnon: true. Unless the user creates an account or logs in, the session will be active for 30 days.
 
 // If authenticated, the user's order is associated w/ their id, so the session can be destroyed upon logout without affecting their cart.
 
@@ -153,7 +153,7 @@ module.exports = require('express').Router()
     ))
   })
 
-  //submit order - it updates the shipping info, and updates to 'submitted'
+  //submit order - it adds shipping/billing info and updates order status to 'submitted'
   .put('/order/:orderId', (req, res, next) => {
     Order.update(req.body, {
       where: {
