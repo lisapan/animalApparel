@@ -32,6 +32,10 @@ class Login extends Component {
     this.props.login(this.state.email, this.state.password)
   }
 
+  handleHitEnter = event => {
+    if (event.key === 'Enter') this.props.login(this.state.email, this.state.password)
+  }
+
   render() {
     return (
       <Col id="login" xs={12} sm={6} md={6} lg={6}>
@@ -54,6 +58,7 @@ class Login extends Component {
                 name="password"
                 type="password"
                 value={this.state.password}
+                onKeyUp={this.handleHitEnter}
               />
           </FormGroup>
           </form>

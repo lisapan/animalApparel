@@ -63,6 +63,10 @@ class Signup extends Component {
     event.preventDefault()
     this.props.handleSignup(this.state)
   }
+  // this will submit the signup form inputs when the user hits enter after confirming their password
+  handleHitEnter = event => {
+    if (event.key === 'Enter') this.props.handleSignup(this.state)
+  }
 
   render() {
 
@@ -116,7 +120,9 @@ class Signup extends Component {
                   <FormControl
                     value={this.state.passwordConfirm}
                     type="password"
-                    onChange={this.handleChange('passwordConfirm')} />
+                    onChange={this.handleChange('passwordConfirm')}
+                    onKeyUp={this.handleHitEnter}
+                  />
                   <FormControl.Feedback />
                   <HelpBlock>
                     { this.getValidationState('passwordConfirm') === 'error' ?

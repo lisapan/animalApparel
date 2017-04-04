@@ -68,10 +68,11 @@ auth.get('/cart', (req, res, next) => {
         status: 'unsubmitted'
       },
       include: [{model: OrderItem, include: [Product]}],
-      // we want the newest unchecked out cart
+      // grab all of the user's unsubmitted carts in order newest to oldest
       order: [['id', 'DESC']]
     })
     .then(orderArray => {
+      // grab the newest unsubmitted cart
       const newestCart = orderArray[0]
       req.session.cart = {
         id: newestCart.id,
