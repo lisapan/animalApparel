@@ -37,7 +37,7 @@ const Logout = props => {
       eventKey={3}
       title={`Hi, ${name}! `}
       id={props.collapse ? 'logout-dropdown-collapse' : 'logout-dropdown'}
-      className="navbar-login">
+      className={props.collapse ? 'navbar-login' : 'navbar-login desktop'}>
       <MenuItem eventKey={3.1}>Account</MenuItem>
       <MenuItem eventKey={3.1}>Order Status</MenuItem>
       <LinkContainer to={{pathname: '/'}}>
@@ -129,7 +129,8 @@ const NavBar = props => {
                       <span className="sr-only">Shopping Cart</span>
                     </span>
                   }
-                  eventKey={2} id="cart-dropdown-collapse">
+                  eventKey={2}
+                  id="cart-dropdown-collapse">
                   {itemCount > 0 ?
                     <LinkContainer to={{ pathname: '/cart' }}>
                       <MenuItem eventKey={2.1}>{`Cart (${itemCount})`}</MenuItem>
@@ -184,10 +185,20 @@ const NavBar = props => {
         <Row className="lower-nav">
           <Col md={12} lg={12} xsHidden={true} smHidden={true} id="lower-nav">
             <Nav pullRight={true}>
-              { typeof props.auth !== 'string' ?
-                <Logout auth={props.auth} collapse={true} logout={props.logOutUser} /> :
-                <LoginSignup auth={props.auth} collapse={true} /> }
+              { typeof props.auth !== 'string'
+                ? <Logout
+                  className="desktop"
+                  auth={props.auth}
+                  collapse={false}
+                  logout={props.logOutUser}
+                  />
+                : <LoginSignup
+                    className="desktop"
+                    auth={props.auth}
+                    collapse={false}
+                  /> }
               <NavDropdown
+                className="desktop"
                 title={
                   <span>
                     <Glyphicon glyph="shopping-cart" />
