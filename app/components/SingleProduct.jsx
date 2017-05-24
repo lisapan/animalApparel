@@ -33,7 +33,7 @@ class Product extends Component {
       selectedItem: {},
       selectItemIsValid: false,
       selectedQuantity: 1,
-      selectedQuantityIsValid: false
+      selectedQuantityIsValid: true
     })
 
     this.props.handleAddItem(item)
