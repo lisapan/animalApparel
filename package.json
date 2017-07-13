@@ -22,7 +22,7 @@
     "deploy-heroku": "bin/deploy-heroku.sh"
   },
   "engine": {
-    "node": "6.9.0"
+    "node": "6.11.1"
   },
   "repository": {
     "type": "git",
